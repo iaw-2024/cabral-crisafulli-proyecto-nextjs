@@ -16,12 +16,22 @@ datasource db {
 
 model Producto {
   id          Int     @id @default(autoincrement())
-  nombre      String  
+  nombre      String @unique
   descripcion String
   precio      Int
   categoria   String
   Pedido      Pedido? @relation(fields: [pedidoId], references: [id])
   pedidoId    Int?
+  Tiene       Tiene[]
+}
+
+model Tiene {
+  id         Int      @id @default(autoincrement())
+  Pedido     Pedido   @relation(fields: [pedidoId], references: [id])
+  Producto   Producto @relation(fields: [productoId], references: [id])
+  cantidad   Int
+  pedidoId   Int
+  productoId Int
 }
 
 model Pedido {
@@ -33,6 +43,7 @@ model Pedido {
   producto  Producto[]
   User      User?      @relation(fields: [userId], references: [id])
   userId    Int?
+  Tiene     Tiene[]
 }
 
 model User {
