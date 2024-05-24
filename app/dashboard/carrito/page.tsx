@@ -4,8 +4,8 @@ import '@/app/ui/global.css';
 
 export const metadata: Metadata = {
     title: {
-        template: '%s | Sobre mi',
-        default: 'Sobre mi',
+        template: '%s | Carrito',
+        default: 'Carrito',
     },
 };
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Page() {
     return (
         <>
-            <p className="Carrito">Sobre mí</p>
+            <p className="carrito">Carrito</p>
         </>
     );
 }
