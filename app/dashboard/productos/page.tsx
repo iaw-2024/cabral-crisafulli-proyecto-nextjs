@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import 'app/dashboard/productos/style.css';
 
 /*export const metadata: Metadata = {
     title: {
@@ -10,5 +11,5 @@ import { Metadata } from 'next';
   };*/
 
 export default function Page() {
-    return <p>Productos</p>
+    return <p className = 'productos'>Productos</p>
 }

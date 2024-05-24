@@ -1,3 +1,5 @@
+import 'app/dashboard/style.css';
+
 export default function Page() {
-    return <p>Home</p>;
+    return <p className="home">Home</p>;
   }
