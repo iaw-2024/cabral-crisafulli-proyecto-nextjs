@@ -1,19 +1,19 @@
 import { Metadata } from 'next';
 import React from 'react';
-import 'app/dashboard/sobre-mi/style.css'; 
+import '@/app/ui/global.css';
 
 export const metadata: Metadata = {
     title: {
-      template: '%s | Sobre mi',
-      default: 'Sobre mi',
+        template: '%s | Sobre mi',
+        default: 'Sobre mi',
     },
-  };
+};
 
 
 export default function Page() {
     return (
         <>
-            <p className= "sobre-mi">Sobre mí</p>
+            <p className="sobre-mi">Sobre mí</p>
             <br></br>
             <div className="custom-font">
                 Hola!!!! Mi nombre es Luz y soy la emprendedora detrás de Katty Manualidades. Soy de Bahía Blanca y actualmente no cuento con envíos fuera de Bahía Blanca.
