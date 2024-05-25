@@ -15,15 +15,15 @@ datasource db {
 }
 
 model Producto {
-  id          Int     @id @default(autoincrement())
-  nombre      String  @unique
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
   descripcion String
   precio      Int
-  categoria   String
-  Pedido      Pedido? @relation(fields: [pedidoId], references: [id])
+  categoria   Categoria
+  Pedido      Pedido?   @relation(fields: [pedidoId], references: [id])
   pedidoId    Int?
   Tiene       Tiene[]
-  foto         String
+  fotoURL     String
 }
 
 model Tiene {
@@ -53,4 +53,12 @@ model User {
   contrasena String
   rol        String
   pedidos    Pedido[]
+}
+
+enum Categoria {
+  Amistad
+  Pareja
+  Familia
+  Individual
+  Personalizada
 }
