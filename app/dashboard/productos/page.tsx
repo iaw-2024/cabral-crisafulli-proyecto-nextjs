@@ -1,15 +1,15 @@
-import { Metadata } from 'next';
 import '@/app/ui/global.css';
-
-/*export const metadata: Metadata = {
-    title: {
-      template: '%s | Productos',
-      default: 'Productos',
-    },
-    //description: 'The official Next.js Learn Dashboard built with App Router.',
-    //metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
-  };*/
+import Search from '@/app/ui/search';
 
 export default function Page() {
-  return <p className='productos'>Productos</p>
+  return (
+    <div className="w-full">
+      <div className="flex w-full items-center justify-between">
+        <p className='productos'>Productos</p>
+      </div>
+      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+        <Search placeholder="Buscar Producto..." />
+      </div>
+    </div>
+  )
 }
