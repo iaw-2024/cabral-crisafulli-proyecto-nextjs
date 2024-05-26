@@ -26,6 +26,13 @@ model Producto {
   fotoURL     String
 }
 
+INSERT INTO "Producto" (nombre, descripcion, precio, categoria, "fotoURL")
+VALUES ('Hermanas',
+ 'Pulseras de hilo encerado con sistema ajustable y corazon de acrilico con strass', 
+900,
+'Familia', 
+'https://imgur.com/qMbo4Xq.jpg');
+
 model Tiene {
   id         Int      @id @default(autoincrement())
   Pedido     Pedido   @relation(fields: [pedidoId], references: [id])
