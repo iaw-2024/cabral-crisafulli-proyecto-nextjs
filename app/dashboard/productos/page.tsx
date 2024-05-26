@@ -36,7 +36,7 @@ export default async function Page() {
                     <div>
                       <p>{product.nombre}</p>
                       <br></br>
-                      <p>{product.precio}</p>
+                      <p>{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
                     </div>
                     <div>
                       <p>{product.descripcion}</p>
