@@ -18,17 +18,9 @@ export default async function Page() {
         <Search placeholder="Buscar Producto..." />
       </div>
       <div className="bg-white px-6">
-        {producto.map((product: {
-          id: Key | null | undefined; nombre: string; descripcion: string; precio: number; categoria: string; fotoURL: string
-        }, i) => {
+        {producto.map((product) => {
           return (
-            <div key={product.id}
-              className={clsx(
-                'flex flex-row items-center justify-between py-4',
-                {
-                  'border-t': i !== 0,
-                },
-              )}>
+            <div key={product.id}>
               <div className="grid grid-cols-2">
                 <div>
                   <Image
