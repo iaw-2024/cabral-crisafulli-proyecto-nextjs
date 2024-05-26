@@ -18,11 +18,11 @@ export default async function Page() {
         <Search placeholder="Buscar Producto..." />
       </div>
       <div className="bg-white px-6">
-        {producto.map((product: { id: number; nombre: string; descripcion: string; precio: number; categoria: string; fotoURL: string }) => {
+        {producto.map((product: { id: Key; nombre: string; descripcion: string; precio: number; categoria: string; fotoURL: string }) => {
           return (
             <div>
               <div className="grid grid-cols-2">
-                <div>
+                <div key={product.id}>
                   <Image
                     src={product.fotoURL}
                     alt={`${product.nombre}`}
