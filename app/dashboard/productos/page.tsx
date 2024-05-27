@@ -1,11 +1,22 @@
-import { getProduct } from '@/app/lib/data';
+import { getProduct, fetchProductPages } from '@/app/lib/data';
 import '@/app/ui/global.css';
 import Search from '@/app/ui/search';
+import Pagination from '@/app/ui/productos/pagination';
 
 import Image from 'next/image';
 
-export default async function Page() {
-  const producto = getProduct()
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchProductPages(query);
+  const producto = getProduct('', 1)
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -19,7 +30,7 @@ export default async function Page() {
         {(await producto).map((product) => {
           return (
             <div key={product.id}>
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 border-r border-b border-l border-gray-400 rounded-lg">
                 <div>
                   <Image
                     src={product.fotoURL}
@@ -45,6 +56,9 @@ export default async function Page() {
             </div>
           );
         })}
+      </div>
+      <div className="mt-5 flex w-full justify-center">
+        {<Pagination totalPages={totalPages} />}
       </div>
     </div>
   )

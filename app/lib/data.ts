@@ -2,8 +2,33 @@
 
 import { PrismaClient } from '@prisma/client'
 
-export async function getProduct() {
+const ITEMS_PER_PAGE = 6;
+
+export async function getProduct(query: string, page: number) {
+    const offset = (page - 1) * ITEMS_PER_PAGE;
+    console.log(offset)
     const prisma = new PrismaClient()
-    const producto = await prisma.producto.findMany()
+    const producto = await prisma.producto.findMany({
+        skip: offset,
+        take: ITEMS_PER_PAGE,
+        where: {
+            nombre: {
+                contains: query,
+            }
+        }
+    })
     return producto
+}
+
+export async function fetchProductPages(query: string) {
+    const prisma = new PrismaClient()
+    const producto = await prisma.producto.findMany({
+        where: {
+            nombre: {
+                contains: query,
+            }
+        }
+    })
+    const totalPages = Math.ceil(Number(producto.length) / ITEMS_PER_PAGE);
+    return totalPages;
 }

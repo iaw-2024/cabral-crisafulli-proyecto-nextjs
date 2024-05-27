@@ -7,7 +7,7 @@ export type Product = {
   nombre: string;
   descripcion: string;
   precio: number;
-  categoria: string;
+  categoria: 'Amistad' | 'Pareja' | 'Familia' | 'Individual' | 'Personalizada';
   pedidoId: number;
   fotoURL: string;
 };
