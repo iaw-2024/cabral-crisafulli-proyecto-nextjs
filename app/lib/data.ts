@@ -6,7 +6,6 @@ const ITEMS_PER_PAGE = 6;
 
 export async function getProduct(query: string, page: number) {
     const offset = (page - 1) * ITEMS_PER_PAGE;
-    console.log(offset)
     const prisma = new PrismaClient()
     const producto = await prisma.producto.findMany({
         skip: offset,
