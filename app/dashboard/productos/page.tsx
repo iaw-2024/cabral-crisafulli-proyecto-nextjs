@@ -1,14 +1,11 @@
+import { getProduct } from '@/app/lib/data';
 import '@/app/ui/global.css';
 import Search from '@/app/ui/search';
-import { PrismaClient } from '@prisma/client'
-import clsx from 'clsx';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+
 import Image from 'next/image';
-import { Key } from 'react';
 
 export default async function Page() {
-  const prisma = new PrismaClient()
-  const producto = await prisma.producto.findMany()
+  const producto = getProduct()
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -16,9 +13,10 @@ export default async function Page() {
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Buscar Producto..." />
+        <button type="button" className='bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded'>Buscar</button>
       </div>
       <div className="bg-white px-6">
-        {producto.map((product) => {
+        {(await producto).map((product) => {
           return (
             <div key={product.id}>
               <div className="grid grid-cols-2">
