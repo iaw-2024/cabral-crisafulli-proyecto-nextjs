@@ -26,7 +26,6 @@ export default async function Page({
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Buscar Producto..." />
-        <button type="button" className='bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded'>Buscar</button>
       </div>
       {<Suspense key={query + currentPage}>
         <ProductTable query={query} currentPage={currentPage} />
