@@ -13,6 +13,7 @@ export async function getProduct(query: string, page: number) {
         where: {
             nombre: {
                 contains: query,
+                mode: 'insensitive',
             }
         }
     })
