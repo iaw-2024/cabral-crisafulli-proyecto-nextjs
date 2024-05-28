@@ -3,7 +3,7 @@ import '@/app/ui/global.css';
 import Search from '@/app/ui/search';
 import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
-import ProductTable from '@/app/ui/productos/Table'
+import ProductTable from '@/app/ui/productos/table'
 
 
 
