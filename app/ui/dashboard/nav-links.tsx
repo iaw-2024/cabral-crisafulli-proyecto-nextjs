@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  UserGroupIcon,
+  ShoppingCartIcon,
   HomeIcon,
-  DocumentDuplicateIcon,
+  ShoppingBagIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -20,12 +20,12 @@ const links = [
   {
     name: 'Productos',
     href: '/dashboard/productos',
-    //icon: 
+    icon: ShoppingBagIcon
   },
   {
     name: 'Carrito',
     href: '/dashboard/carrito',
-    //icon: UserGroupIcon 
+    icon: ShoppingCartIcon
   },
 ];
 
