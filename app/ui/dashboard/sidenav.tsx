@@ -1,21 +1,16 @@
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { signOut } from '@/auth';
-import { PrismaClient } from '@prisma/client'
+import { getLogo } from '@/app/lib/data';
 import Image from 'next/image';
 
 export default async function SideNav() {
-  const prisma = new PrismaClient()
-  const logo = await prisma.fotos.findFirst({
-    where: {
-      nombre: 'Logo',
-    },
-  })
+  const logo = getLogo()
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <a className="mb-2 flex h-20 items-center justify-center rounded-md bg-purple-400 p-4 md:h-40">
         <Image
-          src={logo?.fotoURL as string}
+          src={(await logo)?.fotoURL as string}
           alt="Katty"
           width={283}
           height={283}

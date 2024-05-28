@@ -4,6 +4,26 @@ import { PrismaClient } from '@prisma/client'
 
 const ITEMS_PER_PAGE = 6;
 
+export async function getPhotoEmprendedor() {
+    const prisma = new PrismaClient()
+    const foto = await prisma.fotos.findFirst({
+        where: {
+            nombre: 'Foto_Emprendedor',
+        },
+    })
+    return foto
+}
+
+export async function getLogo() {
+    const prisma = new PrismaClient()
+    const logo = await prisma.fotos.findFirst({
+        where: {
+            nombre: 'Logo',
+        },
+    })
+    return logo
+}
+
 export async function getProduct(query: string, page: number) {
     const offset = (page - 1) * ITEMS_PER_PAGE;
     const prisma = new PrismaClient()

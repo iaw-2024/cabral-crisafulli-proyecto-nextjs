@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import React from 'react';
 import '@/app/ui/global.css';
-import { PrismaClient } from '@prisma/client';
+import { getPhotoEmprendedor } from './lib/data';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -12,12 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const prisma = new PrismaClient()
-  const foto = await prisma.fotos.findFirst({
-    where: {
-      nombre: 'Foto_Emprendedor',
-    },
-  })
+  const foto = getPhotoEmprendedor()
   return (
     <>
       <p className="sobre-mi">Hola!!!!</p>
@@ -27,7 +22,7 @@ export default async function Page() {
         Katty Manualidades es un emprendimiento principalmente especializado en pulseras de macramé, pero también hacemos muchísimos tipos de accesorios diferentes en variedad de materiales.
         Siempre buscamos la forma de ser originales y ponernos retos personales al momento de crear algo nuevo. Por ello estamos abiertos a recibir consultas acerca de nuestros productos, pedidos mayoristas y a recibir sugerencias de modelos nuevos.
       </div>
-      <Image src={foto?.fotoURL as string}
+      <Image src={(await foto)?.fotoURL as string}
         alt="Emprendedor"
         width={283}
         height={283}
