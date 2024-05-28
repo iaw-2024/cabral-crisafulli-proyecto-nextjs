@@ -1,4 +1,5 @@
 import { getProduct } from '@/app/lib/data';
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
 export default async function ProductTable({
@@ -25,7 +26,7 @@ export default async function ProductTable({
                                 />
                             </div>
                             <div className='grid grid-cols-1'>
-                                <div className='grid grid-rows-2'>
+                                <div className='grid grid-rows-3'>
                                     <div>
                                         <p>{product.nombre}</p>
                                         <br></br>
@@ -33,6 +34,11 @@ export default async function ProductTable({
                                     </div>
                                     <div>
                                         <p>{product.descripcion}</p>
+                                    </div>
+                                    <div>
+                                        <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                                            <ShoppingCartIcon className="h-5 w-5 mr-2" /> Añadir al carrito
+                                        </button>
                                     </div>
                                 </div>
                             </div>
