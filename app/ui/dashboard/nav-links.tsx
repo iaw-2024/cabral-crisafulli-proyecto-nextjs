@@ -45,7 +45,7 @@ export default function NavLinks() {
                 'bg-purple-100 text-purple-600': pathname === link.href,
               },
             )}          >
-
+            <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );
