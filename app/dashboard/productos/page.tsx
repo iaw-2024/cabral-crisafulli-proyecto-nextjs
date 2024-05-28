@@ -1,14 +1,24 @@
+import { fetchProductPages } from '@/app/lib/data';
 import '@/app/ui/global.css';
 import Search from '@/app/ui/search';
-import { PrismaClient } from '@prisma/client'
-import clsx from 'clsx';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
-import { Key } from 'react';
+import Pagination from '@/app/ui/productos/pagination';
+import { Suspense } from 'react';
+import ProductTable from '@/app/ui/productos/table'
 
-export default async function Page() {
-  const prisma = new PrismaClient()
-  const producto = await prisma.producto.findMany()
+
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchProductPages(query);
+
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -17,36 +27,11 @@ export default async function Page() {
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Buscar Producto..." />
       </div>
-      <div className="bg-white px-6">
-        {producto.map((product) => {
-          return (
-            <div key={product.id}>
-              <div className="grid grid-cols-2">
-                <div>
-                  <Image
-                    src={product.fotoURL}
-                    alt={`${product.nombre}`}
-                    className="mr-4 w-40"
-                    width={2296}
-                    height={2296}
-                  />
-                </div>
-                <div className='grid grid-cols-1'>
-                  <div className='grid grid-rows-2'>
-                    <div>
-                      <p>{product.nombre}</p>
-                      <br></br>
-                      <p>{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
-                    </div>
-                    <div>
-                      <p>{product.descripcion}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      {<Suspense key={query + currentPage}>
+        <ProductTable query={query} currentPage={currentPage} />
+      </Suspense>}
+      <div className="mt-5 flex w-full justify-center">
+        {<Pagination totalPages={totalPages} />}
       </div>
     </div>
   )

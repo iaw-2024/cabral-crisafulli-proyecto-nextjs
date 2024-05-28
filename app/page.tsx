@@ -31,7 +31,7 @@ export default async function Page() {
         alt="Emprendedor"
         width={283}
         height={283}
-        className='w-50'
+        className='w-50 rounded-full'
       />
     </>
   );
