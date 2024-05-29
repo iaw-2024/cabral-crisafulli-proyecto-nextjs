@@ -3,7 +3,7 @@ import '@/app/ui/global.css';
 import Search from '@/app/ui/search';
 import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
-import ProductTable from '@/app/ui/productos/table'
+import ProductTable from '@/app/ui/productos/table';
 
 export default async function Page({
   searchParams,
@@ -23,7 +23,7 @@ export default async function Page({
         <p className='productos'>Productos</p>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Buscar Producto..." />
+      <Search placeholder="Buscar Producto..." />
       </div>
       {<Suspense key={query + currentPage}>
         <ProductTable query={query} currentPage={currentPage} />
