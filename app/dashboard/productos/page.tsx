@@ -5,8 +5,6 @@ import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
 import ProductTable from '@/app/ui/productos/table'
 
-
-
 export default async function Page({
   searchParams,
 }: {
