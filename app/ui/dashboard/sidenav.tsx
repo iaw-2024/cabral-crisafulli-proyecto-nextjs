@@ -1,8 +1,8 @@
 import NavLinks from '@/app/ui/dashboard/nav-links';
-import { PowerIcon } from '@heroicons/react/24/outline';
-import { signOut } from '@/auth';
+import { signIn } from '@/auth';
 import { getLogo } from '@/app/lib/data';
 import Image from 'next/image';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
 export default async function SideNav() {
   const logo = getLogo()
@@ -23,12 +23,12 @@ export default async function SideNav() {
         <form
           action={async () => {
             'use server';
-            await signOut();
+            await signIn();
           }}
         >
           <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3">
-            <PowerIcon className="w-6" />
-            <div className="hidden md:block">Sign Out</div>
+            <ArrowRightOnRectangleIcon className="w-6" />
+            <div className="hidden md:block">Iniciar sesión</div>
           </button>
         </form>
       </div>
