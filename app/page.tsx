@@ -22,12 +22,14 @@ export default async function Page() {
         Katty Manualidades es un emprendimiento principalmente especializado en pulseras de macramé, pero también hacemos muchísimos tipos de accesorios diferentes en variedad de materiales.
         Siempre buscamos la forma de ser originales y ponernos retos personales al momento de crear algo nuevo. Por ello estamos abiertos a recibir consultas acerca de nuestros productos, pedidos mayoristas y a recibir sugerencias de modelos nuevos.
       </div>
-      <Image src={(await foto)?.fotoURL as string}
-        alt="Emprendedor"
-        width={283}
-        height={283}
-        className='w-50 rounded-full'
-      />
+      <div className="flex justify-center mt-4">
+        <Image src={(await foto)?.fotoURL as string}
+          alt="Emprendedor"
+          width={283}
+          height={283}
+          className='w-50 rounded-full mx-auto'
+        />
+      </div>
     </>
   );
 }

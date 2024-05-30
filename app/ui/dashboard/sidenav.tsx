@@ -3,6 +3,7 @@ import { signIn } from '@/auth';
 import { getLogo } from '@/app/lib/data';
 import Image from 'next/image';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 export default async function SideNav() {
   const logo = getLogo()
