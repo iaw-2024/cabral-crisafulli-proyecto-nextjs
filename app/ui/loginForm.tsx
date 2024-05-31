@@ -18,7 +18,7 @@ const LoginForm: React.FC = () => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
-                <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
                 <div className="mb-4">
                     <label className="block mb-2 text-sm font-medium text-gray-700">Email</label>
                     <input
@@ -29,7 +29,7 @@ const LoginForm: React.FC = () => {
                     />
                 </div>
                 <div className="mb-6">
-                    <label className="block mb-2 text-sm font-medium text-gray-700">Password</label>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">Contraseña</label>
                     <input
                         type="password"
                         className="w-full p-2 border border-gray-300 rounded-md"
@@ -41,7 +41,7 @@ const LoginForm: React.FC = () => {
                     onClick={handleLogin}
                     className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700"
                 >
-                    Login
+                    Iniciar sesión
                 </button>
                 {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
             </div>
