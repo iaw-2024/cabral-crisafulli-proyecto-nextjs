@@ -29,7 +29,7 @@ const links = [
     icon: ShoppingCartIcon
   },
 {
-  name: 'Iniciar sesion', 
+  name: 'Iniciar sesión', 
   href: '/dashboard/login',
   icon: ArrowRightOnRectangleIcon
 }

@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
                 <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
                 <div className="mb-4">
-                    <label className="block mb-2 text-sm font-medium text-gray-700">Email</label>
+                    <label className="block mb-2 text-sm font-medium text-gray-700">Correo electrónico</label>
                     <input
                         type="email"
                         className="w-full p-2 border border-gray-300 rounded-md"
