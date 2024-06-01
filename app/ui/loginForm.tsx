@@ -6,6 +6,7 @@ const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+      const initialState = { message: null, errors: {} };
 
     const handleLogin = () => {
         if (email === 'admin@admin.com' && password === 'admin') {
