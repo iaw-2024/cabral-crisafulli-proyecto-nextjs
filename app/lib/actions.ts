@@ -4,36 +4,27 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import {insertProduct} from '@/app/lib/data';
+import { insertProduct } from '@/app/lib/data';
 
-enum Categoria {
-    Amistad = 'Amistad',
-    Pareja = 'Pareja',
-    Familia = 'Familia',
-    Individual = 'Individual',
-    Personalizada = 'Personalizada',
-}
-
+const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
     id: z.string({
         invalid_type_error: 'Id inválido',
     }),
-    nombre: z.string ({
+    nombre: z.string({
         invalid_type_error: 'Nombre inválido',
     }),
-    precio: z.any ({
+    precio: z.any({
         invalid_type_error: 'Precio inválido',
     }),
-    categoria: Categoria ({
-        invalid_type_error: 'Categoría inválido',
-    }),
-    pedidoId: z.string ({
+    categoria: CategoriaSchema,
+    pedidoId: z.string({
         invalid_type_error: 'PedidoId inválido',
     }),
-    descripcion: z.string ({
+    descripcion: z.string({
         invalid_type_error: 'Descripción inválido',
     }),
-    fotoUrl: z.string ({
+    fotoUrl: z.string({
         invalid_type_error: 'Fotourl inválido',
     }),
 });
@@ -70,10 +61,11 @@ export async function createProduct(prevState: State, formData: FormData) {
         };
     }
 
-    const {nombre, precio,  categoria, descripcion, fotoUrl} = validatedFields.data;
+    const { nombre, precio, descripcion, fotoUrl } = validatedFields.data;
+    const categoria = validatedFields.data.categoria;
     const precioEnCentavos = precio * 100;
 
-   insertProduct(nombre, precioEnCentavos, descripcion, categoria, fotoUrl);
+    insertProduct(nombre, precioEnCentavos, descripcion, categoria, fotoUrl);
 
     revalidatePath('/dashboard/productos');
     redirect('/dashboard/productos');
@@ -97,7 +89,7 @@ export async function updateProducto(prevState: State, formData: FormData) {
         };
     }
 
-    const {nombre, precio, categoria, pedidoId} = validatedFields.data;
+    const { nombre, precio, categoria, pedidoId } = validatedFields.data;
     const precioEnCentavos = precio * 100;
 
     try {

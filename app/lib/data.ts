@@ -74,3 +74,12 @@ export async function insertProduct(query: string, price: number, description: s
         },
     });
 }
+
+export async function deleteProduct(id2: number) {
+    const prisma = new PrismaClient()
+    const productoBorrado = await prisma.producto.delete({
+        where: {
+            id: id2,
+        },
+    });
+}
