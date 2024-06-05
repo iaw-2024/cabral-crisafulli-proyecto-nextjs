@@ -25,7 +25,7 @@ const LoginForm: React.FC = () => {
 
     const handleLogin = () => {
         if (email === 'admin@admin.com' && password === 'admin') {
-            alert('Login successful');
+            alert('Iniciar sesión correctamente');
         } else {
             setError('Correo electrónico o contraseña incorrectos');
             setShowErrorModal(true);

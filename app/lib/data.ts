@@ -52,3 +52,25 @@ export async function fetchProductPages(query: string) {
     const totalPages = Math.ceil(Number(producto.length) / ITEMS_PER_PAGE);
     return totalPages;
 }
+
+
+enum Categoria {
+    Amistad = 'Amistad',
+    Pareja = 'Pareja',
+    Familia = 'Familia',
+    Individual = 'Individual',
+    Personalizada = 'Personalizada',
+}
+
+export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
+    const prisma = new PrismaClient()
+    const nuevoProducto = await prisma.producto.create({
+        data: {
+            nombre: query,
+            descripcion: description,
+            precio: price, 
+            categoria: category,
+            fotoURL: url,
+        },
+    });
+}
