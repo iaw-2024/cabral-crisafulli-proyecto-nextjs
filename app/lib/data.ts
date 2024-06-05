@@ -11,6 +11,7 @@ export async function getPhotoEmprendedor() {
             nombre: 'Foto_Emprendedor',
         },
     })
+    await prisma.$disconnect()
     return foto
 }
 
@@ -21,6 +22,7 @@ export async function getLogo() {
             nombre: 'Logo',
         },
     })
+    await prisma.$disconnect()
     return logo
 }
 
@@ -37,6 +39,7 @@ export async function getProduct(query: string, page: number) {
             }
         }
     })
+    await prisma.$disconnect()
     return producto
 }
 
@@ -50,6 +53,7 @@ export async function fetchProductPages(query: string) {
         }
     })
     const totalPages = Math.ceil(Number(producto.length) / ITEMS_PER_PAGE);
+    await prisma.$disconnect()
     return totalPages;
 }
 
@@ -68,11 +72,12 @@ export async function insertProduct(query: string, price: number, description: s
         data: {
             nombre: query,
             descripcion: description,
-            precio: price, 
+            precio: price,
             categoria: category,
             fotoURL: url,
         },
     });
+    await prisma.$disconnect()
 }
 
 export async function deleteProduct(id2: number) {
@@ -82,4 +87,5 @@ export async function deleteProduct(id2: number) {
             id: id2,
         },
     });
+    await prisma.$disconnect()
 }
