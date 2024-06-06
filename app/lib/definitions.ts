@@ -17,3 +17,5 @@ export type User = {
   email: string;
   password: string;
 };
+
+export type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";

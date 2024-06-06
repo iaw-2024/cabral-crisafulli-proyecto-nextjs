@@ -1,6 +1,7 @@
 'use sever'
 
 import { PrismaClient } from '@prisma/client'
+import { Categoria } from './definitions';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -43,6 +44,17 @@ export async function getProduct(query: string, page: number) {
     return producto
 }
 
+export async function getProductCart(idProduct: number) {
+    const prisma = new PrismaClient()
+    const producto = await prisma.producto.findMany({
+        where: {
+            id: idProduct,
+        }
+    })
+    await prisma.$disconnect()
+    return producto
+}
+
 export async function fetchProductPages(query: string) {
     const prisma = new PrismaClient()
     const producto = await prisma.producto.findMany({
@@ -56,9 +68,6 @@ export async function fetchProductPages(query: string) {
     await prisma.$disconnect()
     return totalPages;
 }
-
-
-type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
     const prisma = new PrismaClient()
