@@ -54,13 +54,7 @@ export async function fetchProductPages(query: string) {
 }
 
 
-enum Categoria {
-    Amistad = 'Amistad',
-    Pareja = 'Pareja',
-    Familia = 'Familia',
-    Individual = 'Individual',
-    Personalizada = 'Personalizada',
-}
+type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
     const prisma = new PrismaClient()
@@ -75,11 +69,15 @@ export async function insertProduct(query: string, price: number, description: s
     });
 }
 
-export async function deleteProduct(id2: number) {
+export async function removeProduct(id2: number) {
     const prisma = new PrismaClient()
     const productoBorrado = await prisma.producto.delete({
         where: {
             id: id2,
         },
     });
+}
+
+export async function catchUpProduct(id2: number) {
+    const prisma = new PrismaClient()
 }
