@@ -81,12 +81,9 @@ export async function removeProduct(id2: number) {
             id: id2,
         },
     });
-<<<<<<< HEAD
     await prisma.$disconnect()
-=======
 }
 
 export async function catchUpProduct(id2: number) {
     const prisma = new PrismaClient()
->>>>>>> 6946e4e68480af303d5a9c132c48155ffaabf406
 }
