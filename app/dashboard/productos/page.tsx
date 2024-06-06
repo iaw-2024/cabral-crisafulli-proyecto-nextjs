@@ -28,8 +28,11 @@ export default async function Page({
         <>
           <div className="flex w-full items-center justify-between">
             <p className='productos'>Productos</p>
+            {/* Botón para agregar producto */}
+            <button className="btn-agregar-producto">Agregar Producto</button>
           </div>
           <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+            {/* Barra de búsqueda reubicada */}
             <Search placeholder="Buscar Producto..." />
           </div>
           <Suspense key={query + currentPage}>
