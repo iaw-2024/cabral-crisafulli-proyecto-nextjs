@@ -11,6 +11,7 @@ export async function getPhotoEmprendedor() {
             nombre: 'Foto_Emprendedor',
         },
     })
+    await prisma.$disconnect()
     return foto
 }
 
@@ -21,6 +22,7 @@ export async function getLogo() {
             nombre: 'Logo',
         },
     })
+    await prisma.$disconnect()
     return logo
 }
 
@@ -37,6 +39,7 @@ export async function getProduct(query: string, page: number) {
             }
         }
     })
+    await prisma.$disconnect()
     return producto
 }
 
@@ -50,17 +53,12 @@ export async function fetchProductPages(query: string) {
         }
     })
     const totalPages = Math.ceil(Number(producto.length) / ITEMS_PER_PAGE);
+    await prisma.$disconnect()
     return totalPages;
 }
 
 
-enum Categoria {
-    Amistad = 'Amistad',
-    Pareja = 'Pareja',
-    Familia = 'Familia',
-    Individual = 'Individual',
-    Personalizada = 'Personalizada',
-}
+type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
     const prisma = new PrismaClient()
@@ -68,18 +66,27 @@ export async function insertProduct(query: string, price: number, description: s
         data: {
             nombre: query,
             descripcion: description,
-            precio: price, 
+            precio: price,
             categoria: category,
             fotoURL: url,
         },
     });
+    await prisma.$disconnect()
 }
 
-export async function deleteProduct(id2: number) {
+export async function removeProduct(id2: number) {
     const prisma = new PrismaClient()
     const productoBorrado = await prisma.producto.delete({
         where: {
             id: id2,
         },
     });
+<<<<<<< HEAD
+    await prisma.$disconnect()
+=======
+}
+
+export async function catchUpProduct(id2: number) {
+    const prisma = new PrismaClient()
+>>>>>>> 6946e4e68480af303d5a9c132c48155ffaabf406
 }

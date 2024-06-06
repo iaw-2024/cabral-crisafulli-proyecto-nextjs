@@ -14,7 +14,7 @@ export function CreateProduct() {
   );
 }
 
-export function UpdateProduct({ id }: { id: string }) {
+export function UpdateProduct({ id }: { id: number }) {
   return (
     <Link
       href={`/dashboard/productos/${id}/editar`}
@@ -25,7 +25,7 @@ export function UpdateProduct({ id }: { id: string }) {
   );
 }
 
-export function DeleteProduct({ id }: { id: string }) {
+export function DeleteProduct({ id }: { id: number }) {
   const deleteProductWithId = deleteProduct.bind(null, id);
   
   return (

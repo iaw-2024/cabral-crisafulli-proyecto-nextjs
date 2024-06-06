@@ -1,10 +1,9 @@
 'use server'
 
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { insertProduct } from '@/app/lib/data';
+import { insertProduct, removeProduct } from '@/app/lib/data';
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
@@ -92,27 +91,13 @@ export async function updateProducto(prevState: State, formData: FormData) {
     const { nombre, precio, categoria, pedidoId } = validatedFields.data;
     const precioEnCentavos = precio * 100;
 
-    try {
-        await sql`
-        UPDATE producto
-        SET productoId = precio = ${precioEnCentavos}, status = ${status}
-        WHERE id = 
-      `;
-    } catch (error) {
-        return { message: 'Database Error: Failed to Update Invoice.' };
-    }
+   //catchUpProduct(id);
 
     revalidatePath('/dashboard/producto');
     redirect('/dashboard/productos');
 }
 
 
-export async function deleteProduct(id: string) {
-    try {
-        await sql`DELETE FROM product WHERE id = ${id}`;
-        revalidatePath('/dashboard/productos');
-        return { message: 'El producto fue eliminado' };
-    } catch (error) {
-        return { message: 'No es posible eliminar el producto' };
-    }
+export async function deleteProduct(id: number) {
+    removeProduct(id);
 }
