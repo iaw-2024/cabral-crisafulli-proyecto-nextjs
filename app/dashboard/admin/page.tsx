@@ -1,15 +1,18 @@
-import Image from 'next/image';
 import { ShoppingCartIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { getProduct } from '@/app/lib/data';
+import { fetchProductPages, getProduct } from '@/app/lib/data';
 import { deleteProduct } from '@/app/lib/actions';
 
 export default async function ProductTable({
-    query,
-    currentPage,
+    searchParams,
 }: {
-    query: string;
-    currentPage: number;
+    searchParams?: {
+        query?: string;
+        page?: string;
+    };
 }) {
+    const query = searchParams?.query || '';
+    const currentPage = Number(searchParams?.page) || 1;
+    const totalPages = await fetchProductPages(query);
     const producto = getProduct(query, currentPage);
     return (
         <div className="bg-white px-6">
