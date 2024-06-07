@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { insertProduct, removeProduct } from '@/app/lib/data';
+import { State } from './definitions';
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
@@ -31,16 +32,7 @@ const FormSchema = z.object({
 const CrearProducto = FormSchema.omit({ id: true });
 const ModificarProducto = FormSchema.omit({ id: true });
 
-export type State = {
-    errors?: {
-        id?: string[];
-        nombre?: string[];
-        precio?: string[];
-        categoria?: string[];
-        pedidoId?: string[];
-    };
-    message?: string | null;
-};
+
 
 export async function createProduct(prevState: State, formData: FormData) {
     const validatedFields = CrearProducto.safeParse({
@@ -91,7 +83,7 @@ export async function updateProducto(prevState: State, formData: FormData) {
     const { nombre, precio, categoria, pedidoId } = validatedFields.data;
     const precioEnCentavos = precio * 100;
 
-   //catchUpProduct(id);
+    //catchUpProduct(id);
 
     revalidatePath('/dashboard/producto');
     redirect('/dashboard/productos');

@@ -1,14 +1,7 @@
-import { Metadata } from 'next';
 import React from 'react';
 import '@/app/ui/global.css';
 import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-export const metadata: Metadata = {
-    title: {
-        template: '%s | Carrito',
-        default: 'Carrito',
-    },
-};
 const CancelledCartIcon = () => {
     return (
         <div className="relative inline-block">
