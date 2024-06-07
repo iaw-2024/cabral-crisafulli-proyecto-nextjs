@@ -17,15 +17,6 @@ export default async function ProductTable({
                 return (
                     <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
                         <div className="grid grid-cols-2">
-                            <div className="p-4 flex justify-center items-center">
-                                <Image
-                                    src={product.fotoURL}
-                                    alt={`${product.nombre}`}
-                                    className="w-64 h-64 object-contain"
-                                    width={640}
-                                    height={640}
-                                />
-                            </div>
                             <div className='p-4'>
                                 <p className="text-lg font-bold mb-2">{product.nombre}</p>
                                 <p className="text-gray-600 mb-2">{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
