@@ -7,7 +7,7 @@ export type Product = {
   nombre: string;
   descripcion: string;
   precio: number;
-  categoria: 'Amistad' | 'Pareja' | 'Familia' | 'Individual' | 'Personalizada';
+  categoria: Categoria;
   pedidoId: number;
   fotoURL: string;
 };
@@ -16,6 +16,23 @@ export type User = {
   id: string;
   email: string;
   password: string;
+};
+
+export const OperacionesCarrito = {
+  ADD_TO_CART: "ADD_TO_CART",
+  CLEAR_CART: "CLEAR_CART",
+  REMOVE_FROM_CART: "REMOVE_FROM_CART",
+}
+
+export type State = {
+  errors?: {
+    id?: string[];
+    nombre?: string[];
+    precio?: string[];
+    categoria?: string[];
+    pedidoId?: string[];
+  };
+  message?: string | null;
 };
 
 export type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
