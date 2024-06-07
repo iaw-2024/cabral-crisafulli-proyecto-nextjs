@@ -27,7 +27,8 @@ export default function Page() {
         <>
             <p className="carrito">Carrito</p>
             <div className="flex justify-end">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center" onClick={clearCart}>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    onClick={clearCart}>
                     <CancelledCartIcon />
                     <span className="ml-2">Vaciar carrito</span>
                 </button>
