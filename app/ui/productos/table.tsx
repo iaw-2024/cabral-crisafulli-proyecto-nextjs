@@ -1,5 +1,5 @@
 import { getProduct } from '@/app/lib/data';
-import { useCart } from '@/app/lib/reducer/actions';
+import { useCart } from '@/app/lib/reducer/useCart';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import React from 'react';

@@ -1,6 +1,6 @@
 import { TrashIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { useCart } from '@/app/lib/reducer/actions'
+import { useCart } from '@/app/lib/reducer/useCart'
 import { Product } from '@/app/lib/definitions';
 import React from 'react';
 
