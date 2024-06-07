@@ -1,8 +1,13 @@
-import { ShoppingCartIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { fetchProductPages, getProduct } from '@/app/lib/data';
-import { deleteProduct } from '@/app/lib/actions';
+import { fetchProductPages } from '@/app/lib/data';
+import '@/app/ui/global.css';
+import Search from '@/app/ui/search';
+import Pagination from '@/app/ui/productos/pagination';
+import { Suspense } from 'react';
+import ProductTableAdmin from '@/app/ui/admin/table';
+import NotFound from '@/app/dashboard/productos/[id]/not-found';
+import { getProduct } from '@/app/lib/data';
 
-export default async function ProductTable({
+export default async function Page({
     searchParams,
 }: {
     searchParams?: {
@@ -13,36 +18,29 @@ export default async function ProductTable({
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
     const totalPages = await fetchProductPages(query);
-    const producto = getProduct(query, currentPage);
+    const products = await getProduct(query, currentPage);
+
     return (
-        <div className="bg-white px-6">
-            {(await producto).map((product) => {
-                return (
-                    <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
-                        <div className="grid grid-cols-2">
-                            <div className='p-4'>
-                                <p className="text-lg font-bold mb-2">{product.nombre}</p>
-                                <p className="text-gray-600 mb-2">{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
-                                <p className="mb-4">{product.descripcion}</p>
-                                <div className="flex space-x-2">
-                                    <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center">
-                                        <ShoppingCartIcon className="h-5 w-5 mr-2" /> Añadir al carrito
-                                    </button>
-                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
-                                        <PencilIcon className="h-5 w-5 mr-2" /> Editar
-                                    </button>
-                                    <button
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                                        onClick={() => deleteProduct(product.id)}
-                                    >
-                                        <TrashIcon className="h-5 w-5 mr-2" /> Eliminar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+        <div className="w-full">
+            {products.length === 0 ? (
+                <NotFound />
+            ) : (
+                <>
+                    <div className="flex w-full items-center justify-between">
+                        <p className='productos'>Productos</p>
                     </div>
-                );
-            })}
+                    <div className="mt-4 flex items-center justify-between gap-2 md:mt-8 search-container">
+                        {/* Barra de búsqueda reubicada */}
+                        <Search placeholder="Buscar Producto..." />
+                    </div>
+                    <Suspense key={query + currentPage}>
+                        <ProductTableAdmin query={query} currentPage={currentPage} />
+                    </Suspense>
+                    <div className="mt-5 flex w-full justify-center">
+                        <Pagination totalPages={totalPages} />
+                    </div>
+                </>
+            )}
         </div>
     );
 }
