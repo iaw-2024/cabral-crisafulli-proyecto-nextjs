@@ -55,13 +55,8 @@ input[type='number']::-webkit-outer-spin-button {
   font-size: 80px;
 }
 
-.productos {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
 .btn-agregar-producto {
-  background-color: #6c5ce7; /* Color morado */
+  background-color: #6c5ce7; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -70,5 +65,9 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .btn-agregar-producto:hover {
-  background-color: #5a4dbd; /* Color morado más oscuro */
+  background-color: #5a4dbd;
+}
+
+.search-container {
+  padding-bottom: 20px; /* Ajusta este valor según tus necesidades */
 }

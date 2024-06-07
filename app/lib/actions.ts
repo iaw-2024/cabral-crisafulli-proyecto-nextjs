@@ -100,4 +100,5 @@ export async function updateProducto(prevState: State, formData: FormData) {
 
 export async function deleteProduct(id: number) {
     removeProduct(id);
+    revalidatePath('/dashboard/producto');
 }
