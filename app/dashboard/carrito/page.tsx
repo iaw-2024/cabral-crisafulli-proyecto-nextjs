@@ -1,6 +1,7 @@
-import React from 'react';
 import '@/app/ui/global.css';
 import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useCart } from '@/app/lib/reducer/actions';
+import React from 'react';
 
 const CancelledCartIcon = () => {
     return (
@@ -13,11 +14,20 @@ const CancelledCartIcon = () => {
 
 
 export default function Page() {
+    const {
+        cart,
+        addOne,
+        removeOne,
+        removeFromCart,
+        clearCart,
+        getCart,
+        addToCart,
+    } = useCart();
     return (
         <>
             <p className="carrito">Carrito</p>
             <div className="flex justify-end">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center" onClick={clearCart}>
                     <CancelledCartIcon />
                     <span className="ml-2">Vaciar carrito</span>
                 </button>

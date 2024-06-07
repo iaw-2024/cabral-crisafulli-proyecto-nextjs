@@ -46,7 +46,7 @@ export async function getProduct(query: string, page: number) {
 
 export async function getProductCart(idProduct: number) {
     const prisma = new PrismaClient()
-    const producto = await prisma.producto.findMany({
+    const producto = await prisma.producto.findFirst({
         where: {
             id: idProduct,
         }

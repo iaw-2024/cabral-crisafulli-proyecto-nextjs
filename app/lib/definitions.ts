@@ -1,15 +1,14 @@
-// This file contains type definitions for your data.
-// It describes the shape of the data, and what data type each property should accept.
-// For simplicity of teaching, we're manually defining these types.
-// However, these types are generated automatically if you're using an ORM such as Prisma.
+export type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
+
 export type Product = {
   id: number;
   nombre: string;
   descripcion: string;
   precio: number;
   categoria: Categoria;
-  pedidoId: number;
+  pedidoId: number | null;
   fotoURL: string;
+  quantity: number;
 };
 
 export type User = {
@@ -18,11 +17,12 @@ export type User = {
   password: string;
 };
 
-export const OperacionesCarrito = {
-  ADD_TO_CART: "ADD_TO_CART",
-  CLEAR_CART: "CLEAR_CART",
-  REMOVE_FROM_CART: "REMOVE_FROM_CART",
-}
+export type Action =
+  | { type: 'ADD_TO_CART'; payload: Product }
+  | { type: 'CLEAR_CART' }
+  | { type: 'REMOVE_FROM_CART'; payload: number }
+  | { type: 'ADD_ONE'; payload: number }
+  | { type: 'REMOVE_ONE'; payload: number };
 
 export type State = {
   errors?: {
@@ -35,4 +35,3 @@ export type State = {
   message?: string | null;
 };
 
-export type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
