@@ -1,4 +1,4 @@
-//import Form from '@/app/ui/productos/create-form';
+import ProductForm  from '@/app/dashboard/admin/create-form';
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
  
 export default async function Page() {
