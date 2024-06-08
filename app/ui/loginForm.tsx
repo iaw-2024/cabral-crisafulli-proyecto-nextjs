@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ErrorModal: React.FC<{ message: string; onClose: () => void }> = ({ message, onClose }) => (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
@@ -22,10 +23,12 @@ const LoginForm: React.FC = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
+    const router = useRouter();
 
     const handleLogin = () => {
         if (email === 'admin@admin.com' && password === 'admin') {
             alert('Iniciar sesión correctamente');
+            router.push('/dashboard/admin');
         } else {
             setError('Correo electrónico o contraseña incorrectos');
             setShowErrorModal(true);

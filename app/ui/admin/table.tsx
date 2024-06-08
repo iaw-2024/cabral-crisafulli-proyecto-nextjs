@@ -16,7 +16,6 @@ export default async function ProductTableAdmin({
                 <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     Agregar producto
                 </button>
-               
             </div>
             {(await producto).map((product) => {
                 return (
