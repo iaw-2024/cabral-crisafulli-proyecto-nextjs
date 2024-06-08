@@ -38,7 +38,6 @@ export function useCart() {
     };
 
     return {
-        cart: state.cart,
         addOne,
         removeOne,
         removeFromCart,
