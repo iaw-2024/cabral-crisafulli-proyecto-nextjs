@@ -68,7 +68,11 @@ export default function Form({ category }: { category: Categoria[] }) {
               <option value="" disabled>
                 Seleccionar Categoría
               </option>
-             
+              {category.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
