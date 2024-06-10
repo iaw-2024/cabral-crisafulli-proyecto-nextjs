@@ -78,6 +78,34 @@ export default function Form({ category }: { category: Categoria[] }) {
           </div>
         </div>
 
+        {/* Description */}
+        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          Insertar una descripción del producto
+        </label>
+        <div className="relative mt-2 rounded-md">
+          <input
+            id="name"
+            name="name"
+            type="text"
+            defaultValue=""
+            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+          />
+        </div>
+
+        {/* Foto url */}
+        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          Insertar la url de la foto
+        </label>
+        <div className="relative mt-2 rounded-md">
+          <input
+            id="name"
+            name="name"
+            type="text"
+            defaultValue=""
+            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+          />
+        </div>
+
         {/* Form Actions */}
         <div className="mt-6 flex justify-end gap-4">
           <Link
