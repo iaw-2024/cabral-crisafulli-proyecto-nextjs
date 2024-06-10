@@ -58,3 +58,11 @@ input[type='number']::-webkit-outer-spin-button {
 .search-container {
   padding-bottom: 30px;
 }
+
+button {
+  min-width: 120px; /* O el tamaño que prefieras */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Espacio entre el icono y el texto */
+}

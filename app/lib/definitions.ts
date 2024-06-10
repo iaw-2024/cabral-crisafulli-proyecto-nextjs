@@ -46,3 +46,12 @@ export type State = {
   message?: string | null;
 };
 
+export type ProductForm = {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: string;
+  pedidoId: number | null;
+  fotoURL: string;
+};

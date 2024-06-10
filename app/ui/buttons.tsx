@@ -6,34 +6,31 @@ export function CreateProduct() {
   return (
     <Link
       href="/dashboard/productos/crear"
-      className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-    >
-      <span className="hidden md:block">Create Product</span>{' '}
-      <PlusIcon className="h-5 md:ml-4" />
+      className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+      <PlusIcon className="h-5 w-5 md:ml-2" />
+      <span className="hidden md:block">Crear Producto</span>
     </Link>
   );
 }
 
 export function UpdateProduct({ id }: { id: number }) {
   return (
-    <Link
-      href={`/dashboard/productos/${id}/editar`}
-      className="rounded-md border p-2 hover:bg-gray-100"
-    >
-      <PencilIcon className="w-5" />
+    <Link href={`/dashboard/productos/${id}/editar`}>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center w-full sm:w-auto">
+        <PencilIcon className="h-5 w-5 mr-2" /> Editar
+      </button>
     </Link>
   );
 }
 
 export function DeleteProduct({ id }: { id: number }) {
   const deleteProductWithId = deleteProduct.bind(null, id);
-  
+
   return (
     <form action={deleteProductWithId}>
-    <button className="rounded-md border p-2 hover:bg-gray-100">
-      <span className="sr-only">Delete</span>
-      <TrashIcon className="w-4" />
-    </button>
-  </form>
+      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center w-full sm:w-auto">
+        <TrashIcon className="h-5 w-5 mr-2" /> Eliminar
+      </button>
+    </form>
   );
 }
