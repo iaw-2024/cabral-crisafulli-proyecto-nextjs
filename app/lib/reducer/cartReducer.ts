@@ -1,7 +1,7 @@
 
 import { Action, Product } from "../definitions";
 
-interface State {
+export interface State {
     cart: Product[];
 }
 
@@ -31,7 +31,6 @@ export function cartReducer(state: State, action: Action): State {
             };
         }
         case "ADD_ONE": {
-            // Aquí puedes agregar la lógica para incrementar la cantidad de un producto
             const updatedCart = state.cart.map(item =>
                 item.id === action.payload ? { ...item, quantity: item.quantity + 1 } : item
             );
@@ -48,6 +47,9 @@ export function cartReducer(state: State, action: Action): State {
                 ...state,
                 cart: updatedCart,
             };
+        }
+        case "GET_CART": {
+            return state;
         }
         default:
             return state;

@@ -1,6 +1,10 @@
+'use client'
 import '@/app/ui/global.css';
 import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import type { Product } from '@/app/lib/definitions'
+
 
 const CancelledCartIcon = () => {
     return (
@@ -13,6 +17,10 @@ const CancelledCartIcon = () => {
 
 
 export default function Page() {
+
+    //TODO usar los productos del estado para la pagina 
+    const products = useAppSelector(state => state.productos)
+    console.log(products)
     return (
         <>
             <p className="carrito">Carrito</p>

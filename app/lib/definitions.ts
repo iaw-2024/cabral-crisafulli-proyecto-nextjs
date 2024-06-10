@@ -11,6 +11,16 @@ export type Product = {
   quantity: number;
 };
 
+export type Producto = {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: Categoria;
+  pedidoId: number | null;
+  fotoURL: string;
+};
+
 export type User = {
   id: string;
   email: string;
@@ -20,6 +30,7 @@ export type User = {
 export type Action =
   | { type: 'ADD_TO_CART'; payload: Product }
   | { type: 'CLEAR_CART' }
+  | { type: 'GET_CART' }
   | { type: 'REMOVE_FROM_CART'; payload: number }
   | { type: 'ADD_ONE'; payload: number }
   | { type: 'REMOVE_ONE'; payload: number };
