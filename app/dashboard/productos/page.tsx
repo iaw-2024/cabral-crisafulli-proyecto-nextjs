@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import ProductTable from '@/app/ui/productos/table';
 import NotFound from '@/app/dashboard/productos/[id]/not-found';
 import { getProduct } from '@/app/lib/data';
+import StoreProvider from '@/app/storeProvider';
 
 export default async function Page({
   searchParams,
@@ -33,9 +34,11 @@ export default async function Page({
             {/* Barra de búsqueda reubicada */}
             <Search placeholder="Buscar Producto..." />
           </div>
-          <Suspense key={query + currentPage}>
-            <ProductTable query={query} currentPage={currentPage} />
-          </Suspense>
+          <StoreProvider>
+            <Suspense key={query + currentPage}>
+              <ProductTable query={query} currentPage={currentPage} />
+            </Suspense>
+          </StoreProvider>
           <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={totalPages} />
           </div>

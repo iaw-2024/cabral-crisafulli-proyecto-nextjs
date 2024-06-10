@@ -1,48 +1,16 @@
-'use client'
+import { Producto } from "../definitions";
 
-import { useReducer } from 'react';
-import { cartInitialState, cartReducer } from '@/app/lib/reducer/cartReducer';
-import { getProductCart } from "../data";
+export const addOne = (id: number) => ({ type: "ADD_ONE", payload: id });
 
-export function useCart() {
-    const [state, dispatch] = useReducer(cartReducer, cartInitialState);
+export const removeOne = (id: number) => ({ type: "REMOVE_ONE", payload: id });
 
-    const addOne = (id: number) => {
-        dispatch({ type: "ADD_ONE", payload: id });
-    };
+export const removeFromCart = (id: number) => ({ type: "REMOVE_FROM_CART", payload: id });
 
-    const removeOne = (id: number) => {
-        dispatch({ type: "REMOVE_ONE", payload: id });
-    };
+export const clearCart = () => ({ type: "CLEAR_CART" });
 
-    const removeFromCart = (id: number) => {
-        dispatch({ type: "REMOVE_FROM_CART", payload: id });
-    };
+export const getCart = () => ({ type: "GET_CART" })
 
-    const clearCart = () => {
-        dispatch({ type: "CLEAR_CART" });
-    };
-
-    const getCart = () => {
-        return state.cart;
-    };
-
-    const addToCart = async (id: number) => {
-        const newItem = await getProductCart(id);
-        if (newItem !== null) {
-            const newItemWithQuantity = { ...newItem, quantity: 1 };
-            dispatch({ type: "ADD_TO_CART", payload: newItemWithQuantity });
-        } else {
-            console.error(`Product with id ${id} not found`);
-        }
-    };
-
-    return {
-        addOne,
-        removeOne,
-        removeFromCart,
-        clearCart,
-        getCart,
-        addToCart,
-    };
-}
+export const addToCart = (producto: Producto) => {
+    const newItemWithQuantity = { ...producto, quantity: 1 };
+    return ({ type: "ADD_TO_CART", payload: newItemWithQuantity });
+};
