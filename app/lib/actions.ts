@@ -62,7 +62,7 @@ export async function createProduct(prevState: State, formData: FormData) {
     redirect('/dashboard/productos');
 }
 
-export async function updateProducto(prevState: State, formData: FormData) {
+export async function updateProduct(prevState: State, formData: FormData) {
     const validatedFields = ModificarProducto.safeParse({
         id: formData.get('id'),
         nombre: formData.get('nombre'),
@@ -87,10 +87,12 @@ export async function updateProducto(prevState: State, formData: FormData) {
 
     revalidatePath('/dashboard/producto');
     redirect('/dashboard/productos');
+    return { message: 'Producto Modificado' };
 }
 
 
 export async function deleteProduct(id: number) {
     removeProduct(id);
     revalidatePath('/dashboard/producto');
+    return { message: 'Producto Eliminado' };
 }

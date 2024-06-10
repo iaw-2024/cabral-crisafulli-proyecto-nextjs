@@ -1,8 +1,10 @@
 import ProductForm  from '@/app/dashboard/admin/create-form';
+import { Categoria } from '@/app/lib/definitions';
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
- 
+
+const categories: Categoria[] = ["Amistad", "Pareja", "Familia", "Individual", "Personalizada"];
 export default async function Page() {
- 
+
   return (
     <main>
       <Breadcrumbs
@@ -15,6 +17,7 @@ export default async function Page() {
           },
         ]}
       />
+        <ProductForm category={categories} />
     </main>
   );
 }
