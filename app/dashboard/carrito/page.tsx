@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import type { Product } from '@/app/lib/definitions'
 import ProductCartTable from '@/app/ui/cart/table';
+import { vaciarCarrito } from '@/redux/features/carrito/carritoSlice';
 
 
 const CancelledCartIcon = () => {
@@ -21,11 +22,13 @@ export default function Page() {
 
     //TODO usar los productos del estado para la pagina 
     const products = useAppSelector(state => state.productos)
+    const dispatch = useAppDispatch()
     return (
         <>
             <p className="carrito">Carrito</p>
             <div className="flex justify-end">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    onClick={() => { dispatch(vaciarCarrito()) }}>
                     <CancelledCartIcon />
                     <span className="ml-2">Vaciar carrito</span>
                 </button>
