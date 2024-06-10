@@ -34,11 +34,9 @@ export default async function Page({
             {/* Barra de búsqueda reubicada */}
             <Search placeholder="Buscar Producto..." />
           </div>
-          <StoreProvider>
-            <Suspense key={query + currentPage}>
-              <ProductTable query={query} currentPage={currentPage} />
-            </Suspense>
-          </StoreProvider>
+          <Suspense key={query + currentPage}>
+            <ProductTable query={query} currentPage={currentPage} />
+          </Suspense>
           <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={totalPages} />
           </div>
