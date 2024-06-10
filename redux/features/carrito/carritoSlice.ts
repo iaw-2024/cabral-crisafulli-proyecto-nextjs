@@ -45,10 +45,7 @@ export const carritoSlice = createSlice({
             const existingProduct = state.productos.find(product => product.id === action.payload.id);
 
             if (existingProduct) {
-                if (existingProduct.quantity == 1) {
-                    state.productos = state.productos.filter(product => product.id !== action.payload.id);
-                }
-                else {
+                if (existingProduct.quantity > 1) {
                     existingProduct.quantity -= 1
                 }
             }
