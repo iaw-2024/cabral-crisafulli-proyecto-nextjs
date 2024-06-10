@@ -4,6 +4,7 @@ import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import type { Product } from '@/app/lib/definitions'
+import ProductCartTable from '@/app/ui/cart/table';
 
 
 const CancelledCartIcon = () => {
@@ -20,7 +21,6 @@ export default function Page() {
 
     //TODO usar los productos del estado para la pagina 
     const products = useAppSelector(state => state.productos)
-    console.log(products)
     return (
         <>
             <p className="carrito">Carrito</p>
@@ -30,6 +30,7 @@ export default function Page() {
                     <span className="ml-2">Vaciar carrito</span>
                 </button>
             </div>
+            <ProductCartTable productos={products} />
         </>
     );
 }

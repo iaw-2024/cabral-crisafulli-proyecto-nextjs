@@ -2,17 +2,18 @@ import { TrashIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { Product } from '@/app/lib/definitions';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
 import { addOne, removeFromCart, removeOne } from '@/app/lib/reducer/useCart';
 
 
-export default async function ProductCartTable() {
-    const dispatch = useDispatch();
-    const cart = useSelector((state: any) => state.carrito.cart);
+export default async function ProductCartTable({
+    productos
+}: {
+    productos: Product[]
+}) {
 
     return (
         <div className="bg-white px-6">
-            {cart.map((product: Product) => {
+            {productos.map((product: Product) => {
                 return (
                     <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
                         <div className="grid grid-cols-2">
@@ -21,8 +22,8 @@ export default async function ProductCartTable() {
                                     src={product.fotoURL}
                                     alt={`${product.nombre}`}
                                     className="w-64 h-64 object-contain"
-                                    width={320}
-                                    height={320}
+                                    width={160}
+                                    height={160}
                                 />
                             </div>
                             <div className='p-4'>
