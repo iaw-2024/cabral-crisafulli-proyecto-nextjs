@@ -127,4 +127,6 @@ export async function removeProduct(id2: number) {
 
 export async function catchUpProduct(id2: number) {
     const prisma = new PrismaClient()
+    
+    await prisma.$disconnect()
 }

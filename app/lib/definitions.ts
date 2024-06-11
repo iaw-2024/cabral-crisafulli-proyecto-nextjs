@@ -24,7 +24,18 @@ export type Action =
   | { type: 'ADD_ONE'; payload: number }
   | { type: 'REMOVE_ONE'; payload: number };
 
-export type State = {
+  export type ProductForm = {
+    id: number;
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    categoria: string;
+    pedidoId: number | null;
+    fotoURL: string;
+  };
+
+
+export type Estado = {
   errors?: {
     id?: string[];
     nombre?: string[];
@@ -33,14 +44,4 @@ export type State = {
     pedidoId?: string[];
   };
   message?: string | null;
-};
-
-export type ProductForm = {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  categoria: string;
-  pedidoId: number | null;
-  fotoURL: string;
 };

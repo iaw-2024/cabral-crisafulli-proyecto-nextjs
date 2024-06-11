@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { insertProduct, removeProduct } from '@/app/lib/data';
-import { State } from './definitions';
+import { Estado } from './definitions';
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
@@ -34,7 +34,7 @@ const ModificarProducto = FormSchema.omit({ id: true });
 
 
 
-export async function createProduct(prevState: State, formData: FormData) {
+export async function createProduct(prevState: Estado, formData: FormData) {
     const validatedFields = CrearProducto.safeParse({
         id: formData.get('id'),
         nombre: formData.get('nombre'),
@@ -62,7 +62,7 @@ export async function createProduct(prevState: State, formData: FormData) {
     redirect('/dashboard/productos');
 }
 
-export async function updateProduct(prevState: State, formData: FormData) {
+export async function updateProduct(id: number, prevState: Estado, formData: FormData) {
     const validatedFields = ModificarProducto.safeParse({
         id: formData.get('id'),
         nombre: formData.get('nombre'),
