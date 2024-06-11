@@ -10,8 +10,6 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 
-// const categories = ["Amistad", "Pareja", "Familia", "Individual", "Personalizada"];
-
 export default function Form({ category }: { category: Categoria[] }) {
 
   const initialState = { message: null, errors: {} };
@@ -21,7 +19,7 @@ export default function Form({ category }: { category: Categoria[] }) {
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Product Name */}
-        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+        <label htmlFor="name" className="mb-2 block text-lg font-medium">
           Insertar el nombre del producto
         </label>
         <div className="relative mt-2 rounded-md">
@@ -36,7 +34,7 @@ export default function Form({ category }: { category: Categoria[] }) {
 
         {/* Product Price */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+          <label htmlFor="name" className="mb-2 block text-lg font-medium">
             Elegir el precio
           </label>
           <div className="relative mt-2 rounded-md">
@@ -54,7 +52,7 @@ export default function Form({ category }: { category: Categoria[] }) {
 
         {/* Category */}
         <div className="mb-4">
-          <label htmlFor="category" className="mb-2 block text-sm font-medium">
+          <label htmlFor="name" className="mb-2 block text-lg font-medium">
             Elegir una categoría
           </label>
           <div className="relative">
@@ -79,7 +77,7 @@ export default function Form({ category }: { category: Categoria[] }) {
         </div>
 
         {/* Description */}
-        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+        <label htmlFor="name" className="mb-2 block text-lg font-medium">
           Insertar una descripción del producto
         </label>
         <div className="relative mt-2 rounded-md">
@@ -88,12 +86,13 @@ export default function Form({ category }: { category: Categoria[] }) {
             name="name"
             type="text"
             defaultValue=""
-            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+            className="peer block w-full rounded-md border border-gray-200 py-6 pl-14 text-sm outline-2 outline-2 placeholder:text-gray-500"
           />
         </div>
 
+
         {/* Foto url */}
-        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+        <label htmlFor="name" className="mb-2 block text-lg font-medium">
           Insertar la url de la foto
         </label>
         <div className="relative mt-2 rounded-md">
