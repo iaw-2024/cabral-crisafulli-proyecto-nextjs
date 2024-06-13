@@ -90,7 +90,6 @@ export default function Form({ category }: { category: Categoria[] }) {
           />
         </div>
 
-
         {/* Foto url */}
         <label htmlFor="name" className="mb-2 block text-lg font-medium">
           Insertar la url de la foto
@@ -108,7 +107,7 @@ export default function Form({ category }: { category: Categoria[] }) {
         {/* Form Actions */}
         <div className="mt-6 flex justify-end gap-4">
           <Link
-            href="/dashboard/invoices"
+            href="/dashboard/admin"
             className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
           >
             Cancelar

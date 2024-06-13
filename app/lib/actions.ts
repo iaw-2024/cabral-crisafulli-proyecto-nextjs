@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { insertProduct, removeProduct } from '@/app/lib/data';
+import { insertProduct, removeProduct, catchUpProduct, ProductUpdateInput } from '@/app/lib/data';
 import { Estado } from './definitions';
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
@@ -83,7 +83,7 @@ export async function updateProduct(id: number, prevState: Estado, formData: For
     const { nombre, precio, categoria, pedidoId } = validatedFields.data;
     const precioEnCentavos = precio * 100;
 
-    //catchUpProduct(id);
+    catchUpProduct(id);
 
     revalidatePath('/dashboard/producto');
     redirect('/dashboard/productos');

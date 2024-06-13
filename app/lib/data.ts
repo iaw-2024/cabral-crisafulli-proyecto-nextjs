@@ -1,7 +1,7 @@
 'use sever'
 
 import { PrismaClient } from '@prisma/client'
-import { Categoria } from './definitions';
+import { Categoria } from '@/app/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 import { ProductForm } from './definitions';
 import { sql } from '@vercel/postgres';
@@ -75,31 +75,31 @@ export async function fetchProductPages(query: string) {
 export async function fetchProductById(id: string) {
     noStore();
     try {
-      const data = await sql<ProductForm>`
+        const data = await sql<ProductForm>`
         
       `;
-  
-      const product = data.rows.map((product) => ({
-        ...product,
-        // Convert amount from cents to dollars
-        price: product.precio / 100,
-      }));
-  
-      console.log(product); // Invoice is an empty array []
-      return product[0];
-    } catch (error) {
-      console.error('Database Error:', error);
-      throw new Error('Failed to fetch invoice.');
-    }
-  }
 
-  export async function fetchUsers() {
+        const product = data.rows.map((product) => ({
+            ...product,
+            // Convert amount from cents to dollars
+            price: product.precio / 100,
+        }));
+
+        console.log(product); // Product is an empty array []
+        return product[0];
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch invoice.');
+    }
+}
+
+export async function fetchUsers() {
     const prisma = new PrismaClient()
 
     return await prisma.user.findMany()
 
     await prisma.$disconnect()
-  }
+}
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
     const prisma = new PrismaClient()
@@ -125,8 +125,35 @@ export async function removeProduct(id2: number) {
     await prisma.$disconnect()
 }
 
-export async function catchUpProduct(id2: number) {
-    const prisma = new PrismaClient()
-    
-    await prisma.$disconnect()
+export interface ProductUpdateInput {
+    name?: number;
+    price?: number;
+    categoria?: Categoria;
+    description?: string;
+    fotoURL?: string;
+}
+
+
+export async function catchUpProduct(id2: number, updatedData: ProductUpdateInput) {
+    const prisma = new PrismaClient();
+    try {
+        // Verifica que el objeto updatedData no esté vacío
+        if (Object.keys(updatedData).length === 0) {
+            throw new Error('No se proporcionaron datos para actualizar');
+        }
+
+        // Realiza la actualización
+        const updatedProduct = await prisma.producto.update({
+            where: { id: id2 },
+            data: updatedData,  // Actualización directa sin objeto anidado
+        });
+
+        console.log('Producto actualizado:', updatedProduct);
+        return updatedProduct;
+    } catch (error) {
+        console.error('Error actualizando el producto:', error);
+        throw error;
+    } finally {
+        await prisma.$disconnect();
+    }
 }
