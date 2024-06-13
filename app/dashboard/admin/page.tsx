@@ -29,7 +29,7 @@ export default async function Page({
                     <div className="flex w-full items-center justify-between">
                         <p className='productos'>Productos</p>
                     </div>
-                    <div className="mt-4 flex items-center justify-between gap-2 md:mt-8 search-container">
+                    <div className="sticky top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
                         {/* Barra de búsqueda reubicada */}
                         <Search placeholder="Buscar Producto..." />
                     </div>
