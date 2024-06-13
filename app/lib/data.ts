@@ -72,9 +72,17 @@ export async function fetchProductPages(query: string) {
     return totalPages;
 }
 
-export async function fetchProductById(id: string) {
+export async function fetchProductById(id2: number) {
     noStore();
-    try {
+    const prisma = new PrismaClient()
+    const product = await prisma.producto.findFirst({
+        where: {
+            id: id2, 
+        }
+    })
+    await prisma.$disconnect()
+    return product;
+    /*try {
         const data = await sql<ProductForm>`
         
       `;
@@ -90,7 +98,7 @@ export async function fetchProductById(id: string) {
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch invoice.');
-    }
+    }*/
 }
 
 export async function fetchUsers() {

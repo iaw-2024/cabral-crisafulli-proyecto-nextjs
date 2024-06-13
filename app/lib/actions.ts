@@ -85,8 +85,6 @@ export async function updateProduct(id: number, prevState: Estado, formData: For
     const { nombre, precio, descripcion, categoria, pedidoId, fotoUrl } = validatedFields.data;
     const precioEnCentavos = precio * 100;
 
-    //id2: number, query: string, price: number, description: string, category: Categoria, url: string
-
     catchUpProduct(id, nombre, precioEnCentavos, descripcion, categoria, fotoUrl);
 
     revalidatePath('/dashboard/producto');
