@@ -134,26 +134,15 @@ export interface ProductUpdateInput {
 }
 
 
-export async function catchUpProduct(id2: number, updatedData: ProductUpdateInput) {
+export async function catchUpProduct(id2: number) {
     const prisma = new PrismaClient();
-    try {
-        // Verifica que el objeto updatedData no esté vacío
-        if (Object.keys(updatedData).length === 0) {
-            throw new Error('No se proporcionaron datos para actualizar');
+    const productoEditado = await prisma.producto.update({
+        where: {
+            id: id2,
+        },
+        data: {
+           
         }
-
-        // Realiza la actualización
-        const updatedProduct = await prisma.producto.update({
-            where: { id: id2 },
-            data: updatedData,  // Actualización directa sin objeto anidado
-        });
-
-        console.log('Producto actualizado:', updatedProduct);
-        return updatedProduct;
-    } catch (error) {
-        console.error('Error actualizando el producto:', error);
-        throw error;
-    } finally {
-        await prisma.$disconnect();
-    }
+    })
+    await prisma.$disconnect()
 }

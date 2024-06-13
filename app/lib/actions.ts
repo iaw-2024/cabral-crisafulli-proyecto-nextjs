@@ -3,8 +3,10 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { insertProduct, removeProduct, catchUpProduct, ProductUpdateInput } from '@/app/lib/data';
+import { insertProduct, removeProduct, catchUpProduct } from '@/app/lib/data';
 import { Estado } from './definitions';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
@@ -96,3 +98,22 @@ export async function deleteProduct(id: number) {
     revalidatePath('/dashboard/producto');
     return { message: 'Producto Eliminado' };
 }
+
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData,
+  ) {
+    try {
+      await signIn('credentials', formData);
+    } catch (error) {
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case 'CredentialsSignin':
+            return 'Invalid credentials.';
+          default:
+            return 'Something went wrong.';
+        }
+      }
+      throw error;
+    }
+  }
