@@ -134,14 +134,18 @@ export interface ProductUpdateInput {
 }
 
 
-export async function catchUpProduct(id2: number) {
+export async function catchUpProduct(id2: number, query: string, price: number, description: string, category: Categoria, url: string) {
     const prisma = new PrismaClient();
     const productoEditado = await prisma.producto.update({
         where: {
-            id: id2,
+           id: id2,
         },
         data: {
-           
+            nombre: query,
+            descripcion: description,
+            precio: price,
+            categoria: category,
+            fotoURL: url,
         }
     })
     await prisma.$disconnect()
