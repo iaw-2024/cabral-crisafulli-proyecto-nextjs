@@ -73,6 +73,7 @@ export async function fetchProductPages(query: string) {
 }
 
 export async function fetchProductById(id2: number) {
+    console.log(id2);
     noStore();
     const prisma = new PrismaClient()
     const product = await prisma.producto.findFirst({
@@ -82,23 +83,6 @@ export async function fetchProductById(id2: number) {
     })
     await prisma.$disconnect()
     return product;
-    /*try {
-        const data = await sql<ProductForm>`
-        
-      `;
-
-        const product = data.rows.map((product) => ({
-            ...product,
-            // Convert amount from cents to dollars
-            price: product.precio / 100,
-        }));
-
-        console.log(product); // Product is an empty array []
-        return product[0];
-    } catch (error) {
-        console.error('Database Error:', error);
-        throw new Error('Failed to fetch invoice.');
-    }*/
 }
 
 export async function fetchUsers() {

@@ -7,7 +7,7 @@ import { Categoria, ProductForm } from '@/app/lib/definitions';
 const categories: Categoria[] = ["Amistad", "Pareja", "Familia", "Individual", "Personalizada"];
 
 export default async function Page({ params }: { params: { id: number } }) {
-    const id = params.id;
+    const id = parseInt(params.id.toString());
     const [product, users] = await Promise.all([
       fetchProductById(id),
       fetchUsers(), 
