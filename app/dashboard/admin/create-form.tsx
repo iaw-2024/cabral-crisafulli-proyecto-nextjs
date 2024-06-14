@@ -16,6 +16,15 @@ export default function Form({ category }: { category: Categoria[] }) {
     description: '',
   });
 
+  const initialValues = {
+    name: '',
+    amount: '',
+    categoryId: '',
+    description: '',
+  };
+
+  const [notification, setNotification] = useState<string | null>(null);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormValues({
@@ -50,6 +59,9 @@ export default function Form({ category }: { category: Categoria[] }) {
 
       if (data.success) {
         setImageUrl(data.product.imageUrl);
+        setNotification('Producto cargado correctamente');
+        setTimeout(() => setNotification(null), 3000);
+        setFormValues(initialValues);
       } else {
         console.error('Error uploading image:', data.error);
       }
@@ -167,6 +179,11 @@ export default function Form({ category }: { category: Categoria[] }) {
           </Button>
         </div>
       </div>
+      {notification && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white p-4 rounded-md text-lg flex items-center space-x-2 m-px">
+          <span>{notification}</span>
+        </div>
+      )}
     </form>
   );
 }
