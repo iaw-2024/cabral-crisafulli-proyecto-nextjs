@@ -3,7 +3,6 @@ import '@/app/ui/global.css';
 import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import type { Product } from '@/app/lib/definitions'
 import ProductCartTable from '@/app/ui/cart/table';
 import { vaciarCarrito } from '@/redux/features/carrito/carritoSlice';
 

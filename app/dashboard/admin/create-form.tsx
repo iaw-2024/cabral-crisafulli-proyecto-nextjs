@@ -37,7 +37,7 @@ export default function Form({ category }: { category: Categoria[] }) {
     });
 
     try {
-      const response = await fetch('@/app/lib/api/upload', {
+      const response = await fetch('/app/lib/api/upload', {
         method: 'POST',
         body: formData,
       });
@@ -166,13 +166,6 @@ export default function Form({ category }: { category: Categoria[] }) {
           </Button>
         </div>
       </div>
-
-      {imageUrl && (
-        <div className="mt-4">
-          <p>Imagen subida:</p>
-          <img src={imageUrl} alt="Uploaded product" className="mt-2 max-w-xs rounded-md" />
-        </div>
-      )}
     </form>
   );
 }
