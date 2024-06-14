@@ -76,14 +76,18 @@ export default function Form({ category }: { category: Categoria[] }) {
 
         {/* Category */}
         <div className="mb-4">
+<<<<<<< HEAD
           <label htmlFor="category" className="mb-2 block text-lg font-medium">
+=======
+          <label htmlFor="category" className="mb-2 block text-base md:text-lg font-medium">
+>>>>>>> 02b3b209e4e1d37f6dee370ca7250498dd3316f2
             Elegir una categoría
           </label>
           <div className="relative">
             <select
               id="category"
               name="categoryId"
-              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm md:text-base outline-2 placeholder:text-gray-500"
               defaultValue=""
               aria-describedby="category-error"
             >
@@ -96,7 +100,7 @@ export default function Form({ category }: { category: Categoria[] }) {
                 </option>
               ))}
             </select>
-            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
         </div>
 
@@ -114,9 +118,15 @@ export default function Form({ category }: { category: Categoria[] }) {
           />
         </div>
 
+<<<<<<< HEAD
         {/* Foto */}
         <label htmlFor="file" className="mb-2 block text-lg font-medium">
           Insertar la foto
+=======
+        {/* Foto url */}
+        <label htmlFor="name" className="mb-2 block text-lg font-medium">
+          Insertar la url de la foto
+>>>>>>> 02b3b209e4e1d37f6dee370ca7250498dd3316f2
         </label>
         <div className="relative mt-2 rounded-md">
           <input
@@ -133,12 +143,14 @@ export default function Form({ category }: { category: Categoria[] }) {
         {/* Form Actions */}
         <div className="mt-6 flex justify-end gap-4">
           <Link
-            href="/dashboard/invoices"
+            href="/dashboard/admin"
             className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
           >
             Cancelar
           </Link>
-          <Button type="submit">Crear Producto</Button>
+          <Button type="submit" className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600">
+            Crear Producto
+          </Button>
         </div>
       </div>
 

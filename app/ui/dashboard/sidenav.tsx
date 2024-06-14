@@ -1,6 +1,7 @@
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import { getLogo } from '@/app/lib/data';
 import Image from 'next/image';
+import { signOut } from '@/auth';
 
 export default async function SideNav() {
     const logo = await getLogo();
@@ -19,6 +20,12 @@ export default async function SideNav() {
             <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
                 <NavLinks />
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
+                <form
+                    action={async () => {
+                        'use server';
+                        await signOut();
+                    }}
+                ></form>
             </div>
         </div>
     );

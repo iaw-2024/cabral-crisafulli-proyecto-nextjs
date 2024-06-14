@@ -1,7 +1,7 @@
 'use sever'
 
 import { PrismaClient } from '@prisma/client'
-import { Categoria } from './definitions';
+import { Categoria } from '@/app/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 import { ProductForm } from './definitions';
 import { sql } from '@vercel/postgres';
@@ -72,34 +72,26 @@ export async function fetchProductPages(query: string) {
     return totalPages;
 }
 
-export async function fetchProductById(id: string) {
+export async function fetchProductById(id2: number) {
+    console.log(id2);
     noStore();
-    try {
-      const data = await sql<ProductForm>`
-        
-      `;
-  
-      const product = data.rows.map((product) => ({
-        ...product,
-        // Convert amount from cents to dollars
-        price: product.precio / 100,
-      }));
-  
-      console.log(product); // Invoice is an empty array []
-      return product[0];
-    } catch (error) {
-      console.error('Database Error:', error);
-      throw new Error('Failed to fetch invoice.');
-    }
-  }
+    const prisma = new PrismaClient()
+    const product = await prisma.producto.findFirst({
+        where: {
+            id: id2, 
+        }
+    })
+    await prisma.$disconnect()
+    return product;
+}
 
-  export async function fetchUsers() {
+export async function fetchUsers() {
     const prisma = new PrismaClient()
 
     return await prisma.user.findMany()
 
     await prisma.$disconnect()
-  }
+}
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
     const prisma = new PrismaClient()
@@ -125,8 +117,28 @@ export async function removeProduct(id2: number) {
     await prisma.$disconnect()
 }
 
-export async function catchUpProduct(id2: number) {
-    const prisma = new PrismaClient()
-    
+export interface ProductUpdateInput {
+    name?: number;
+    price?: number;
+    categoria?: Categoria;
+    description?: string;
+    fotoURL?: string;
+}
+
+
+export async function catchUpProduct(id2: number, query: string, price: number, description: string, category: Categoria, url: string) {
+    const prisma = new PrismaClient();
+    const productoEditado = await prisma.producto.update({
+        where: {
+           id: id2,
+        },
+        data: {
+            nombre: query,
+            descripcion: description,
+            precio: price,
+            categoria: category,
+            fotoURL: url,
+        }
+    })
     await prisma.$disconnect()
 }
