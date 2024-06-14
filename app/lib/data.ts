@@ -78,7 +78,7 @@ export async function fetchProductById(id2: number) {
     const prisma = new PrismaClient()
     const product = await prisma.producto.findFirst({
         where: {
-            id: id2, 
+            id: id2,
         }
     })
     await prisma.$disconnect()
@@ -105,6 +105,7 @@ export async function insertProduct(query: string, price: number, description: s
         },
     });
     await prisma.$disconnect()
+    return nuevoProducto
 }
 
 export async function removeProduct(id2: number) {
@@ -130,7 +131,7 @@ export async function catchUpProduct(id2: number, query: string, price: number, 
     const prisma = new PrismaClient();
     const productoEditado = await prisma.producto.update({
         where: {
-           id: id2,
+            id: id2,
         },
         data: {
             nombre: query,

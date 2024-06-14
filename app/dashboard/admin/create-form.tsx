@@ -47,6 +47,7 @@ export default function Form({ category }: { category: Categoria[] }) {
       }
 
       const data = await response.json();
+
       if (data.success) {
         setImageUrl(data.product.imageUrl);
       } else {

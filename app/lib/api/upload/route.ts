@@ -18,6 +18,7 @@ interface CloudinaryUploadResult {
 export async function POST(request: NextRequest) {
     try {
         const data = await request.formData();
+
         const image = data.get("file");
 
         if (!image || !(image instanceof Blob)) {
