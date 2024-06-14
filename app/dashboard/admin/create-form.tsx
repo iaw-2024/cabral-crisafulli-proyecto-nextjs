@@ -3,20 +3,44 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { Categoria } from '@/app/lib/definitions';
-import { useFormState } from 'react-dom';
-import { createProduct } from '@/app/lib/actions';
 import {
   CurrencyDollarIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 
 export default function Form({ category }: { category: Categoria[] }) {
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createProduct, initialState);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    if (file) {
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('/api/upload', {  // Asegúrate de que la URL sea correcta
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+          setImageUrl(data.url);
+        } else {
+          console.error('Error uploading image:', data.error);
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    } else {
+      console.error('No se ha seleccionado ningún archivo');
+    }
+  };
 
   return (
-    <form action={dispatch}>
+    <form onSubmit={handleSubmit}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Product Name */}
         <label htmlFor="name" className="mb-2 block text-lg font-medium">
@@ -34,7 +58,7 @@ export default function Form({ category }: { category: Categoria[] }) {
 
         {/* Product Price */}
         <div className="mb-4">
-          <label htmlFor="name" className="mb-2 block text-lg font-medium">
+          <label htmlFor="amount" className="mb-2 block text-lg font-medium">
             Elegir el precio
           </label>
           <div className="relative mt-2 rounded-md">
@@ -52,7 +76,7 @@ export default function Form({ category }: { category: Categoria[] }) {
 
         {/* Category */}
         <div className="mb-4">
-          <label htmlFor="name" className="mb-2 block text-lg font-medium">
+          <label htmlFor="category" className="mb-2 block text-lg font-medium">
             Elegir una categoría
           </label>
           <div className="relative">
@@ -77,31 +101,32 @@ export default function Form({ category }: { category: Categoria[] }) {
         </div>
 
         {/* Description */}
-        <label htmlFor="name" className="mb-2 block text-lg font-medium">
+        <label htmlFor="description" className="mb-2 block text-lg font-medium">
           Insertar una descripción del producto
         </label>
         <div className="relative mt-2 rounded-md">
           <input
-            id="name"
-            name="name"
+            id="description"
+            name="description"
             type="text"
             defaultValue=""
             className="peer block w-full rounded-md border border-gray-200 py-6 pl-14 text-sm outline-2 outline-2 placeholder:text-gray-500"
           />
         </div>
 
-
-        {/* Foto url */}
-        <label htmlFor="name" className="mb-2 block text-lg font-medium">
-          Insertar la url de la foto
+        {/* Foto */}
+        <label htmlFor="file" className="mb-2 block text-lg font-medium">
+          Insertar la foto
         </label>
         <div className="relative mt-2 rounded-md">
           <input
-            id="name"
-            name="name"
-            type="text"
-            defaultValue=""
-            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+            id="file"
+            type="file"
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0] || null;
+              setFile(selectedFile);
+            }}
+            className="block w-full text-sm text-gray-500 file:rounded-md file:border file:border-gray-300 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-200"
           />
         </div>
 
@@ -116,6 +141,13 @@ export default function Form({ category }: { category: Categoria[] }) {
           <Button type="submit">Crear Producto</Button>
         </div>
       </div>
+
+      {imageUrl && (
+        <div className="mt-4">
+          <p>Imagen subida:</p>
+          <img src={imageUrl} alt="Uploaded product" className="mt-2 max-w-xs rounded-md" />
+        </div>
+      )}
     </form>
   );
 }
