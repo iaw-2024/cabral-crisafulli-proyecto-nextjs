@@ -76,11 +76,7 @@ export default function Form({ category }: { category: Categoria[] }) {
 
         {/* Category */}
         <div className="mb-4">
-<<<<<<< HEAD
-          <label htmlFor="category" className="mb-2 block text-lg font-medium">
-=======
           <label htmlFor="category" className="mb-2 block text-base md:text-lg font-medium">
->>>>>>> 02b3b209e4e1d37f6dee370ca7250498dd3316f2
             Elegir una categoría
           </label>
           <div className="relative">
@@ -118,15 +114,9 @@ export default function Form({ category }: { category: Categoria[] }) {
           />
         </div>
 
-<<<<<<< HEAD
         {/* Foto */}
         <label htmlFor="file" className="mb-2 block text-lg font-medium">
           Insertar la foto
-=======
-        {/* Foto url */}
-        <label htmlFor="name" className="mb-2 block text-lg font-medium">
-          Insertar la url de la foto
->>>>>>> 02b3b209e4e1d37f6dee370ca7250498dd3316f2
         </label>
         <div className="relative mt-2 rounded-md">
           <input
