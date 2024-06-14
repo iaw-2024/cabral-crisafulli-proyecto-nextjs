@@ -37,7 +37,7 @@ export default function Form({ category }: { category: Categoria[] }) {
     });
 
     try {
-      const response = await fetch('/app/lib/api/upload', {
+      const response = await fetch('/lib/api/upload', {
         method: 'POST',
         body: formData,
       });
