@@ -112,7 +112,9 @@ export default function Form({ category }: { category: Categoria[] }) {
           >
             Cancelar
           </Link>
-          <Button type="submit">Crear Producto</Button>
+          <Button type="submit" className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600">
+            Crear Producto
+          </Button>
         </div>
       </div>
     </form>
