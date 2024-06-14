@@ -50,10 +50,14 @@ export const carritoSlice = createSlice({
                 }
             }
         },
+
+        formularioPagar: (state) => {
+            
+        }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { agregarProducto, vaciarCarrito, borrarDeCarrito, agregarUno, eliminarUno } = carritoSlice.actions
+export const { agregarProducto, vaciarCarrito, borrarDeCarrito, agregarUno, eliminarUno, formularioPagar } = carritoSlice.actions
 
 export default carritoSlice.reducer
