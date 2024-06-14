@@ -1,6 +1,6 @@
 'use client'
 import '@/app/ui/global.css';
-import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ShoppingCartIcon, XMarkIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import ProductCartTable from '@/app/ui/cart/table';
@@ -30,6 +30,11 @@ export default function Page() {
                     onClick={() => { dispatch(vaciarCarrito()) }}>
                     <CancelledCartIcon />
                     <span className="ml-2">Vaciar carrito</span>
+                </button>
+                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    onClick={() => {/* Lógica para el pago */ }}>
+                    <CreditCardIcon />
+                    <span className="ml-2">Pagar</span>
                 </button>
             </div>
             <ProductCartTable productos={products} />
