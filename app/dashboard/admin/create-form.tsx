@@ -3,11 +3,8 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { Categoria } from '@/app/lib/definitions';
-import {
-  CurrencyDollarIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
 import { useState } from 'react';
+import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Form({ category }: { category: Categoria[] }) {
   const [file, setFile] = useState<File | null>(null);
@@ -25,6 +22,11 @@ export default function Form({ category }: { category: Categoria[] }) {
           method: 'POST',
           body: formData
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         if (data.success) {
           setImageUrl(data.url);
