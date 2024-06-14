@@ -9,6 +9,20 @@ import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 export default function Form({ category }: { category: Categoria[] }) {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [formValues, setFormValues] = useState({
+    name: '',
+    amount: '',
+    categoryId: '',
+    description: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,28 +30,30 @@ export default function Form({ category }: { category: Categoria[] }) {
     const formData = new FormData();
     if (file) {
       formData.append('file', file);
+    }
+    // Append other form values to formData
+    Object.entries(formValues).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
-      try {
-        const response = await fetch('/api/upload', {  // Asegúrate de que la URL sea correcta
-          method: 'POST',
-          body: formData
-        });
+    try {
+      const response = await fetch('/api/upload', { // Asegúrate de que la URL sea correcta
+        method: 'POST',
+        body: formData,
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (data.success) {
-          setImageUrl(data.url);
-        } else {
-          console.error('Error uploading image:', data.error);
-        }
-      } catch (error) {
-        console.error('Error uploading file:', error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } else {
-      console.error('No se ha seleccionado ningún archivo');
+
+      const data = await response.json();
+      if (data.success) {
+        setImageUrl(data.product.imageUrl);
+      } else {
+        console.error('Error uploading image:', data.error);
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
     }
   };
 
@@ -53,7 +69,8 @@ export default function Form({ category }: { category: Categoria[] }) {
             id="name"
             name="name"
             type="text"
-            defaultValue=""
+            value={formValues.name}
+            onChange={handleInputChange}
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
           />
         </div>
@@ -69,6 +86,8 @@ export default function Form({ category }: { category: Categoria[] }) {
               name="amount"
               type="number"
               step="0.01"
+              value={formValues.amount}
+              onChange={handleInputChange}
               placeholder="Ingrese el precio en $"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
             />
@@ -85,8 +104,9 @@ export default function Form({ category }: { category: Categoria[] }) {
             <select
               id="category"
               name="categoryId"
+              value={formValues.categoryId}
+              onChange={handleInputChange}
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm md:text-base outline-2 placeholder:text-gray-500"
-              defaultValue=""
               aria-describedby="category-error"
             >
               <option value="" disabled>
@@ -111,8 +131,9 @@ export default function Form({ category }: { category: Categoria[] }) {
             id="description"
             name="description"
             type="text"
-            defaultValue=""
-            className="peer block w-full rounded-md border border-gray-200 py-6 pl-14 text-sm outline-2 outline-2 placeholder:text-gray-500"
+            value={formValues.description}
+            onChange={handleInputChange}
+            className="peer block w-full rounded-md border border-gray-200 py-6 pl-14 text-sm outline-2 placeholder:text-gray-500"
           />
         </div>
 
