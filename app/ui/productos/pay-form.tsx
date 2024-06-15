@@ -131,7 +131,6 @@ export default function PayForm() {
                     />
                 </div>
 
-                {/* Form Actions */}
                 <div className="mt-6 flex justify-end gap-4">
                     <Link
                         href="/dashboard/carrito"

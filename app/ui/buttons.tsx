@@ -1,6 +1,9 @@
+'use client'
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteProduct } from '@/app/lib/actions';
+import { useState } from 'react';
 
 export function CreateProduct() {
   return (
@@ -24,13 +27,43 @@ export function UpdateProduct({ id }: { id: number }) {
 }
 
 export function DeleteProduct({ id }: { id: number }) {
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const deleteProductWithId = deleteProduct.bind(null, id);
 
+  const handleDelete = () => {
+    deleteProductWithId();
+    setShowConfirmation(false); // Ocultar el cartel de confirmación después de eliminar
+    // Aquí puedes redirigir a una página diferente o actualizar el estado de la lista de productos
+  };
+
   return (
-    <form action={deleteProductWithId}>
-      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center w-full sm:w-auto">
-        <TrashIcon className="h-5 w-5 mr-2" /> Eliminar
-      </button>
-    </form>
+    <div>
+      {!showConfirmation ? (
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center w-full sm:w-auto"
+          onClick={() => setShowConfirmation(true)}
+        >
+          <TrashIcon className="h-5 w-5 mr-2" /> Eliminar
+        </button>
+      ) : (
+        <div className="bg-white p-4 rounded border border-gray-300 shadow-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <p className="mb-4">¿Estás seguro que deseas eliminar este producto?</p>
+          <div className="flex justify-center">
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-4"
+              onClick={handleDelete}
+            >
+              Sí, eliminar
+            </button>
+            <button
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+              onClick={() => setShowConfirmation(false)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
