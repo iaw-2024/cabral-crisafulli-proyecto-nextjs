@@ -32,8 +32,7 @@ export function DeleteProduct({ id }: { id: number }) {
 
   const handleDelete = () => {
     deleteProductWithId();
-    setShowConfirmation(false); // Ocultar el cartel de confirmación después de eliminar
-    // Aquí puedes redirigir a una página diferente o actualizar el estado de la lista de productos
+    setShowConfirmation(false);
   };
 
   return (

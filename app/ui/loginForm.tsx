@@ -44,6 +44,12 @@ const LoginForm: React.FC = () => {
     const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
     const handleLogin = () => {
+        if (!email || !password) {
+            setError('Por favor, complete todos los campos.');
+            setShowErrorModal(true);
+            return;
+        }
+
         if (email === 'admin@admin.com' && password === 'admin') {
             alert('Iniciar sesión correctamente');
             router.push('/dashboard/admin');

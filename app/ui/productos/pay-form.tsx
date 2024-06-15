@@ -116,7 +116,6 @@ export default function PayForm() {
                     />
                 </div>
 
-
                 <label htmlFor="name" className="mb-2 block text-lg font-medium">
                     Tarjeta de crédito
                 </label>
