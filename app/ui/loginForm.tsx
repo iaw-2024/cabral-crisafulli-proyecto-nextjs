@@ -50,6 +50,12 @@ const LoginForm: React.FC = () => {
             return;
         }
 
+        if (!email.includes('@')) {
+            setError('Incluya el signo @ en su correo electrónico');
+            setShowErrorModal(true);
+            return;
+        }
+
         if (email === 'admin@admin.com' && password === 'admin') {
             alert('Iniciar sesión correctamente');
             router.push('/dashboard/admin');
