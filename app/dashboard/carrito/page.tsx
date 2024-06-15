@@ -32,7 +32,7 @@ export default function Page() {
                     <span className="ml-2">Vaciar carrito</span>
                 </button>
                 <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                    onClick={() => {/* Lógica para el pago */ }}>
+                    onClick={() => {/* Logica para este boton */ }}>
                     <CreditCardIcon />
                     <span className="ml-2">Pagar</span>
                 </button>
