@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { Categoria } from '@/app/lib/definitions';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Form({ category }: { category: Categoria[] }) {
@@ -24,6 +24,13 @@ export default function Form({ category }: { category: Categoria[] }) {
   };
 
   const [notification, setNotification] = useState<string | null>(null);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    // Check if all required fields are filled
+    const { name, amount, categoryId, description } = formValues;
+    setIsFormValid(!!(name && amount && categoryId && description));
+  }, [formValues]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -174,7 +181,12 @@ export default function Form({ category }: { category: Categoria[] }) {
           >
             Cancelar
           </Link>
-          <Button type="submit" className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600">
+          <Button
+            type="submit"
+            className={`flex h-10 items-center rounded-lg px-4 text-sm font-medium text-white transition-colors ${isFormValid ? 'bg-violet-500 hover:bg-violet-600' : 'bg-gray-500 cursor-not-allowed'
+              }`}
+            disabled={!isFormValid}
+          >
             Crear Producto
           </Button>
         </div>
