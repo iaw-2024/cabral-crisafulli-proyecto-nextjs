@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import ProductCartTable from '@/app/ui/cart/table';
 import { vaciarCarrito } from '@/redux/features/carrito/carritoSlice';
+import Link from 'next/link';
 
 
 const CancelledCartIcon = () => {
@@ -31,11 +32,11 @@ export default function Page() {
                     <CancelledCartIcon />
                     <span className="ml-2">Vaciar carrito</span>
                 </button>
-                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                    onClick={() => {/* Logica para este boton */ }}>
-                    <CreditCardIcon />
-                    <span className="ml-2">Pagar</span>
-                </button>
+                <Link
+                    href="/dashboard/pagar"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                    Pagar
+                </Link>
             </div>
             <ProductCartTable productos={products} />
         </>
