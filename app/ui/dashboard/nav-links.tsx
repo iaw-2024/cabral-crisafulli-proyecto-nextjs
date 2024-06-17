@@ -1,9 +1,10 @@
 'use client';
 
 import {
-  UserGroupIcon,
+  ShoppingCartIcon,
   HomeIcon,
-  DocumentDuplicateIcon,
+  ShoppingBagIcon,
+  ArrowRightOnRectangleIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -20,13 +21,18 @@ const links = [
   {
     name: 'Productos',
     href: '/dashboard/productos',
-    //icon: 
+    icon: ShoppingBagIcon
   },
   {
     name: 'Carrito',
     href: '/dashboard/carrito',
-    //icon: UserGroupIcon 
+    icon: ShoppingCartIcon
   },
+{
+  name: 'Iniciar sesión', 
+  href: '/dashboard/login',
+  icon: ArrowRightOnRectangleIcon
+}
 ];
 
 export default function NavLinks() {
@@ -45,7 +51,7 @@ export default function NavLinks() {
                 'bg-purple-100 text-purple-600': pathname === link.href,
               },
             )}          >
-
+            <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );
