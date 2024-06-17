@@ -2,7 +2,7 @@ import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
 import PayForm from '@/app/ui/productos/pay-form';
 
 export default async function Page() {
-
+  const formData = new FormData();
     return (
       <main>
         <Breadcrumbs
@@ -15,7 +15,7 @@ export default async function Page() {
             },
           ]}
         />
-         <PayForm />
+         <PayForm formData={formData}/>
       </main>
     );
   }
