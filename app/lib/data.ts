@@ -3,9 +3,6 @@
 import { PrismaClient } from '@prisma/client'
 import { Categoria, User } from '@/app/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
-import { ProductForm } from './definitions';
-import { sql } from '@vercel/postgres';
-
 const ITEMS_PER_PAGE = 6;
 
 export async function getPhotoEmprendedor() {
