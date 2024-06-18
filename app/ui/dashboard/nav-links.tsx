@@ -35,11 +35,6 @@ const links = [
     icon: ArrowRightOnRectangleIcon
   },
   {
-    name: 'Pedidos',
-    href: '/dashboard/pedidos',
-    icon: ShoppingBagIcon
-  },
-  {
     name: 'Cerrar sesión',
     href: '/dashboard/logout',
     icon: ArrowRightOnRectangleIcon
@@ -57,9 +52,6 @@ export default function NavLinks() {
           return null; // No renderizar el enlace de "Iniciar sesión" si el usuario ya está logueado
         }
         if (link.name === 'Cerrar sesión' && !logueado) {
-          return null; // No renderizar el enlace de "Iniciar sesión" si el usuario ya está logueado
-        }
-        if (link.name === 'Pedidos' && !logueado) {
           return null; // No renderizar el enlace de "Iniciar sesión" si el usuario ya está logueado
         }
         if (link.name === 'Productos' && logueado) {
