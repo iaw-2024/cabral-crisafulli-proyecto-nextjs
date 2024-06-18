@@ -1,7 +1,7 @@
 'use sever'
 
 import { PrismaClient } from '@prisma/client'
-import { Categoria } from '@/app/lib/definitions';
+import { Categoria, User } from '@/app/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 import { ProductForm } from './definitions';
 import { sql } from '@vercel/postgres';
@@ -85,12 +85,25 @@ export async function fetchProductById(id2: number) {
     return product;
 }
 
-export async function fetchUsers() {
+export async function fetchUsers(email: string): Promise<User | null> {
     const prisma = new PrismaClient()
-
-    return await prisma.user.findMany()
-
+    const user = await prisma.user.findFirst({
+        where: {
+            mail: email,
+        },
+    })
     await prisma.$disconnect()
+    if (user == null) {
+        return null
+    } else {
+        return {
+            id: user.id.toString(),
+            email: user.mail,
+            password: user.contrasena,
+            rol: user.rol,
+        };
+    }
+
 }
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {

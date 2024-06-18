@@ -2,11 +2,12 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ExclamationCircleIcon, } from '@heroicons/react/24/outline';
-import { useFormState, } from 'react-dom';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { authenticate } from '@/app/lib/actions';
 import { login } from '@/redux/features/carrito/carritoSlice';
 import { useAppDispatch } from '@/redux/hooks';
+import { fetchUsers } from '../lib/data';
+import { User } from '../lib/definitions';
 
 interface ErrorModalProps {
     message: string;
@@ -36,10 +37,10 @@ const LoginForm: React.FC = () => {
     const [error, setError] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const router = useRouter();
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-    const dispatchLogin = useAppDispatch()
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const dispatch = useAppDispatch();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!email || !password) {
             setError('Por favor, complete todos los campos.');
             setShowErrorModal(true);
@@ -52,12 +53,20 @@ const LoginForm: React.FC = () => {
             return;
         }
 
-        if (email === 'admin@admin.com' && password === 'admin') {
-            dispatchLogin(login())
-            alert('Iniciar sesión correctamente');
-            router.push('/dashboard/admin');
-        } else {
-            setError('Correo electrónico o contraseña incorrectos');
+        try {
+            const user: User | null = await fetchUsers(email);
+            if (!user) {
+                setError('Correo electrónico incorrecto');
+                setShowErrorModal(true);
+            } else if (user.password !== password) {
+                setError('Contraseña incorrecta');
+                setShowErrorModal(true);
+            } else {
+                dispatch(login());
+                router.push('/dashboard');
+            }
+        } catch (error) {
+            setError('Ha ocurrido un error. Por favor, inténtelo de nuevo.');
             setShowErrorModal(true);
         }
     };
@@ -68,7 +77,7 @@ const LoginForm: React.FC = () => {
 
     return (
         <>
-            <form action={dispatch} className="space-y-3">
+            <form className="space-y-3">
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
                         <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>

@@ -15,6 +15,7 @@ export type User = {
   id: string;
   email: string;
   password: string;
+  rol: string
 };
 
 export type Action =
@@ -24,15 +25,15 @@ export type Action =
   | { type: 'ADD_ONE'; payload: number }
   | { type: 'REMOVE_ONE'; payload: number };
 
-  export type ProductForm = {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    precio: number;
-    categoria: string;
-    pedidoId: number | null;
-    fotoURL: string;
-  };
+export type ProductForm = {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: string;
+  pedidoId: number | null;
+  fotoURL: string;
+};
 
 
 export type Estado = {
