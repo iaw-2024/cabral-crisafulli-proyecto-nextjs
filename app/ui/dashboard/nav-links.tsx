@@ -66,7 +66,7 @@ export default function NavLinks() {
           return (
             <Link
               key={link.name}
-              href={link.href}
+              href='/dashboard/admin'
               className={clsx(
                 'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
                 {
