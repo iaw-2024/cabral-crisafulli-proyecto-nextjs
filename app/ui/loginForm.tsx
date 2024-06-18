@@ -2,16 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { lusitana } from '@/app/ui/fonts';
-import {
-    AtSymbolIcon,
-    KeyIcon,
-    ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import { Button } from '@/app/ui/button';
-import { useFormState, useFormStatus } from 'react-dom';
+import { ExclamationCircleIcon, } from '@heroicons/react/24/outline';
+import { useFormState, } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
+import { login } from '@/redux/features/carrito/carritoSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 interface ErrorModalProps {
     message: string;
@@ -42,6 +37,7 @@ const LoginForm: React.FC = () => {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const router = useRouter();
     const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+    const dispatchLogin = useAppDispatch()
 
     const handleLogin = () => {
         if (!email || !password) {
@@ -57,6 +53,7 @@ const LoginForm: React.FC = () => {
         }
 
         if (email === 'admin@admin.com' && password === 'admin') {
+            dispatchLogin(login())
             alert('Iniciar sesión correctamente');
             router.push('/dashboard/admin');
         } else {

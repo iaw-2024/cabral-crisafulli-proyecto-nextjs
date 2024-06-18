@@ -6,7 +6,6 @@ import { Suspense } from 'react';
 import ProductTable from '@/app/ui/productos/table';
 import NotFound from '@/app/dashboard/productos/[id]/not-found';
 import { getProduct } from '@/app/lib/data';
-import StoreProvider from '@/app/storeProvider';
 
 export default async function Page({
   searchParams,
