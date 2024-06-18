@@ -37,12 +37,12 @@ const links = [
   {
     name: 'Pedidos',
     href: '/dashboard/pedidos',
-    icon: ''
+    icon: ShoppingBagIcon
   },
   {
     name: 'Cerrar sesión',
-    href: '',
-    icon: ''
+    href: '/dashboard/logout',
+    icon: ArrowRightOnRectangleIcon
   }
 ];
 
