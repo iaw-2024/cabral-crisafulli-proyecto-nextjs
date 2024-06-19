@@ -1,7 +1,8 @@
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
+import MercadoPago from '@/app/ui/mercadopago';
 import PayForm from '@/app/ui/productos/pay-form';
 
-export default async function Page() {
+export default function Page() {
   const formData = new FormData();
   return (
     <main>
@@ -9,13 +10,13 @@ export default async function Page() {
         breadcrumbs={[
           { label: 'Carrito', href: '/dashboard/carrito' },
           {
-            label: 'Pagar producto',
+            label: 'Pagar Producto',
             href: '/dashboard/pagar',
             active: true,
           },
         ]}
       />
-      <PayForm formData={formData} />
+       <PayForm formData={formData}/>
     </main>
   );
 }

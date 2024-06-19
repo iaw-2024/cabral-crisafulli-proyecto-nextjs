@@ -38,7 +38,7 @@ const links = [
     name: 'Cerrar sesión',
     href: '/dashboard/logout',
     icon: ArrowRightOnRectangleIcon
-  }
+  }, 
 ];
 
 export default function NavLinks() {
