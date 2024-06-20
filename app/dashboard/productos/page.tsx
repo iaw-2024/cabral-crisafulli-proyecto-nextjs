@@ -4,7 +4,6 @@ import Search from '@/app/ui/search';
 import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
 import ProductTable from '@/app/ui/productos/table';
-import NotFound from '@/app/dashboard/productos/[id]/not-found';
 import { getProduct } from '@/app/lib/data';
 
 export default async function Page({
@@ -22,17 +21,19 @@ export default async function Page({
 
   return (
     <div className="w-full">
+      <div className="flex w-full items-center justify-between">
+        <p className='productos'>Productos</p>
+      </div>
+      <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
+        {/* Barra de búsqueda reubicada */}
+        <Search placeholder="Buscar Producto..." />
+      </div>
       {products.length === 0 ? (
-        <NotFound />
+        <div className="flex w-full items-center justify-center mt-4">
+          <p className="text-purple-600 font-bold text-xl">No se encontraron resultados para lo que busca</p>
+        </div>
       ) : (
         <>
-          <div className="flex w-full items-center justify-between">
-            <p className='productos'>Productos</p>
-          </div>
-          <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
-            {/* Barra de búsqueda reubicada */}
-            <Search placeholder="Buscar Producto..." />
-          </div>
           <Suspense key={query + currentPage}>
             <ProductTable query={query} currentPage={currentPage} />
           </Suspense>
