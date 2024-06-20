@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
-import MercadoPago from '@/app/ui/mercadoago';
+import MercadoPago from '@/app/ui/mercadopago';
 import PayForm from '@/app/ui/productos/pay-form';
 
 export default function Page() {
@@ -16,7 +16,7 @@ export default function Page() {
           },
         ]}
       />
-       <PayForm formData={formData}/>
+      <PayForm formData={formData} />
     </main>
   );
 }
