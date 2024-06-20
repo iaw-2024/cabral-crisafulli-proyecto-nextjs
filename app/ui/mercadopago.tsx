@@ -3,10 +3,10 @@ import { redirect } from 'next/navigation';
 
 const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN! });
 
-export default async function pagarProducto({formData} : {formData: FormData}) {
+export const PagarProducto = async ({ formData }: { formData: FormData }) => {
     "use server";
 
-    const preference = await new Preference(client).create({
+    const preference = new Preference(client).create({
         body: {
             items: [
                 {
@@ -18,5 +18,5 @@ export default async function pagarProducto({formData} : {formData: FormData}) {
             ],
         }
     });
-    redirect(preference.sandbox_init_point!);
+    redirect((await preference).sandbox_init_point!);
 }

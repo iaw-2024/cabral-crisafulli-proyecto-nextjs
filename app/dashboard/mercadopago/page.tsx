@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
-import pagarProducto from '@/app/ui/mercadopago';
+import { PagarProducto } from '@/app/ui/mercadopago';
 
 export default async function Page() {
     const formData = new FormData();
@@ -15,7 +15,7 @@ export default async function Page() {
                     },
                 ]}
             />
-            <pagarProducto formData={formData} />
+            <PagarProducto formData={formData} />
         </main> 
     );
 }
