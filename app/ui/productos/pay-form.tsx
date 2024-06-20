@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { pay } from '@/app/lib/actions';
 import { useAppSelector } from '@/redux/hooks';
+import Payment from '@/app/api/pagarProducto';
 
 const PayForm = () => {
     const total = useAppSelector(state => state.total)
@@ -37,7 +38,6 @@ const PayForm = () => {
         });
 
         pay(formData)
-
     }
     return (
         <form>

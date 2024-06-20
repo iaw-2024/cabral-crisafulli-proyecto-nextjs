@@ -130,7 +130,7 @@ export async function pay(formData: FormData) {
             items: [
                 {
                     id: "Pago",
-                    title: "PEdido Katty Manualidades",
+                    title: "Pedido Katty Manualidades",
                     quantity: 1,
                     unit_price: Number(formData.get("total")),
                 },
