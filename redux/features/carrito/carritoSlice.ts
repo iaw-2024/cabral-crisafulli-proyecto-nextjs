@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import type { Product } from '@/app/lib/definitions'
 
-type SliceState = { productos: Product[], log: boolean }
+type SliceState = { productos: Product[], log: boolean, total: number }
 
-const initialState: SliceState = { productos: [], log: false }
+const initialState: SliceState = { productos: [], log: false, total: 0 }
 
 export const carritoSlice = createSlice({
     name: 'carrito',
@@ -12,7 +12,7 @@ export const carritoSlice = createSlice({
         agregarProducto: (state, action: PayloadAction<Product>) => {
             // Buscar si el producto ya existe en el estado
             const existingProduct = state.productos.find(product => product.id === action.payload.id);
-
+            state.total = state.total + action.payload.precio
             if (existingProduct) {
                 // Si el producto existe, incrementar la cantidad
                 existingProduct.quantity += 1;
