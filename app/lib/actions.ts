@@ -7,7 +7,6 @@ import { insertProduct, removeProduct, catchUpProduct } from '@/app/lib/data';
 import { Estado } from './definitions';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
-import { MercadoPagoConfig, Preference } from "mercadopago";
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({

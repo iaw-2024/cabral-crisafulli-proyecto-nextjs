@@ -6,17 +6,13 @@ import { useAppSelector } from '@/redux/hooks';
 import { Wallet } from '@mercadopago/sdk-react';
 
 const PayForm = () => {
-    const total = useAppSelector(state => state.total);
     const productos = useAppSelector(state => state.productos);
-
     const [formValues, setFormValues] = useState({
         name: '',
         lastName: '',
         address: '',
         postalCode: '',
-        total: total
     });
-
     const [isFormValid, setIsFormValid] = useState(false);
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
     const formData = new FormData();
@@ -36,7 +32,6 @@ const PayForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         Object.entries(formValues).forEach(([key, value]) => {
             formData.append(key, value as string);
         });
@@ -44,6 +39,9 @@ const PayForm = () => {
         try {
             const response = await fetch('/lib/api/mercadopago', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({ items: productos })
             });
 
@@ -56,7 +54,7 @@ const PayForm = () => {
         } catch (error) {
             console.error('Error creating preference:', error);
         }
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
