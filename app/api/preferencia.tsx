@@ -1,13 +1,15 @@
 import { MercadoPagoConfig, Preference } from "mercadopago";
+import { NextRequest } from "next/server";
 
 const URL = "localhost:3000";
-export async function POST(req: Request) {
-  try {
-    const client = new MercadoPagoConfig({
-      accessToken: process.env.MP_ACCESS_TOKEN!,
-      options: { timeout: 5000 },
-    });
 
+const client = new MercadoPagoConfig({
+  accessToken: process.env.MP_ACCESS_TOKEN!,
+  options: { timeout: 5000 },
+});
+
+export async function POST(req: NextRequest) {
+  try {
     const preference = new Preference(client);
 
     const data = await req.json();

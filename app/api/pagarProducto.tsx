@@ -17,7 +17,7 @@ export default function Payment({ searchParams }: { searchParams?: { query?: str
         try {
             const products = await getProduct(query, currentPage);
 
-            const response = await fetch('/api/preferencia', {  // asegúrate que esta ruta es correcta
+            const response = await fetch('/api/preferencia', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

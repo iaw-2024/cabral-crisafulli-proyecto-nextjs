@@ -1,45 +1,49 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { pay } from '@/app/lib/actions';
+import { useAppSelector } from '@/redux/hooks';
 
-interface PayFormProps {
-    formData: FormData;
-}
-
-const PayForm: React.FC<PayFormProps> = ({ formData }) => {
+const PayForm = () => {
+    const total = useAppSelector(state => state.total)
     const [formValues, setFormValues] = useState({
         name: '',
         lastName: '',
         address: '',
         postalCode: '',
         creditCard: '',
+        total
     });
+    const [isFormValid, setIsFormValid] = useState(false);
+    const formData = new FormData();
 
-    const [preferenceId, setPreferenceId] = useState<string | null>(null);
+    useEffect(() => {
+        const { name, lastName, address, postalCode, creditCard } = formValues;
+        setIsFormValid(!!(name && lastName && address && postalCode && creditCard));
+    }, [formValues]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormValues((prevValues) => ({
-            ...prevValues,
+        setFormValues({
+            ...formValues,
             [name]: value,
-        }));
+        });
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // Aquí puedes procesar los datos del formulario
-        console.log('Formulario enviado:', formValues);
-        
-    };
+    const handleSubmit = (e: React.FormEvent) => {
+        Object.entries(formValues).forEach(([key, value]) => {
+            formData.append(key, value as string);
+        });
 
+        pay(formData)
+
+    }
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <div className="rounded-md bg-gray-50 p-4 md:p-6">
-                <label htmlFor="name" className="mb-2 block text-lg font-medium">
-                    Nombre
-                </label>
                 <div className="relative mt-2 rounded-md">
+                    <label htmlFor="name" className="mb-2 block text-lg font-medium">Nombre</label>
                     <input
                         id="name"
                         name="name"
@@ -50,10 +54,8 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                     />
                 </div>
 
-                <label htmlFor="lastName" className="mb-2 block text-lg font-medium">
-                    Apellido
-                </label>
                 <div className="relative mt-2 rounded-md">
+                    <label htmlFor="lastName" className="mb-2 block text-lg font-medium">Apellido</label>
                     <input
                         id="lastName"
                         name="lastName"
@@ -64,10 +66,8 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                     />
                 </div>
 
-                <label htmlFor="address" className="mb-2 block text-lg font-medium">
-                    Dirección
-                </label>
                 <div className="relative mt-2 rounded-md">
+                    <label htmlFor="address" className="mb-2 block text-lg font-medium">Dirección</label>
                     <input
                         id="address"
                         name="address"
@@ -78,10 +78,8 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                     />
                 </div>
 
-                <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">
-                    Código Postal
-                </label>
                 <div className="relative mt-2 rounded-md">
+                    <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">Código Postal</label>
                     <input
                         id="postalCode"
                         name="postalCode"
@@ -92,10 +90,8 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                     />
                 </div>
 
-                <label htmlFor="creditCard" className="mb-2 block text-lg font-medium">
-                    Tarjeta de Crédito
-                </label>
                 <div className="relative mt-2 rounded-md">
+                    <label htmlFor="creditCard" className="mb-2 block text-lg font-medium">Tarjeta de Crédito</label>
                     <input
                         id="creditCard"
                         name="creditCard"
@@ -115,8 +111,9 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                     </Link>
 
                     <button
-                        type="submit"
+                        onClick={handleSubmit}
                         className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600"
+                        disabled={!isFormValid}
                     >
                         Pagar con MercadoPago
                     </button>
