@@ -118,25 +118,3 @@ export async function authenticate(
         throw error;
     }
 }
-
-const client = new MercadoPagoConfig({
-    accessToken: process.env.MP_ACCESS_TOKEN!,
-    options: { timeout: 5000 },
-});
-
-export async function pay(formData: FormData) {
-    const preference = await new Preference(client).create({
-        body: {
-            items: [
-                {
-                    id: "Pago",
-                    title: "PEdido Katty Manualidades",
-                    quantity: 1,
-                    unit_price: Number(formData.get("total")),
-                },
-            ],
-        },
-    });
-
-    redirect(preference.sandbox_init_point!);
-}

@@ -2,25 +2,28 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { pay } from '@/app/lib/actions';
 import { useAppSelector } from '@/redux/hooks';
+import { Wallet } from '@mercadopago/sdk-react';
 
 const PayForm = () => {
-    const total = useAppSelector(state => state.total)
+    const total = useAppSelector(state => state.total);
+    const productos = useAppSelector(state => state.productos);
+
     const [formValues, setFormValues] = useState({
         name: '',
         lastName: '',
         address: '',
         postalCode: '',
-        creditCard: '',
-        total
+        total: total
     });
+
     const [isFormValid, setIsFormValid] = useState(false);
+    const [preferenceId, setPreferenceId] = useState<string | null>(null);
     const formData = new FormData();
 
     useEffect(() => {
-        const { name, lastName, address, postalCode, creditCard } = formValues;
-        setIsFormValid(!!(name && lastName && address && postalCode && creditCard));
+        const { name, lastName, address, postalCode } = formValues;
+        setIsFormValid(!!(name && lastName && address && postalCode));
     }, [formValues]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,16 +34,32 @@ const PayForm = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
         Object.entries(formValues).forEach(([key, value]) => {
             formData.append(key, value as string);
         });
 
-        pay(formData)
+        try {
+            const response = await fetch('/lib/api/mercadopago', {
+                method: 'POST',
+                body: JSON.stringify({ items: productos })
+            });
 
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+
+            const data = await response.json();
+            setPreferenceId(data.id);
+        } catch (error) {
+            console.error('Error creating preference:', error);
+        }
     }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="rounded-md bg-gray-50 p-4 md:p-6">
                 <div className="relative mt-2 rounded-md">
                     <label htmlFor="name" className="mb-2 block text-lg font-medium">Nombre</label>
@@ -90,18 +109,6 @@ const PayForm = () => {
                     />
                 </div>
 
-                <div className="relative mt-2 rounded-md">
-                    <label htmlFor="creditCard" className="mb-2 block text-lg font-medium">Tarjeta de Crédito</label>
-                    <input
-                        id="creditCard"
-                        name="creditCard"
-                        type="text"
-                        value={formValues.creditCard}
-                        onChange={handleChange}
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                    />
-                </div>
-
                 <div className="mt-6 flex justify-end gap-4">
                     <Link
                         href="/dashboard/carrito"
@@ -111,12 +118,20 @@ const PayForm = () => {
                     </Link>
 
                     <button
-                        onClick={handleSubmit}
+                        type="submit"
                         className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600"
                         disabled={!isFormValid}
                     >
                         Pagar con MercadoPago
                     </button>
+
+                    {preferenceId && (
+                        <div id="wallet_container">
+                            <div className="mt-6">
+                                <Wallet initialization={{ preferenceId }} />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </form>
