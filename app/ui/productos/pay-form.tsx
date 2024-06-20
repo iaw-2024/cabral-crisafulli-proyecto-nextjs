@@ -16,6 +16,8 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
         creditCard: '',
     });
 
+    const [preferenceId, setPreferenceId] = useState<string | null>(null);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormValues((prevValues) => ({
@@ -24,11 +26,11 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Aquí puedes procesar los datos del formulario
         console.log('Formulario enviado:', formValues);
-        // Aquí podrías hacer un fetch a tu endpoint de pago
+        
     };
 
     return (
@@ -63,7 +65,7 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                 </div>
 
                 <label htmlFor="address" className="mb-2 block text-lg font-medium">
-                    Direccion
+                    Dirección
                 </label>
                 <div className="relative mt-2 rounded-md">
                     <input
@@ -77,7 +79,7 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                 </div>
 
                 <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">
-                    Codigo Postal
+                    Código Postal
                 </label>
                 <div className="relative mt-2 rounded-md">
                     <input
@@ -116,7 +118,7 @@ const PayForm: React.FC<PayFormProps> = ({ formData }) => {
                         type="submit"
                         className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600"
                     >
-                        Pagar
+                        Pagar con MercadoPago
                     </button>
                 </div>
             </div>

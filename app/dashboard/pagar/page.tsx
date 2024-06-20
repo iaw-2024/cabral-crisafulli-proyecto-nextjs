@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
-import MercadoPago from '@/app/ui/mercadopago';
+import MercadoPago from '@/app/ui/mercadoago';
 import PayForm from '@/app/ui/productos/pay-form';
 
 export default function Page() {
