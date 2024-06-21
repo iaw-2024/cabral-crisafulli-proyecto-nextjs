@@ -153,3 +153,12 @@ export async function catchUpProduct(id2: number, query: string, price: number, 
     })
     await prisma.$disconnect()
 }
+
+export default async function getSixProducts() {
+    const prisma = new PrismaClient()
+    const allProducts = await prisma.producto.findMany({
+        take:6
+    })
+    await prisma.$disconnect()
+    return allProducts
+}

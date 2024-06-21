@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ExclamationCircleIcon, } from '@heroicons/react/24/outline';
-import { useFormState, } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { login } from '@/redux/features/carrito/carritoSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import  useLocation from 'next/navigation';
 
 interface ErrorModalProps {
     message: string;
@@ -36,8 +35,7 @@ const LoginForm: React.FC = () => {
     const [error, setError] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const router = useRouter();
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-    const dispatchLogin = useAppDispatch()
+    const dispatchLogin = useAppDispatch();
 
     const handleLogin = () => {
         if (!email || !password) {
@@ -53,7 +51,7 @@ const LoginForm: React.FC = () => {
         }
 
         if (email === 'admin@admin.com' && password === 'admin') {
-            dispatchLogin(login())
+            dispatchLogin(login());
             alert('Iniciar sesión correctamente');
             router.push('/dashboard/admin');
         } else {
@@ -66,9 +64,19 @@ const LoginForm: React.FC = () => {
         setShowErrorModal(false);
     };
 
+    const logueado = useAppSelector(state => state.log);
+   
+    //NO SE POR QUE NO ANDA
+    useEffect(() => {
+        // Si está en la página /dashboard/admin y no está autenticado, redirige a /dashboard/login
+        if (window.location.href === '/dashboard/admin' && !logueado) {
+            router.push('/dashboard/login');
+        }
+    }, []);
+
     return (
         <>
-            <form action={dispatch} className="space-y-3">
+            <form className="space-y-3">
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
                         <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
@@ -97,15 +105,11 @@ const LoginForm: React.FC = () => {
                         >
                             Iniciar sesión
                         </button>
-                        <div
-                            className="flex h-8 items-end space-x-1"
-                            aria-live="polite"
-                            aria-atomic="true"
-                        >
-                            {errorMessage && (
+                        <div className="flex h-8 items-end space-x-1" aria-live="polite" aria-atomic="true">
+                            {error && (
                                 <>
                                     <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                                    <p className="text-sm text-red-500">{errorMessage}</p>
+                                    <p className="text-sm text-red-500">{error}</p>
                                 </>
                             )}
                         </div>
