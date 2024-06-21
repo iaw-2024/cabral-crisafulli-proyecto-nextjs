@@ -4,9 +4,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import { Wallet } from '@mercadopago/sdk-react';
-import { initMercadoPago } from '@mercadopago/sdk-react';
-
-initMercadoPago(process.env.MP_PUBLIC_KEY!);
 
 const PayForm = () => {
     const productos = useAppSelector(state => state.productos);

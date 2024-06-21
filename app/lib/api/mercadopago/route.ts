@@ -1,8 +1,13 @@
+"use server"
+
 import { NextRequest } from "next/server";
 import { Product } from "@/app/lib/definitions";
 import { createPreference } from "../../actions";
+import { initMercadoPago } from "@mercadopago/sdk-react";
 
 export async function POST(req: NextRequest) {
+  initMercadoPago(process.env.MP_PUBLIC_KEY!);
+
   try {
     const data = await req.json();
     const productos: Product[] = data.items;
