@@ -24,9 +24,14 @@ export const carritoSlice = createSlice({
 
         vaciarCarrito: (state) => {
             state.productos = []
+            state.total = 0
         },
 
         borrarDeCarrito: (state, action: PayloadAction<Product>) => {
+            const existingProduct = state.productos.find(product => product.id === action.payload.id);
+            if(existingProduct){
+                state.total -= (existingProduct.precio * existingProduct.quantity)
+            }
             state.productos = state.productos.filter(product => product.id !== action.payload.id);
         },
 
@@ -37,6 +42,7 @@ export const carritoSlice = createSlice({
             if (existingProduct) {
                 // Si el producto existe, incrementar la cantidad
                 existingProduct.quantity += 1;
+                state.total += existingProduct.precio
             }
         },
 
@@ -47,6 +53,7 @@ export const carritoSlice = createSlice({
             if (existingProduct && existingProduct.quantity > 1) {
                 // Si el producto existe y la cantidad es mayor a 1, decrementar la cantidad
                 existingProduct.quantity -= 1;
+                state.total -= existingProduct.precio
             }
         },
 
