@@ -19,6 +19,7 @@ export async function createPreference(productos: Product[]) {
         quantity: item.quantity,
         unit_price: Number(item.precio),
       })),
+      purpose: 'wallet_purchase',
       back_urls: {
         success: `${URL}/success`,
         failure: `${URL}/failure`,

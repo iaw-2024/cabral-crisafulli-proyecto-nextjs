@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import { Wallet } from '@mercadopago/sdk-react';
+import { initMercadoPago } from '@mercadopago/sdk-react';
+
+initMercadoPago("APP_USR-95f33477-e29d-4e8b-b757-d26bfa76cd6c");
 
 const PayForm = () => {
     const productos = useAppSelector(state => state.productos);
@@ -39,9 +42,6 @@ const PayForm = () => {
         try {
             const response = await fetch('/lib/api/mercadopago', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify({ items: productos })
             });
 
@@ -122,11 +122,11 @@ const PayForm = () => {
                     >
                         Pagar con MercadoPago
                     </button>
-
                     {preferenceId && (
                         <div id="wallet_container">
                             <div className="mt-6">
-                                <Wallet initialization={{ preferenceId }} />
+                                <Wallet initialization={{ preferenceId }}
+                                    customization={{ texts: { valueProp: 'smart_option' } }} />
                             </div>
                         </div>
                     )}
