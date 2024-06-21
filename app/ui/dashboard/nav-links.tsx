@@ -5,10 +5,12 @@ import {
   HomeIcon,
   ShoppingBagIcon,
   ArrowRightOnRectangleIcon,
-  ArrowLeftOnRectangleIcon
+  ArrowLeftOnRectangleIcon,
+  PowerIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { logout, vaciarCarrito } from '@/redux/features/carrito/carritoSlice';
@@ -31,32 +33,26 @@ const links = [
     href: '/dashboard/carrito',
     icon: ShoppingCartIcon
   },
-  {
-    name: 'Iniciar sesión',
-    href: '/dashboard/login',
-    icon: ArrowLeftOnRectangleIcon
-  },
-  {
-    name: 'Cerrar sesión',
-    href: '/',
-    icon: ArrowRightOnRectangleIcon
-  },
 ];
 
 export default function NavLinks() {
   const pathname = usePathname();
-  const logueado = useAppSelector(state => state.log)
-  const dispatch = useAppDispatch()
+  const logueado = useAppSelector(state => state.log);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(vaciarCarrito());
+    router.push('/dashboard/productos'); // Redirigir a /dashboard/productos después de cerrar sesión
+  };
+
   return (
     <>
       {links.map((link) => {
         const LinkIcon = link.icon;
-        if (link.name === 'Iniciar sesión' && logueado) {
-          return null; // No renderizar el enlace de "Iniciar sesión" si el usuario ya está logueado
-        }
-        if (link.name === 'Cerrar sesión' && !logueado) {
-          return null; // No renderizar el enlace de "Iniciar sesión" si el usuario ya está logueado
-        }
+
+        // Render link for "Productos"
         if (link.name === 'Productos' && logueado) {
           return (
             <Link
@@ -67,12 +63,15 @@ export default function NavLinks() {
                 {
                   'bg-purple-100 text-purple-600': pathname === '/dashboard/admin',
                 },
-              )}          >
+              )}
+            >
               <LinkIcon className="w-6" />
               <p className="hidden md:block">{link.name}</p>
             </Link>
-          )
+          );
         }
+
+        // Render link for "Productos"
         if (link.name === 'Productos' && !logueado) {
           return (
             <Link
@@ -83,30 +82,15 @@ export default function NavLinks() {
                 {
                   'bg-purple-100 text-purple-600': pathname === link.href,
                 },
-              )}          >
+              )}
+            >
               <LinkIcon className="w-6" />
               <p className="hidden md:block">{link.name}</p>
             </Link>
-          )
+          );
         }
-        if (link.name === 'Cerrar sesión' && !logueado) {
-          dispatch(logout())
-          dispatch(vaciarCarrito())
-          return (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={clsx(
-                'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
-                {
-                  'bg-purple-100 text-purple-600': pathname === link.href,
-                },
-              )}          >
-              <LinkIcon className="w-6" />
-              <p className="hidden md:block">{link.name}</p>
-            </Link>
-          )
-        }
+
+        // Render link for other links
         return (
           <Link
             key={link.name}
@@ -116,12 +100,42 @@ export default function NavLinks() {
               {
                 'bg-purple-100 text-purple-600': pathname === link.href,
               },
-            )}          >
+            )}
+          >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );
       })}
+      
+      {/* Render login/logout link */}
+      {logueado ? (
+        <button
+          onClick={handleLogout}
+          className={clsx(
+            'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
+            {
+              'bg-purple-100 text-purple-600': pathname === '/',
+            },
+          )}
+        >
+          <PowerIcon className="w-6" />
+          <p className="hidden md:block">Cerrar sesión</p>
+        </button>
+      ) : (
+        <Link
+          href='/dashboard/login'
+          className={clsx(
+            'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
+            {
+              'bg-purple-100 text-purple-600': pathname === '/dashboard/login',
+            },
+          )}
+        >
+          <ArrowLeftOnRectangleIcon className="w-6" />
+          <p className="hidden md:block">Iniciar sesión</p>
+        </Link>
+      )}
     </>
   );
 }
