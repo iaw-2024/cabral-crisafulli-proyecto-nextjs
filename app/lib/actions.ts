@@ -126,7 +126,7 @@ const client = new MercadoPagoConfig({
 export async function createPreference(productos: Product[]) {
     const preference: Preference = new Preference(client);
     const URL =
-        process.env.NODE_ENV === 'production' ? "https://cabral-crisafulli-proyecto-nextjs-csnvm6hqn-maria-luzs-projects.vercel.app/" : "localhost:3000";
+        process.env.NODE_ENV === 'production' ? "cabral-crisafulli-proyecto-nextjs-nsbpq4dds-maria-luzs-projects.vercel.app" : "localhost:3000";
 
     const response = await preference.create({
         body: {
