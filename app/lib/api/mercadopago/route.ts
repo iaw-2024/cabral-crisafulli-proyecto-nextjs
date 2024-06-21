@@ -3,7 +3,6 @@
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import { NextRequest } from "next/server";
 import { Product } from "@/app/lib/definitions";
-import { redirect } from "next/navigation";
 
 const URL = "localhost:3000";
 
