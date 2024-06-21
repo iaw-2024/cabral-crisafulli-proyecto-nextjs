@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
     const productos: Product[] = data.items;
 
     const response = await createPreference(productos);
+    console.log("cree referencia")
 
     return new Response(JSON.stringify({ id: response.id }), {
       status: 200,

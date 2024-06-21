@@ -48,13 +48,14 @@ const PayForm = () => {
                 body: JSON.stringify({ items: productos })
             });
 
+            console.log(response.ok)
+
             if (!response.ok) {
                 throw new Error('Error en la respuesta del servidor');
             }
 
             const data = await response.json();
             setPreferenceId(data.id);
-            console.log(preferenceId)
         } catch (error) {
             console.error('Error creating preference:', error);
         }
