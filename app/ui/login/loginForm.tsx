@@ -4,35 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { login } from '@/redux/features/carrito/carritoSlice';
-<<<<<<< HEAD:app/ui/login/loginForm.tsx
-import { useAppDispatch } from '@/redux/hooks';
-import { ErrorModal } from './error';
-=======
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import  useLocation from 'next/navigation';
-
-interface ErrorModalProps {
-    message: string;
-    onClose: () => void;
-}
-
-const ErrorModal: React.FC<ErrorModalProps> = ({ message, onClose }) => (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm text-center">
-            <h2 className="text-xl font-bold mb-4">Error</h2>
-            <p className="mb-4">{message}</p>
-            <div className="flex justify-center">
-                <button
-                    onClick={onClose}
-                    className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700"
-                >
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-);
->>>>>>> c98b268b3a26d07fec64c5f6a93a27db9968fe3b:app/ui/loginForm.tsx
+import { ErrorModal } from './error';
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -65,14 +38,8 @@ const LoginForm: React.FC = () => {
         }
     };
 
-<<<<<<< HEAD:app/ui/login/loginForm.tsx
-=======
-    const closeModal = () => {
-        setShowErrorModal(false);
-    };
-
     const logueado = useAppSelector(state => state.log);
-   
+
     //NO SE POR QUE NO ANDA
     useEffect(() => {
         // Si está en la página /dashboard/admin y no está autenticado, redirige a /dashboard/login
@@ -81,7 +48,6 @@ const LoginForm: React.FC = () => {
         }
     }, []);
 
->>>>>>> c98b268b3a26d07fec64c5f6a93a27db9968fe3b:app/ui/loginForm.tsx
     return (
         <>
             <form className="space-y-3">
