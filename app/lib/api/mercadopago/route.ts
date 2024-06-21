@@ -1,6 +1,9 @@
+"use server"
+
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import { NextRequest } from "next/server";
 import { Product } from "@/app/lib/definitions";
+import { redirect } from "next/navigation";
 
 const URL = "localhost:3000";
 
@@ -9,7 +12,7 @@ const client = new MercadoPagoConfig({
 });
 
 export async function createPreference(productos: Product[]) {
-  const preference = new Preference(client);
+  const preference: Preference = new Preference(client);
 
   const response = await preference.create({
     body: {
@@ -27,7 +30,7 @@ export async function createPreference(productos: Product[]) {
       },
       auto_return: "approved"
     }
-  });
+  })
 
   return response
 
