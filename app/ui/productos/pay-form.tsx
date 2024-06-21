@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
-import { Wallet } from '@mercadopago/sdk-react';
+import { WalletButton } from '../cart/walletButton';
+
 
 const PayForm = () => {
     const productos = useAppSelector(state => state.productos);
@@ -127,7 +128,7 @@ const PayForm = () => {
                     {preferenceId && (
                         <div id="wallet_container">
                             <div className="mt-6">
-                                <Wallet initialization={{ preferenceId }} />
+                                <WalletButton preferenceId={preferenceId} />
                             </div>
                         </div>
                     )}

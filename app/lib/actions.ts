@@ -9,6 +9,7 @@ import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { MercadoPagoConfig, Preference } from "mercadopago";
 
+
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
     id: z.string({
@@ -123,6 +124,7 @@ const client = new MercadoPagoConfig({
     accessToken: process.env.MP_ACCESS_TOKEN!
 });
 
+
 export async function createPreference(productos: Product[]) {
     const preference: Preference = new Preference(client);
     const URL =
@@ -147,6 +149,5 @@ export async function createPreference(productos: Product[]) {
     })
 
     return response
-
-
 }
+
