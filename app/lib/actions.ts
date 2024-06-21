@@ -4,9 +4,10 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { insertProduct, removeProduct, catchUpProduct } from '@/app/lib/data';
-import { Estado } from './definitions';
+import { Estado, Product } from './definitions';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { MercadoPagoConfig, Preference } from "mercadopago";
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
 const FormSchema = z.object({
@@ -116,4 +117,35 @@ export async function authenticate(
         }
         throw error;
     }
+}
+
+const client = new MercadoPagoConfig({
+    accessToken: process.env.MP_ACCESS_TOKEN!
+});
+
+export async function createPreference(productos: Product[]) {
+    const preference: Preference = new Preference(client);
+    const URL = "localhost:3000";
+
+    const response = await preference.create({
+        body: {
+            items: productos.map((item: Product) => ({
+                id: item.id.toString(),
+                title: item.nombre,
+                quantity: item.quantity,
+                unit_price: Number(item.precio),
+            })),
+            purpose: 'wallet_purchase',
+            back_urls: {
+                success: `${URL}/success`,
+                failure: `${URL}/dashboard/carrito`,
+                pending: `${URL}/pending`,
+            },
+            auto_return: "approved"
+        }
+    })
+
+    return response
+
+
 }
