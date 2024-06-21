@@ -6,7 +6,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { Wallet } from '@mercadopago/sdk-react';
 import { initMercadoPago } from '@mercadopago/sdk-react';
 
-initMercadoPago("APP_USR-96d39e1c-68d5-45f1-8879-ed5e6023a20e");
+initMercadoPago(process.env.MP_PUBLIC_KEY!);
 
 const PayForm = () => {
     const productos = useAppSelector(state => state.productos);

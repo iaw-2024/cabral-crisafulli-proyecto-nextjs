@@ -120,13 +120,13 @@ export async function authenticate(
 }
 
 const client = new MercadoPagoConfig({
-    accessToken: "APP_USR-7608391652571522-061615-7be972917c84e3ab5257422d1703d68a-1859395319"
+    accessToken: process.env.MP_ACCESS_TOKEN!
 });
 
 export async function createPreference(productos: Product[]) {
     const preference: Preference = new Preference(client);
     const URL =
-        process.env.NODE_ENV === 'production' ? "cabral-crisafulli-proyecto-nextjs-nsbpq4dds-maria-luzs-projects.vercel.app" : "localhost:3000";
+        process.env.NODE_ENV === 'production' ? process.env.VERCEL_BRANCH_URL : "localhost:3000";
 
     const response = await preference.create({
         body: {
