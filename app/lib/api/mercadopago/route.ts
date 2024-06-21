@@ -1,5 +1,3 @@
-"use server"
-
 import { NextRequest } from "next/server";
 import { Product } from "@/app/lib/definitions";
 import { createPreference } from "../../actions";
