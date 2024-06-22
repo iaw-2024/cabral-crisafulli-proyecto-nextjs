@@ -5,8 +5,8 @@ import {
   HomeIcon,
   ShoppingBagIcon,
   ArrowLeftOnRectangleIcon,
-  PowerIcon, 
-  UserCircleIcon 
+  PowerIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -124,31 +124,31 @@ export default function NavLinks() {
           <p className="hidden md:block">Cerrar sesión</p>
         </button>
       ) : (
-        <Link
+        <><Link
           href='/dashboard/login'
           className={clsx(
             'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
             {
               'bg-purple-100 text-purple-600': pathname === '/dashboard/login',
-            },
+            }
           )}
         >
           <ArrowLeftOnRectangleIcon className="w-6" />
           <p className="hidden md:block">Iniciar sesión</p>
-        </Link>
-      )}
-      <Link
+        </Link><Link
           href='/dashboard/usuario/crear'
           className={clsx(
             'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
             {
               'bg-purple-100 text-purple-600': pathname === '/dashboard/usuario/crear',
-            },
+            }
           )}
         >
-          <UserCircleIcon className="w-6" />
-          <p className="hidden md:block">Crear Usuario</p>
-        </Link>
+            <UserCircleIcon className="w-6" />
+            <p className="hidden md:block">Crear Usuario</p>
+          </Link></>
+      )}
+
     </>
   );
 }
