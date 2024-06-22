@@ -10,7 +10,6 @@ import { Button } from '@/app/ui/button';
 import { updateProduct } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
 import Image from 'next/image';
-import { useState } from 'react';
 
 export default function EditForm({
   product,
@@ -22,7 +21,6 @@ export default function EditForm({
   const initialState = { message: null, errors: {} };
   const updateProductWithId = updateProduct.bind(null, product.id);
   const [state, dispatch] = useFormState(updateProductWithId, initialState);
-  const [file, setFile] = useState<File | null>(null);
 
   return (
     <form action={dispatch}>
@@ -108,24 +106,13 @@ export default function EditForm({
         <label htmlFor="name" className="mb-2 block text-sm font-medium">
           Foto actual
         </label>
-        <Image
-          src={product.fotoURL}
-          alt={`${product.nombre}`}
-          className="w-64 h-64 object-contain"
-          width={200}
-          height={200}
-        />
-        <div className="relative mt-2 rounded-md">
-          <input
-            id="file"
-            type="file"
-            required
-            onChange={(e) => {
-              const selectedFile = e.target.files?.[0] || null;
-              setFile(selectedFile);
-            }}
-            accept="image/x-png,image/gif,image/jpeg"
-            className="block w-full text-sm text-gray-500 file:rounded-md file:border file:border-gray-300 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-200"
+        <div className="mt-6 flex justify-center gap-4">
+          <Image
+            src={product.fotoURL}
+            alt={`${product.nombre}`}
+            className="w-64 h-64 object-contain"
+            width={200}
+            height={200}
           />
         </div>
 
