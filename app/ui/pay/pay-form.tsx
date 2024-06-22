@@ -19,7 +19,6 @@ const PayForm = () => {
     });
 
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
-    const formData = new FormData();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -31,9 +30,6 @@ const PayForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        Object.entries(formValues).forEach(([key, value]) => {
-            formData.append(key, value as string);
-        });
 
         try {
             const response = await fetch('/lib/api/mercadopago', {
@@ -43,8 +39,6 @@ const PayForm = () => {
                 },
                 body: JSON.stringify({ items: productos })
             });
-
-            console.log(response.ok)
 
             if (!response.ok) {
                 throw new Error('Error en la respuesta del servidor');
