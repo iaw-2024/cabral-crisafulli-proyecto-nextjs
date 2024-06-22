@@ -1,6 +1,6 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
 import '@/app/ui/global.css';
-import StoreProvider from './storeProvider';
+import StoreProvider from './ui/storeProvider';
 
 export default function RootLayout({
   children,

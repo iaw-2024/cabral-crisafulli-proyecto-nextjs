@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateProduct } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
+import Image from 'next/image';
+import { useState } from 'react';
 
 export default function EditForm({
   product,
@@ -20,6 +22,7 @@ export default function EditForm({
   const initialState = { message: null, errors: {} };
   const updateProductWithId = updateProduct.bind(null, product.id);
   const [state, dispatch] = useFormState(updateProductWithId, initialState);
+  const [file, setFile] = useState<File | null>(null);
 
   return (
     <form action={dispatch}>
@@ -34,6 +37,7 @@ export default function EditForm({
             name="name"
             type="text"
             defaultValue={product.nombre}
+            required
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
           />
         </div>
@@ -51,6 +55,7 @@ export default function EditForm({
               defaultValue={product.precio}
               step="0.01"
               placeholder="Ingrese el precio en $"
+              required
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
             />
             <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -66,6 +71,7 @@ export default function EditForm({
             <select
               id="category"
               name="categoryId"
+              required
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               defaultValue={product.categoria}
               aria-describedby="category-error"
@@ -92,6 +98,7 @@ export default function EditForm({
             id="name"
             name="name"
             type="text"
+            required
             defaultValue={product.descripcion}
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
           />
@@ -99,15 +106,26 @@ export default function EditForm({
 
         {/* Foto url */}
         <label htmlFor="name" className="mb-2 block text-sm font-medium">
-          Insertar la url de la foto
+          Foto actual
         </label>
+        <Image
+          src={product.fotoURL}
+          alt={`${product.nombre}`}
+          className="w-64 h-64 object-contain"
+          width={200}
+          height={200}
+        />
         <div className="relative mt-2 rounded-md">
           <input
-            id="name"
-            name="name"
-            type="text"
-            defaultValue={product.fotoURL}
-            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+            id="file"
+            type="file"
+            required
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0] || null;
+              setFile(selectedFile);
+            }}
+            accept="image/x-png,image/gif,image/jpeg"
+            className="block w-full text-sm text-gray-500 file:rounded-md file:border file:border-gray-300 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-200"
           />
         </div>
 

@@ -1,4 +1,4 @@
-import ProductForm  from '@/app/dashboard/admin/create-form';
+import ProductForm from '@/app/ui/productos/admin/create-form';
 import { Categoria } from '@/app/lib/definitions';
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
 
@@ -17,7 +17,7 @@ export default async function Page() {
           },
         ]}
       />
-        <ProductForm category={categories} />
+      <ProductForm category={categories} />
     </main>
   );
 }

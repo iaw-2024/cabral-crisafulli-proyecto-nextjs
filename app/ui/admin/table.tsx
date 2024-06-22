@@ -1,7 +1,7 @@
 import { ShoppingCartIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { getProduct } from '@/app/lib/data';
 import { UpdateProduct, DeleteProduct, CreateProduct } from '@/app/ui/buttons';
-import CartButton from '../productos/cartButton';
+import CartButton from '../cart/cartButton';
 
 export default async function ProductTableAdmin({
     query,

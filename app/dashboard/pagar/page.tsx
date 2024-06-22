@@ -1,5 +1,5 @@
+import PayForm from '@/app/ui/pay/pay-form';
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
-import PayForm from '@/app/ui/productos/pay-form';
 
 export default function Page() {
   return (

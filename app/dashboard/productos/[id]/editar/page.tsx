@@ -1,4 +1,4 @@
-import EditForm from '@/app/ui/productos/edit-form';
+import EditForm from '@/app/ui/productos/admin/edit-form';
 import Breadcrumbs from '@/app/ui/productos/breadcrumbs';
 import { fetchProductById, fetchUsers } from '@/app/lib/data';
 import { notFound } from 'next/navigation';

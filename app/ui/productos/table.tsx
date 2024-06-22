@@ -3,7 +3,7 @@ import { getProduct } from '@/app/lib/data';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import React from 'react';
-import CartButton from './cartButton';
+import CartButton from '../cart/cartButton';
 
 
 export default async function ProductTable({
