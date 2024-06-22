@@ -15,11 +15,10 @@ const PayForm = () => {
         name: '',
         lastName: '',
         address: '',
-        postalCode: '',
+        phone: '',
     });
 
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
-    const formData = new FormData();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -31,9 +30,6 @@ const PayForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        Object.entries(formValues).forEach(([key, value]) => {
-            formData.append(key, value as string);
-        });
 
         try {
             const response = await fetch('/lib/api/mercadopago', {
@@ -43,8 +39,6 @@ const PayForm = () => {
                 },
                 body: JSON.stringify({ items: productos })
             });
-
-            console.log(response.ok)
 
             if (!response.ok) {
                 throw new Error('Error en la respuesta del servidor');
@@ -100,12 +94,12 @@ const PayForm = () => {
                 </div>
 
                 <div className="relative mt-2 rounded-md">
-                    <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">Código Postal</label>
+                    <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">Teléfono</label>
                     <input
-                        id="postalCode"
-                        name="postalCode"
+                        id="phone"
+                        name="phone"
                         type="text"
-                        value={formValues.postalCode}
+                        value={formValues.phone}
                         onChange={handleChange}
                         required
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"

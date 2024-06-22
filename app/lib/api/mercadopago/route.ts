@@ -11,14 +11,12 @@ export async function POST(req: NextRequest) {
     const productos: Product[] = data.items;
 
     const response = await createPreference(productos);
-    console.log("cree referencia")
 
     return new Response(JSON.stringify({ id: response.id }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.log(error);
 
     return new Response(
       JSON.stringify({
