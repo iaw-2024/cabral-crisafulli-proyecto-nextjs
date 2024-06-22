@@ -14,6 +14,7 @@ export default function Form({ category }: { category: Categoria[] }) {
     amount: '',
     categoryId: '',
     description: '',
+    action: 'CREATE'
   });
 
   const initialValues = {
@@ -21,6 +22,7 @@ export default function Form({ category }: { category: Categoria[] }) {
     amount: '',
     categoryId: '',
     description: '',
+    action: 'CREATE'
   };
 
   const [notification, setNotification] = useState<string | null>(null);

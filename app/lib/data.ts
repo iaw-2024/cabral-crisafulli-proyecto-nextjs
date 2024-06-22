@@ -70,8 +70,6 @@ export async function fetchProductPages(query: string) {
 }
 
 export async function fetchProductById(id2: number) {
-    console.log(id2);
-    noStore();
     const prisma = new PrismaClient()
     const product = await prisma.producto.findFirst({
         where: {
@@ -152,6 +150,7 @@ export async function catchUpProduct(id2: number, query: string, price: number, 
         }
     })
     await prisma.$disconnect()
+    return productoEditado
 }
 
 export default async function getSixProducts() {
@@ -161,4 +160,16 @@ export default async function getSixProducts() {
     })
     await prisma.$disconnect()
     return allProducts
+}
+
+export async function productWhithName(name: string) {
+    const prisma = new PrismaClient()
+    const product = await prisma.producto.findFirst({
+        where: {
+            nombre: name,
+        },
+    })
+    await prisma.$disconnect()
+    return product
+
 }
