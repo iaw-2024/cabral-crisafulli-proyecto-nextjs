@@ -5,6 +5,7 @@ import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
 import ProductTableAdmin from '@/app/ui/admin/table';
 import { getProduct } from '@/app/lib/data';
+import { RedirectAdmin } from '@/app/ui/admin/redirectLogin'
 
 export default async function Page({
     searchParams,
@@ -21,6 +22,7 @@ export default async function Page({
 
     return (
         <div className="w-full">
+            <RedirectAdmin />
             <div className="flex w-full items-center justify-between">
                 <p className='productos'>Productos</p>
             </div>

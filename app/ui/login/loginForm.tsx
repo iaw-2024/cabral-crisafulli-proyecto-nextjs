@@ -38,16 +38,6 @@ const LoginForm: React.FC = () => {
         }
     };
 
-    const logueado = useAppSelector(state => state.log);
-
-    //NO SE POR QUE NO ANDA
-    useEffect(() => {
-        // Si está en la página /dashboard/admin y no está autenticado, redirige a /dashboard/login
-        if (window.location.href === '/dashboard/admin' && !logueado) {
-            router.push('/dashboard/login');
-        }
-    }, []);
-
     return (
         <>
             <form className="space-y-3">
