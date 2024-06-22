@@ -1,36 +1,34 @@
-'use client'
+'use client';
 
 import { Product } from "@/app/lib/definitions";
 import { agregarProducto } from "@/redux/features/carrito/carritoSlice";
-import { useAppDispatch, useAppStore } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRef } from "react";
 
-
 export default function CartButton({
-    children,
-    product
+  children,
+  product
 }: {
-    children: React.ReactNode
-    product: Product
+  children: React.ReactNode;
+  product: Product;
 }) {
+  const dispatch = useAppDispatch();
+  const initialized = useRef(false);
 
-    // Initialize the store with the product information
-    const store = useAppStore()
-    const initialized = useRef(false)
-    if (!initialized.current) {
-        initialized.current = true
-    }
+  if (!initialized.current) {
+    initialized.current = true;
+  }
 
-    const dispatch = useAppDispatch()
+  function agregarCarrito() {
+    dispatch(agregarProducto(product));
+  }
 
-    function agregarCarrito() {
-        dispatch(agregarProducto(product))
-    }
-
-    return (
-        <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center"
-            onClick={() => { agregarCarrito() }}>
-            {children}
-        </button>
-    );
-}   
+  return (
+    <button
+      className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center"
+      onClick={agregarCarrito}
+    >
+      {children}
+    </button>
+  );
+}
