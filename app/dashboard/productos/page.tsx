@@ -21,15 +21,15 @@ export default async function Page({
 
   return (
     <div className="w-full p-4 md:p-8">
-      <div className="flex w-full items-center justify-between">
+      <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
         <p className='productos'>Productos</p>
       </div>
-      <div className="top-0 z-10 bg-white mt-4 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 p-4">
+      <div className="bg-white flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 p-4">
         <Search placeholder="Buscar Producto..." />
       </div>
       {products.length === 0 ? (
         <div className="flex w-full items-center justify-center mt-4">
-          <p className="text-purple-600 font-bold text-xl">No se encontraron resultados para lo que busca</p>
+          <p className="text-purple-600 font-bold text-xl text-center">No se encontraron resultados para lo que busca</p>
         </div>
       ) : (
         <>

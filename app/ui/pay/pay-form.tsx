@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
 
@@ -17,7 +17,7 @@ const PayForm = () => {
         address: '',
         postalCode: '',
     });
-    const [isFormValid, setIsFormValid] = useState(false);
+
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
     const formData = new FormData();
 

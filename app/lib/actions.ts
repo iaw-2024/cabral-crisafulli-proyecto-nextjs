@@ -150,4 +150,3 @@ export async function createPreference(productos: Product[]) {
 
     return response
 }
-
