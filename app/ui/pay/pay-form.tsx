@@ -15,7 +15,7 @@ const PayForm = () => {
         name: '',
         lastName: '',
         address: '',
-        postalCode: '',
+        phone: '',
     });
 
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
@@ -100,12 +100,12 @@ const PayForm = () => {
                 </div>
 
                 <div className="relative mt-2 rounded-md">
-                    <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">Código Postal</label>
+                    <label htmlFor="postalCode" className="mb-2 block text-lg font-medium">Teléfono</label>
                     <input
-                        id="postalCode"
-                        name="postalCode"
+                        id="phone"
+                        name="phone"
                         type="text"
-                        value={formValues.postalCode}
+                        value={formValues.phone}
                         onChange={handleChange}
                         required
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
