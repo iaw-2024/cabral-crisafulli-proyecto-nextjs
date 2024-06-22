@@ -191,3 +191,16 @@ export async function checkEmail(email: string): Promise<boolean> {
       await prisma.$disconnect();
     }
   }
+
+  export async function createUser(mail2: string, contra: string) {
+    const prisma = new PrismaClient();
+    const user = await prisma.user.create({
+      data: {
+        mail: mail2,
+        contrasena: contra,
+        rol: 'admin',
+      },
+    })
+    await prisma.$disconnect();
+    return user
+  }

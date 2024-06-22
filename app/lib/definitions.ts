@@ -1,5 +1,7 @@
 export type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
 
+export type Roles = "Administrdor" | "Usuario";
+
 export type Product = {
   id: number;
   nombre: string;

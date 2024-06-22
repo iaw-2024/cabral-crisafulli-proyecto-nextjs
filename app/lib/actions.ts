@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { insertProduct, removeProduct, catchUpProduct } from '@/app/lib/data';
+import { insertProduct, removeProduct, catchUpProduct, createUser } from '@/app/lib/data';
 import { Estado, Product } from './definitions';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
@@ -149,4 +149,21 @@ export async function createPreference(productos: Product[]) {
     })
 
     return response
+}
+
+export async function makeUser(email: string, password: string) {
+    const validatedFields = CrearProducto.safeParse({
+        email: email,
+        password: password
+    });
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan completar campos.',
+        };
+    }
+
+    createUser(email, password);
+    revalidatePath('/dashboard/usuario');
+    redirect('/');
 }
