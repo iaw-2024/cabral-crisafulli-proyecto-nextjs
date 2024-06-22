@@ -38,9 +38,21 @@ const LoginForm: React.FC = () => {
         }
     };
 
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleLogin();
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleLogin();
+    };
+
     return (
         <>
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={handleSubmit}>
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
                         <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
@@ -51,6 +63,7 @@ const LoginForm: React.FC = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                onKeyPress={handleKeyPress}
                             />
                         </div>
                         <div className="mb-6">
@@ -60,6 +73,7 @@ const LoginForm: React.FC = () => {
                                 className="w-full p-2 border border-gray-300 rounded-md"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onKeyPress={handleKeyPress}
                             />
                         </div>
                         <button
