@@ -1,10 +1,8 @@
-
 import { getProduct } from '@/app/lib/data';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import React from 'react';
 import CartButton from '../cart/cartButton';
-
 
 export default async function ProductTable({
     query,
@@ -13,11 +11,9 @@ export default async function ProductTable({
     query: string;
     currentPage: number;
 }) {
-    const producto = getProduct(query, currentPage)
+    const producto = getProduct(query, currentPage);
 
     return (
-
-
         <div className="bg-white px-6">
             {(await producto).map((product) => {
                 return (
@@ -45,6 +41,5 @@ export default async function ProductTable({
                 );
             })}
         </div>
-
     )
 }
