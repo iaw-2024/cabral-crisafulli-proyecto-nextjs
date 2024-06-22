@@ -20,12 +20,11 @@ export default async function Page({
   const products = await getProduct(query, currentPage);
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4 md:p-8">
       <div className="flex w-full items-center justify-between">
         <p className='productos'>Productos</p>
       </div>
-      <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
-        {/* Barra de búsqueda reubicada */}
+      <div className="top-0 z-10 bg-white mt-4 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 p-4">
         <Search placeholder="Buscar Producto..." />
       </div>
       {products.length === 0 ? (
@@ -35,7 +34,9 @@ export default async function Page({
       ) : (
         <>
           <Suspense key={query + currentPage}>
-            <ProductTable query={query} currentPage={currentPage} />
+            <div className="overflow-x-auto w-full">
+              <ProductTable query={query} currentPage={currentPage} />
+            </div>
           </Suspense>
           <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={totalPages} />
