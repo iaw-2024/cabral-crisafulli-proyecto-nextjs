@@ -4,7 +4,6 @@ import {
   ShoppingCartIcon,
   HomeIcon,
   ShoppingBagIcon,
-  ArrowRightOnRectangleIcon,
   ArrowLeftOnRectangleIcon,
   PowerIcon
 } from '@heroicons/react/24/outline';

@@ -21,11 +21,6 @@ const PayForm = () => {
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
     const formData = new FormData();
 
-    useEffect(() => {
-        const { name, lastName, address, postalCode } = formValues;
-        setIsFormValid(!!(name && lastName && address && postalCode));
-    }, [formValues]);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormValues({
@@ -73,6 +68,7 @@ const PayForm = () => {
                         type="text"
                         value={formValues.name}
                         onChange={handleChange}
+                        required
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
                 </div>
@@ -85,6 +81,7 @@ const PayForm = () => {
                         type="text"
                         value={formValues.lastName}
                         onChange={handleChange}
+                        required
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
                 </div>
@@ -97,6 +94,7 @@ const PayForm = () => {
                         type="text"
                         value={formValues.address}
                         onChange={handleChange}
+                        required
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
                 </div>
@@ -109,6 +107,7 @@ const PayForm = () => {
                         type="text"
                         value={formValues.postalCode}
                         onChange={handleChange}
+                        required
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
                 </div>
@@ -124,7 +123,6 @@ const PayForm = () => {
                     <button
                         type="submit"
                         className="flex h-10 items-center rounded-lg bg-violet-500 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-600"
-                        disabled={!isFormValid}
                     >
                         Pagar con MercadoPago
                     </button>
