@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { login } from '@/redux/features/carrito/carritoSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { ErrorModal } from './error';
 
 const LoginForm: React.FC = () => {
@@ -69,6 +69,13 @@ const LoginForm: React.FC = () => {
                         >
                             Iniciar sesión
                         </button>
+                        <button
+                            type="button"
+                            onClick={() => router.push('/')}
+                            className="w-full bg-gray-400 text-white py-2 rounded-md hover:bg-gray-500 mt-2"
+                        >
+                            Cerrar
+                        </button>
                         <div className="flex h-8 items-end space-x-1" aria-live="polite" aria-atomic="true">
                             {error && (
                                 <>
@@ -80,9 +87,7 @@ const LoginForm: React.FC = () => {
                     </div>
                 </div>
             </form>
-            {showErrorModal && <ErrorModal message={error} onClose={() => {
-                setShowErrorModal(false);
-            }} />}
+            {showErrorModal && <ErrorModal message={error} onClose={() => setShowErrorModal(false)} />}
         </>
     );
 };
