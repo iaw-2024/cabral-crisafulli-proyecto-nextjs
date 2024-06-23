@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { insertProduct, removeProduct, catchUpProduct, createUser } from '@/app/lib/data';
+import { insertProduct, removeProduct, catchUpProduct, createUser, createPedido, createTiene } from '@/app/lib/data';
 import { Estado, Product } from './definitions';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
@@ -140,7 +140,7 @@ export async function createPreference(productos: Product[]) {
             })),
             purpose: 'wallet_purchase',
             back_urls: {
-                success: `${URL}/success`,
+                success: `${URL}/dashboard/pagos/success`,
                 failure: `${URL}/dashboard/carrito`,
                 pending: `${URL}/pending`,
             },
@@ -168,6 +168,10 @@ export async function makeUser(email: string, password: string) {
     redirect('/');
 }
 
-export async function crearPedido() {
-
+export async function crearPedido(formData: FormData, productos: Product[]) {
+    const pedido = createPedido(formData.get('name')!.toString(),
+        formData.get('lastname')!.toString(),
+        formData.get('phone')!.toString(),
+        Number(formData.get('adress')!))
+    createTiene((await pedido).id, productos)
 }

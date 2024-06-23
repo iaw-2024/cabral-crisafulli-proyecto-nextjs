@@ -1,7 +1,7 @@
 'use sever'
 
 import { PrismaClient } from '@prisma/client'
-import { Categoria, User } from '@/app/lib/definitions';
+import { Categoria, Product, User } from '@/app/lib/definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 const ITEMS_PER_PAGE = 6;
 
@@ -177,30 +177,58 @@ export async function productWhithName(name: string) {
 export async function checkEmail(email: string): Promise<boolean> {
     const prisma = new PrismaClient();
     try {
-      const user = await prisma.user.findUnique({
-        where: {
-          mail: email,
-        },
-      });
-  
-      return user !== null;
-    } catch (error) {
-      console.error('Error al consultar la base de datos:', error);
-      throw error;
-    } finally {
-      await prisma.$disconnect();
-    }
-  }
+        const user = await prisma.user.findUnique({
+            where: {
+                mail: email,
+            },
+        });
 
-  export async function createUser(mail2: string, contra: string) {
+        return user !== null;
+    } catch (error) {
+        console.error('Error al consultar la base de datos:', error);
+        throw error;
+    } finally {
+        await prisma.$disconnect();
+    }
+}
+
+export async function createUser(mail2: string, contra: string) {
     const prisma = new PrismaClient();
     const user = await prisma.user.create({
-      data: {
-        mail: mail2,
-        contrasena: contra,
-        rol: 'admin',
-      },
+        data: {
+            mail: mail2,
+            contrasena: contra,
+            rol: 'admin',
+        },
     })
     await prisma.$disconnect();
     return user
-  }
+}
+
+export async function createPedido(name: string, lastname: string, adress: string, phone: number) {
+    const prisma = new PrismaClient()
+    const pedido = await prisma.pedido.create({
+        data: {
+            nombre: name,
+            apellido: lastname,
+            telefono: phone,
+            direccion: adress,
+        },
+    })
+    await prisma.$disconnect()
+    return pedido
+}
+
+export async function createTiene(id: number, productos: Product[]) {
+    const prisma = new PrismaClient()
+    productos.forEach(async product => {
+        await prisma.tiene.create({
+            data: {
+                cantidad: product.quantity,
+                pedidoId: id,
+                productoId: product.id
+            }
+        })
+    });
+    await prisma.$disconnect()
+}
