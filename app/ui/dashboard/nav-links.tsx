@@ -9,24 +9,6 @@ import { selectTotalItemsInCarrito } from '@/redux/features/carrito/selectors';
 import { ShoppingCartIcon, HomeIcon, ShoppingBagIcon, ArrowLeftOnRectangleIcon, PowerIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
-const links = [
-  {
-    name: 'Sobre mi',
-    href: '/',
-    icon: HomeIcon,
-  },
-  {
-    name: 'Productos',
-    href: '/dashboard/productos',
-    icon: ShoppingBagIcon,
-  },
-  {
-    name: 'Carrito',
-    href: '/dashboard/carrito',
-    icon: ShoppingCartIcon,
-  },
-];
-
 export default function NavLinks() {
   const pathname = usePathname();
   const logueado = useAppSelector((state) => state.log);
@@ -39,6 +21,24 @@ export default function NavLinks() {
     dispatch(vaciarCarrito());
     router.push('/dashboard/productos');
   };
+
+  const links = [
+    {
+      name: 'Sobre mi',
+      href: '/',
+      icon: HomeIcon,
+    },
+    {
+      name: 'Productos',
+      href: logueado ? '/dashboard/admin' : '/dashboard/productos',
+      icon: ShoppingBagIcon,
+    },
+    {
+      name: 'Carrito',
+      href: '/dashboard/carrito',
+      icon: ShoppingCartIcon,
+    },
+  ];
 
   return (
     <>
@@ -72,9 +72,6 @@ export default function NavLinks() {
           onClick={handleLogout}
           className={clsx(
             'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-purple-400 md:flex-none md:justify-start md:p-2 md:px-3',
-            {
-              'bg-purple-100 text-purple-600': pathname === '/',
-            },
           )}
         >
           <PowerIcon className="w-6" />
