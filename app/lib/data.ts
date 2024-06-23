@@ -205,7 +205,7 @@ export async function createUser(mail2: string, contra: string) {
     return user
 }
 
-export async function createPedido(name: string, lastname: string, phone: number, adress: string) {
+export async function createPedido(name: string, lastname: string, phone: string, adress: string) {
     const prisma = new PrismaClient()
     const pedido = await prisma.pedido.create({
         data: {

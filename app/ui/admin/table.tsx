@@ -13,10 +13,7 @@ export default async function ProductTableAdmin({
     const producto = getProduct(query, currentPage);
 
     return (
-        <div className="bg-white px-6">
-            <div className="flex space-x-4">
-                <CreateProduct></CreateProduct>
-            </div>
+        <div>
             {(await producto).map((product) => {
                 return (
                     <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
@@ -39,6 +36,6 @@ export default async function ProductTableAdmin({
                     </div>
                 );
             })}
-        </div>
+        </div >
     );
 }

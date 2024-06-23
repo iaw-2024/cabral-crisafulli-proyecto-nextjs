@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import ProductTableAdmin from '@/app/ui/admin/table';
 import { getProduct } from '@/app/lib/data';
 import { RedirectAdmin } from '@/app/ui/admin/redirectLogin'
+import { CreateProduct } from '@/app/ui/buttons';
 
 export default async function Page({
     searchParams,
@@ -28,6 +29,11 @@ export default async function Page({
             </div>
             <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
                 <Search placeholder="Buscar Producto..." />
+            </div>
+            <div className="bg-white px-6">
+                <div className="flex space-x-4">
+                    <CreateProduct></CreateProduct>
+                </div>
             </div>
             {products.length === 0 ? (
                 <div className="flex w-full items-center justify-center mt-4">

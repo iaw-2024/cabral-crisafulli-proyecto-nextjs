@@ -171,7 +171,7 @@ export async function makeUser(email: string, password: string) {
 export async function crearPedido(datos: string[], productos: Product[]) {
     const pedido = createPedido(datos[0],
         datos[1],
-        Number(datos[2]),
+        datos[2],
         datos[3])
     createTiene((await pedido).id, productos)
 }
