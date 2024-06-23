@@ -14,13 +14,12 @@ export default function Form() {
         mail: '',
         password: '',
     });
+
     const router = useRouter();
-    const initialValues = {
-        mail: '',
-        password: '',
-    };
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+
     const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormValues({
@@ -29,23 +28,28 @@ export default function Form() {
         });
     };
 
-    const handleSubmit = async () => {
-        const validate = await userExists(formValues.mail)
-        if (validate) {
-            makeUser(formValues.mail, formValues.password)
-            dispatch(login())
-            router.push('/dashboard/admin');
-        }
-        else {
-            setNotification({ message: 'Error: Ya existe un usuario con ese email.', type: 'error' });
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+
+        try {
+            const validate = await userExists(formValues.mail);
+            if (!validate) {
+                await makeUser(formValues.mail, formValues.password);
+                dispatch(login());
+                router.push('/');
+            } else {
+                setNotification({ message: 'Error: Ya existe un usuario con ese email.', type: 'error' });
+            }
+        } catch (error) {
+            console.error('Error en la creación del usuario:', error);
+            setNotification({ message: 'Error: No se pudo crear el usuario.', type: 'error' });
         }
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="rounded-md bg-gray-50 p-4 md:p-6">
-
-                {/*Email */}
+                {/* Email */}
                 <div className="mb-4">
                     <label htmlFor="mail" className="mb-2 block text-lg font-medium">
                         Ingrese el mail
@@ -54,7 +58,7 @@ export default function Form() {
                         <input
                             id="mail"
                             name="mail"
-                            type="mail"
+                            type="email" // Cambié type="mail" a type="email"
                             value={formValues.mail}
                             onChange={handleInputChange}
                             required
@@ -66,14 +70,13 @@ export default function Form() {
                 {/* Contraseña */}
                 <div className="mb-4">
                     <label htmlFor="password" className="mb-2 block text-lg font-medium">
-                        Ingrese la contraseña
+                        Ingrese la contraseña
                     </label>
                     <div className="relative mt-2 rounded-md">
                         <input
                             id="password"
                             name="password"
                             type="password"
-                            step="0.01"
                             value={formValues.password}
                             onChange={handleInputChange}
                             required
@@ -98,15 +101,13 @@ export default function Form() {
                     </Button>
                 </div>
             </div>
-            <div>
-                {notification && (
-                    <Notification
-                        message={notification.message}
-                        type={notification.type}
-                        onClose={() => setNotification(null)}
-                    />
-                )}
-            </div>
+            {notification && (
+                <Notification
+                    message={notification.message}
+                    type={notification.type}
+                    onClose={() => setNotification(null)}
+                />
+            )}
         </form>
     );
 }
