@@ -29,21 +29,21 @@ export default function ProductCartTable({
                             <p className="text-lg font-bold mb-2">{product.nombre}</p>
                             <p className="text-gray-600 mb-2">{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
                             <button 
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold flex items-center justify-center w-8 h-8"
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold rounded flex items-center justify-center w-8 h-8"
                                 onClick={() => dispatch(borrarDeCarrito(product))}
                             >
                                 <TrashIcon className="h-5 w-5" />
                             </button>
                             <div className='flex items-center mt-2'>
                                 <button 
-                                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold flex items-center justify-center w-8 h-8"
+                                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center w-8 h-8"
                                     onClick={() => dispatch(agregarUno(product))}
                                 >
                                     <PlusIcon className="h-5 w-5" />
                                 </button>
                                 <p className="text-lg font-bold mx-2">{product.quantity}</p>
                                 <button 
-                                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold flex items-center justify-center w-8 h-8"
+                                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center w-8 h-8"
                                     onClick={() => dispatch(eliminarUno(product))}
                                 >
                                     <MinusIcon className="h-5 w-5" />
