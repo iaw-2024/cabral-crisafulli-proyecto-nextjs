@@ -153,7 +153,6 @@ export async function createPreference(productos: Product[]) {
             back_urls: {
                 success: `${URL}/dashboard/pagos/success`,
                 failure: `${URL}/dashboard/carrito`,
-                pending: `${URL}/pending`,
             },
             auto_return: "approved"
         }
