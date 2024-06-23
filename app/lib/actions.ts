@@ -191,8 +191,7 @@ export async function checkUser(email: string, password: string) {
     if (!user) {
         validate = 'USER'
     } else {
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const valida = await bcrypt.compare(user.contrasena, hashedPassword)
+        const valida = await bcrypt.compare(password, user.contrasena)
         if (!valida) {
             validate = 'PASSWORD'
         } else {
