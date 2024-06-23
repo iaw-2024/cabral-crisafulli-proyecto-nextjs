@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { Product } from '@/app/lib/definitions';
 
-type SliceState = { productos: Product[], log: boolean, total: number, formData: FormData };
+type SliceState = { productos: Product[], log: boolean, total: number, datos: string[] };
 
-const initialState: SliceState = { productos: [], log: false, total: 0, formData: new FormData() };
+const initialState: SliceState = { productos: [], log: false, total: 0, datos: [] };
 
 export const carritoSlice = createSlice({
   name: 'carrito',
@@ -59,8 +59,10 @@ export const carritoSlice = createSlice({
       state.log = false;
     },
 
-    cargarDatosFormulario: (state, action: PayloadAction<FormData>) => {
-      state.formData = action.payload
+    cargarDatosFormulario: (state, action: PayloadAction<string[]>) => {
+      action.payload.forEach(element => {
+        state.datos.push(element)
+      });
     },
   }
 });

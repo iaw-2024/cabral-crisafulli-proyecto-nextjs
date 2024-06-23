@@ -7,9 +7,9 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 export default function Page() {
 
     const productos = useAppSelector(state => state.productos);
-    const formData = useAppSelector(state => state.formData);
+    const datos = useAppSelector(state => state.datos);
     const dispatch = useAppDispatch();
-    crearPedido(formData, productos)
+    crearPedido(datos, productos)
     dispatch(vaciarCarrito())
 
     return (

@@ -12,7 +12,7 @@ const MP_PUBLIC_KEY = "APP_USR-96d39e1c-68d5-45f1-8879-ed5e6023a20e"
 initMercadoPago(MP_PUBLIC_KEY);
 
 const PayForm = () => {
-    const productos = useAppSelector(state => state.productos);
+    const productos = useAppSelector(state => state.productos)
     const dispatch = useAppDispatch();
     const [formValues, setFormValues] = useState({
         name: '',
@@ -22,7 +22,6 @@ const PayForm = () => {
     });
 
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
-    const formData = new FormData();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -34,12 +33,11 @@ const PayForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        Object.entries(formValues).forEach(([key, value]) => {
-            formData.append(key, value as string);
-        });
 
-        dispatch(cargarDatosFormulario(formData))
+        const datos: string[] = [formValues.name, formValues.lastName, formValues.phone, formValues.address]
 
+        dispatch(cargarDatosFormulario(datos))
+        console.log(datos)
         try {
             const response = await fetch('/lib/api/mercadopago', {
                 method: 'POST',
