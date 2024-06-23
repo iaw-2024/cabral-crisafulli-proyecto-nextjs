@@ -6,6 +6,7 @@ import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { login } from '@/redux/features/carrito/carritoSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { ErrorModal } from './error';
+import { checkUser } from '@/app/lib/actions';
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -15,28 +16,32 @@ const LoginForm: React.FC = () => {
     const router = useRouter();
     const dispatchLogin = useAppDispatch();
 
-    const handleLogin = () => {
-        if (!email || !password) {
-            setError('Por favor, complete todos los campos.');
-            setShowErrorModal(true);
-            return;
-        }
+    const handleLogin = async () => {
 
-        if (!email.includes('@')) {
-            setError('Incluya el signo @ en su correo electrónico');
-            setShowErrorModal(true);
-            return;
+        const valid = await checkUser(email, password)
+        switch (valid) {
+            case 'USER': {
+                setError('Correo electrónico incorrecto');
+                setShowErrorModal(true);
+                break;
+            }
+            case 'PASSWORD': {
+                setError('Correo contraseña incorrecta');
+                setShowErrorModal(true);
+                break;
+            }
+            case 'VALID': {
+                dispatchLogin(login());
+                alert('Iniciar sesión correctamente');
+                router.push('/dashboard/admin');
+                break;
+            };
+            default: {
+                break;
+            }
         }
+    }
 
-        if (email === 'admin@admin.com' && password === 'admin') {
-            dispatchLogin(login());
-            alert('Iniciar sesión correctamente');
-            router.push('/dashboard/admin');
-        } else {
-            setError('Correo electrónico o contraseña incorrectos');
-            setShowErrorModal(true);
-        }
-    };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {

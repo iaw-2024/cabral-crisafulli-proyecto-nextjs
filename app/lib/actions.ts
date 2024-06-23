@@ -4,10 +4,11 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { insertProduct, removeProduct, catchUpProduct, createUser, createPedido, createTiene, fetchUsers } from '@/app/lib/data';
-import { Estado, Product } from './definitions';
+import { Estado, Product, User } from './definitions';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { MercadoPagoConfig, Preference } from "mercadopago";
+import bcrypt from 'bcrypt'
 
 
 const CategoriaSchema = z.enum(['Amistad', 'Pareja', 'Familia', 'Individual', 'Personalizada']);
@@ -32,6 +33,16 @@ const FormSchema = z.object({
         invalid_type_error: 'Fotourl inválido',
     }),
 });
+const UserSchema = z.object({
+    email: z.string({
+        invalid_type_error: 'email inválido',
+    }),
+    password: z.string({
+        invalid_type_error: 'password inválido',
+    }),
+
+})
+
 
 const CrearProducto = FormSchema.omit({ id: true });
 const ModificarProducto = FormSchema.omit({ id: true });
@@ -152,7 +163,7 @@ export async function createPreference(productos: Product[]) {
 }
 
 export async function makeUser(email: string, password: string) {
-    const validatedFields = CrearProducto.safeParse({
+    const validatedFields = UserSchema.safeParse({
         email: email,
         password: password
     });
@@ -162,10 +173,8 @@ export async function makeUser(email: string, password: string) {
             message: 'Faltan completar campos.',
         };
     }
-
     createUser(email, password);
-    revalidatePath('/dashboard/usuario');
-    redirect('/');
+    revalidatePath('/');
 }
 
 export async function crearPedido(datos: string[], productos: Product[]) {
@@ -177,9 +186,18 @@ export async function crearPedido(datos: string[], productos: Product[]) {
 }
 
 export async function checkUser(email: string, password: string) {
-    const user = fetchUsers(email)
+    const user = await fetchUsers(email)
     let validate = ''
     if (!user) {
-        validate = ''
+        validate = 'USER'
+    } else {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const valida = await bcrypt.compare(user.contrasena, hashedPassword)
+        if (!valida) {
+            validate = 'PASSWORD'
+        } else {
+            validate = 'VALID'
+        }
     }
+    return validate
 }

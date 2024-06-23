@@ -91,12 +91,7 @@ export async function fetchUsers(email: string): Promise<User | null> {
     if (user == null) {
         return null
     } else {
-        return {
-            id: user.id.toString(),
-            email: user.mail,
-            password: user.contrasena,
-            rol: user.rol,
-        };
+        return user;
     }
 
 }
@@ -177,7 +172,7 @@ export async function productWhithName(name: string) {
 export async function createUser(mail2: string, contra: string) {
     const prisma = new PrismaClient();
     const hashedPassword = await bcrypt.hash(contra, 10)
-    const user = await prisma.user.create({
+    await prisma.user.create({
         data: {
             mail: mail2,
             contrasena: hashedPassword,
@@ -185,7 +180,6 @@ export async function createUser(mail2: string, contra: string) {
         },
     })
     await prisma.$disconnect();
-    return user
 }
 
 export async function createPedido(name: string, lastname: string, phone: string, adress: string) {

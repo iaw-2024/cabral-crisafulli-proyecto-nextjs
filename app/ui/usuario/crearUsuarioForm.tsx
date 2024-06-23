@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useState } from 'react';
+import { makeUser } from '@/app/lib/actions';
 
 export default function Form() {
-    const [file, setFile] = useState<File | null>(null);
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [formValues, setFormValues] = useState({
         mail: '',
         password: '',
@@ -27,8 +26,8 @@ export default function Form() {
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
+        makeUser(formValues.mail, formValues.password)
     };
 
     return (

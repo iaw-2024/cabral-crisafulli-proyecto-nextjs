@@ -13,9 +13,9 @@ export type Product = {
 };
 
 export type User = {
-  id: string;
-  email: string;
-  password: string;
+  id: number;
+  mail: string;
+  contrasena: string;
   rol: string
 };
 
