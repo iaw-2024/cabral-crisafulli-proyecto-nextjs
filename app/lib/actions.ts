@@ -167,3 +167,7 @@ export async function makeUser(email: string, password: string) {
     revalidatePath('/dashboard/usuario');
     redirect('/');
 }
+
+export async function crearPedido() {
+
+}

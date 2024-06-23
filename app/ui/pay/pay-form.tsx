@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import { Wallet, initMercadoPago } from '@mercadopago/sdk-react';
+import { useAppDispatch } from '@/redux/hooks';
+import { cargarDatosFormulario } from '@/redux/features/carrito/carritoSlice';
 
 const MP_PUBLIC_KEY = "APP_USR-96d39e1c-68d5-45f1-8879-ed5e6023a20e"
 
@@ -11,6 +13,7 @@ initMercadoPago(MP_PUBLIC_KEY);
 
 const PayForm = () => {
     const productos = useAppSelector(state => state.productos);
+    const dispatch = useAppDispatch();
     const [formValues, setFormValues] = useState({
         name: '',
         lastName: '',
@@ -19,6 +22,7 @@ const PayForm = () => {
     });
 
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
+    const formData = new FormData();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -30,6 +34,11 @@ const PayForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        Object.entries(formValues).forEach(([key, value]) => {
+            formData.append(key, value as string);
+        });
+
+        dispatch(cargarDatosFormulario(formData))
 
         try {
             const response = await fetch('/lib/api/mercadopago', {

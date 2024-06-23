@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { Product } from '@/app/lib/definitions';
 
-type SliceState = { productos: Product[], log: boolean, total: number };
+type SliceState = { productos: Product[], log: boolean, total: number, formData: FormData };
 
-const initialState: SliceState = { productos: [], log: false, total: 0 };
+const initialState: SliceState = { productos: [], log: false, total: 0, formData: new FormData() };
 
 export const carritoSlice = createSlice({
   name: 'carrito',
@@ -50,16 +50,22 @@ export const carritoSlice = createSlice({
         state.total -= existingProduct.precio;
       }
     },
+
     login: (state) => {
       state.log = true;
     },
+
     logout: (state) => {
       state.log = false;
+    },
+
+    cargarDatosFormulario: (state, action: PayloadAction<FormData>) => {
+      state.formData = action.payload
     },
   }
 });
 
 // Action creators are generated for each case reducer function
-export const { agregarProducto, vaciarCarrito, borrarDeCarrito, agregarUno, eliminarUno, login, logout } = carritoSlice.actions;
+export const { agregarProducto, vaciarCarrito, borrarDeCarrito, agregarUno, eliminarUno, login, logout, cargarDatosFormulario } = carritoSlice.actions;
 
 export default carritoSlice.reducer;
