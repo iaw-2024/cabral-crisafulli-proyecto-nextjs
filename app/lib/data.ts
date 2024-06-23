@@ -1,35 +1,31 @@
 'use sever'
 
+import prisma from '@/prisma/db'
 import { PrismaClient } from '@prisma/client'
 import { Categoria, Product, User } from '@/app/lib/definitions';
 import bcrypt from 'bcrypt'
 const ITEMS_PER_PAGE = 6;
 
 export async function getPhotoEmprendedor() {
-    const prisma = new PrismaClient()
     const foto = await prisma.fotos.findFirst({
         where: {
             nombre: 'Foto_Emprendedor',
         },
     })
-    await prisma.$disconnect()
     return foto
 }
 
 export async function getLogo() {
-    const prisma = new PrismaClient()
     const logo = await prisma.fotos.findFirst({
         where: {
             nombre: 'Logo',
         },
     })
-    await prisma.$disconnect()
     return logo
 }
 
 export async function getProduct(query: string, page: number) {
     const offset = (page - 1) * ITEMS_PER_PAGE;
-    const prisma = new PrismaClient()
     const producto = await prisma.producto.findMany({
         skip: offset,
         take: ITEMS_PER_PAGE,
@@ -40,23 +36,19 @@ export async function getProduct(query: string, page: number) {
             }
         }
     })
-    await prisma.$disconnect()
     return producto
 }
 
 export async function getProductCart(idProduct: number) {
-    const prisma = new PrismaClient()
     const producto = await prisma.producto.findFirst({
         where: {
             id: idProduct,
         }
     })
-    await prisma.$disconnect()
     return producto
 }
 
 export async function fetchProductPages(query: string) {
-    const prisma = new PrismaClient()
     const producto = await prisma.producto.findMany({
         where: {
             nombre: {
@@ -65,29 +57,24 @@ export async function fetchProductPages(query: string) {
         }
     })
     const totalPages = Math.ceil(Number(producto.length) / ITEMS_PER_PAGE);
-    await prisma.$disconnect()
     return totalPages;
 }
 
 export async function fetchProductById(id2: number) {
-    const prisma = new PrismaClient()
     const product = await prisma.producto.findFirst({
         where: {
             id: id2,
         }
     })
-    await prisma.$disconnect()
     return product;
 }
 
 export async function fetchUsers(email: string): Promise<User | null> {
-    const prisma = new PrismaClient()
     const user = await prisma.user.findFirst({
         where: {
             mail: email,
         },
     })
-    await prisma.$disconnect()
     if (user == null) {
         return null
     } else {
@@ -97,7 +84,6 @@ export async function fetchUsers(email: string): Promise<User | null> {
 }
 
 export async function insertProduct(query: string, price: number, description: string, category: Categoria, url: string) {
-    const prisma = new PrismaClient()
     const nuevoProducto = await prisma.producto.create({
         data: {
             nombre: query,
@@ -107,18 +93,15 @@ export async function insertProduct(query: string, price: number, description: s
             fotoURL: url,
         },
     });
-    await prisma.$disconnect()
     return nuevoProducto
 }
 
 export async function removeProduct(id2: number) {
-    const prisma = new PrismaClient()
     const productoBorrado = await prisma.producto.delete({
         where: {
             id: id2,
         },
     });
-    await prisma.$disconnect()
 }
 
 export interface ProductUpdateInput {
@@ -131,7 +114,6 @@ export interface ProductUpdateInput {
 
 
 export async function catchUpProduct(id2: number, query: string, price: number, description: string, category: Categoria, url: string) {
-    const prisma = new PrismaClient();
     const productoEditado = await prisma.producto.update({
         where: {
             id: id2,
@@ -144,33 +126,27 @@ export async function catchUpProduct(id2: number, query: string, price: number, 
             fotoURL: url,
         }
     })
-    await prisma.$disconnect()
     return productoEditado
 }
 
 export default async function getSixProducts() {
-    const prisma = new PrismaClient()
     const allProducts = await prisma.producto.findMany({
         take: 6
     })
-    await prisma.$disconnect()
     return allProducts
 }
 
 export async function productWhithName(name: string) {
-    const prisma = new PrismaClient()
     const product = await prisma.producto.findFirst({
         where: {
             nombre: name,
         },
     })
-    await prisma.$disconnect()
     return product
 
 }
 
 export async function createUser(mail2: string, contra: string) {
-    const prisma = new PrismaClient();
     const hashedPassword = await bcrypt.hash(contra, 10)
     await prisma.user.create({
         data: {
@@ -179,11 +155,9 @@ export async function createUser(mail2: string, contra: string) {
             rol: 'Administrador',
         },
     })
-    await prisma.$disconnect();
 }
 
 export async function createPedido(name: string, lastname: string, phone: string, adress: string) {
-    const prisma = new PrismaClient()
     const pedido = await prisma.pedido.create({
         data: {
             nombre: name,
@@ -192,12 +166,10 @@ export async function createPedido(name: string, lastname: string, phone: string
             direccion: adress,
         },
     })
-    await prisma.$disconnect()
     return pedido
 }
 
 export async function createTiene(id: number, productos: Product[]) {
-    const prisma = new PrismaClient()
     productos.forEach(async product => {
         await prisma.tiene.create({
             data: {
@@ -207,5 +179,4 @@ export async function createTiene(id: number, productos: Product[]) {
             }
         })
     });
-    await prisma.$disconnect()
 }
