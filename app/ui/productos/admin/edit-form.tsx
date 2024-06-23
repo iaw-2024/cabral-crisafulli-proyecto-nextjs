@@ -86,7 +86,7 @@ export default function EditForm({
   };
 
   return (
-    <div>
+    <div key={product.id}>
       {notification && (
         <Notification
           message={notification.message}
@@ -183,6 +183,7 @@ export default function EditForm({
           </label>
           <div className="mt-6 flex justify-center gap-4">
             <Image
+              key={product.id}
               src={product.fotoURL}
               alt={`${product.nombre}`}
               className="w-64 h-64 object-contain"

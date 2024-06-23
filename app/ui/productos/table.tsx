@@ -21,6 +21,7 @@ export default async function ProductTable({
                         <div className="grid grid-cols-2">
                             <div className="p-4 flex justify-center items-center">
                                 <Image
+                                    key={product.id}
                                     src={product.fotoURL}
                                     alt={`${product.nombre}`}
                                     className="w-64 h-64 object-contain"

@@ -18,6 +18,7 @@ export default function ProductCartTable({
                     <div className="grid grid-cols-1 md:grid-cols-2">
                         <div className="p-4 flex justify-center items-center">
                             <Image
+                                key={product.id}
                                 src={product.fotoURL}
                                 alt={`${product.nombre}`}
                                 className="w-48 h-48 md:w-64 md:h-64 object-contain"
@@ -28,21 +29,21 @@ export default function ProductCartTable({
                         <div className='p-4'>
                             <p className="text-lg font-bold mb-2">{product.nombre}</p>
                             <p className="text-gray-600 mb-2">{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
-                            <button 
+                            <button
                                 className="bg-red-500 hover:bg-red-700 text-white font-bold rounded flex items-center justify-center w-8 h-8"
                                 onClick={() => dispatch(borrarDeCarrito(product))}
                             >
                                 <TrashIcon className="h-5 w-5" />
                             </button>
                             <div className='flex items-center mt-2'>
-                                <button 
+                                <button
                                     className="bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center w-8 h-8"
                                     onClick={() => dispatch(agregarUno(product))}
                                 >
                                     <PlusIcon className="h-5 w-5" />
                                 </button>
                                 <p className="text-lg font-bold mx-2">{product.quantity}</p>
-                                <button 
+                                <button
                                     className="bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center w-8 h-8"
                                     onClick={() => dispatch(eliminarUno(product))}
                                 >
