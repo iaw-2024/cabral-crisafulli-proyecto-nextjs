@@ -169,9 +169,21 @@ export async function makeUser(email: string, password: string) {
 }
 
 export async function crearPedido(formData: FormData, productos: Product[]) {
-    const pedido = createPedido(formData.get('name')!.toString(),
-        formData.get('lastname')!.toString(),
-        formData.get('phone')!.toString(),
-        Number(formData.get('adress')!))
-    createTiene((await pedido).id, productos)
+    const name = formData.get('name');
+    const lastname = formData.get('lastname');
+    const phone = formData.get('phone');
+    const adress = formData.get('adress');
+
+    if (!name || !lastname || !phone || !adress) {
+        throw new Error('Uno o más campos del formulario están vacíos');
+    }
+
+    const pedido = await createPedido(
+        name.toString(),
+        lastname.toString(),
+        phone.toString(),
+        Number(adress.toString())
+    );
+
+    await createTiene(pedido.id, productos);
 }
