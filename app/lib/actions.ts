@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { insertProduct, removeProduct, catchUpProduct, createUser, createPedido, createTiene } from '@/app/lib/data';
+import { insertProduct, removeProduct, catchUpProduct, createUser, createPedido, createTiene, fetchUsers } from '@/app/lib/data';
 import { Estado, Product } from './definitions';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
@@ -174,4 +174,12 @@ export async function crearPedido(datos: string[], productos: Product[]) {
         datos[2],
         datos[3])
     createTiene((await pedido).id, productos)
+}
+
+export async function checkUser(email: string, password: string) {
+    const user = fetchUsers(email)
+    let validate = ''
+    if (!user) {
+        validate = ''
+    }
 }

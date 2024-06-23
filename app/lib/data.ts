@@ -174,24 +174,6 @@ export async function productWhithName(name: string) {
 
 }
 
-export async function checkEmail(email: string): Promise<boolean> {
-    const prisma = new PrismaClient();
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                mail: email,
-            },
-        });
-
-        return user !== null;
-    } catch (error) {
-        console.error('Error al consultar la base de datos:', error);
-        throw error;
-    } finally {
-        await prisma.$disconnect();
-    }
-}
-
 export async function createUser(mail2: string, contra: string) {
     const prisma = new PrismaClient();
     const hashedPassword = await bcrypt.hash(contra, 10)

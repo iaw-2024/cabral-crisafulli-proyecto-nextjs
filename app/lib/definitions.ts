@@ -8,7 +8,6 @@ export type Product = {
   descripcion: string;
   precio: number;
   categoria: Categoria;
-  pedidoId: number | null;
   fotoURL: string;
   quantity: number;
 };
@@ -33,7 +32,6 @@ export type ProductForm = {
   descripcion: string;
   precio: number;
   categoria: string;
-  pedidoId: number | null;
   fotoURL: string;
 };
 

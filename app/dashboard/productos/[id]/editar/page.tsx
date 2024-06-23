@@ -20,7 +20,6 @@ export default async function Page({ params }: { params: { id: number } }) {
     descripcion: product.descripcion,
     precio: product.precio,
     categoria: product.categoria,
-    pedidoId: product.pedidoId,
     fotoURL: product.fotoURL
   };
 
