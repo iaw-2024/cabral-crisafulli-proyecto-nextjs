@@ -198,7 +198,7 @@ export async function createUser(mail2: string, contra: string) {
         data: {
             mail: mail2,
             contrasena: contra,
-            rol: 'admin',
+            rol: 'Administrador',
         },
     })
     await prisma.$disconnect();
