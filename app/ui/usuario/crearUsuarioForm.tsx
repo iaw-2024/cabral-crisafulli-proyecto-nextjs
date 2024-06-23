@@ -3,21 +3,24 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useState } from 'react';
-import { makeUser } from '@/app/lib/actions';
+import { makeUser, userExists } from '@/app/lib/actions';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/redux/hooks';
+import { login } from '@/redux/features/carrito/carritoSlice';
+import { Notification } from '@/app/ui/notification/notification';
 
 export default function Form() {
     const [formValues, setFormValues] = useState({
         mail: '',
         password: '',
     });
-
+    const router = useRouter();
     const initialValues = {
         mail: '',
         password: '',
     };
-
-    const [notification, setNotification] = useState<string | null>(null);
-
+    const dispatch = useAppDispatch()
+    const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormValues({
@@ -27,7 +30,15 @@ export default function Form() {
     };
 
     const handleSubmit = async () => {
-        makeUser(formValues.mail, formValues.password)
+        const validate = await userExists(formValues.mail)
+        if (validate) {
+            makeUser(formValues.mail, formValues.password)
+            dispatch(login())
+            router.push('/dashboard/admin');
+        }
+        else {
+            setNotification({ message: 'Error: Ya existe un usuario con ese email.', type: 'error' });
+        }
     };
 
     return (
@@ -87,11 +98,15 @@ export default function Form() {
                     </Button>
                 </div>
             </div>
-            {notification && (
-                <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white p-4 rounded-md text-lg flex items-center space-x-2 m-px">
-                    <span>{notification}</span>
-                </div>
-            )}
+            <div>
+                {notification && (
+                    <Notification
+                        message={notification.message}
+                        type={notification.type}
+                        onClose={() => setNotification(null)}
+                    />
+                )}
+            </div>
         </form>
     );
 }

@@ -199,3 +199,12 @@ export async function checkUser(email: string, password: string) {
     }
     return validate
 }
+
+export async function userExists(email: string) {
+    const user = await fetchUsers(email)
+    let validate = true
+    if (!user) {
+        validate = false
+    }
+    return validate
+}
