@@ -1,20 +1,22 @@
 export type Categoria = "Amistad" | "Pareja" | "Familia" | "Individual" | "Personalizada";
 
+export type Roles = "Administrdor" | "Usuario";
+
 export type Product = {
   id: number;
   nombre: string;
   descripcion: string;
   precio: number;
   categoria: Categoria;
-  pedidoId: number | null;
   fotoURL: string;
   quantity: number;
 };
 
 export type User = {
-  id: string;
-  email: string;
-  password: string;
+  id: number;
+  mail: string;
+  contrasena: string;
+  rol: string
 };
 
 export type Action =
@@ -24,15 +26,14 @@ export type Action =
   | { type: 'ADD_ONE'; payload: number }
   | { type: 'REMOVE_ONE'; payload: number };
 
-  export type ProductForm = {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    precio: number;
-    categoria: string;
-    pedidoId: number | null;
-    fotoURL: string;
-  };
+export type ProductForm = {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: string;
+  fotoURL: string;
+};
 
 
 export type Estado = {

@@ -4,9 +4,7 @@ import Search from '@/app/ui/search';
 import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
 import ProductTable from '@/app/ui/productos/table';
-import NotFound from '@/app/dashboard/productos/[id]/not-found';
 import { getProduct } from '@/app/lib/data';
-import StoreProvider from '@/app/storeProvider';
 
 export default async function Page({
   searchParams,
@@ -22,20 +20,23 @@ export default async function Page({
   const products = await getProduct(query, currentPage);
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4 md:p-8">
+      <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
+        <p className='productos'>Productos</p>
+      </div>
+      <div className="bg-white flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 p-4">
+        <Search placeholder="Buscar Producto..." />
+      </div>
       {products.length === 0 ? (
-        <NotFound />
+        <div className="flex w-full items-center justify-center mt-4">
+          <p className="text-purple-600 font-bold text-xl text-center">No se encontraron resultados para lo que busca</p>
+        </div>
       ) : (
         <>
-          <div className="flex w-full items-center justify-between">
-            <p className='productos'>Productos</p>
-          </div>
-          <div className="sticky top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
-            {/* Barra de búsqueda reubicada */}
-            <Search placeholder="Buscar Producto..." />
-          </div>
           <Suspense key={query + currentPage}>
-            <ProductTable query={query} currentPage={currentPage} />
+            <div className="overflow-x-auto w-full">
+              <ProductTable query={query} currentPage={currentPage} />
+            </div>
           </Suspense>
           <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={totalPages} />

@@ -8,6 +8,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
@@ -20,8 +21,6 @@ model Producto {
   descripcion String
   precio      Int
   categoria   Categoria
-  Pedido      Pedido?   @relation(fields: [pedidoId], references: [id])
-  pedidoId    Int?
   Tiene       Tiene[]
   fotoURL     String
 }
@@ -39,9 +38,8 @@ model Pedido {
   id        Int        @id @default(autoincrement())
   nombre    String
   apellido  String
-  telefono  Int
+  telefono  String
   direccion String
-  producto  Producto[]
   User      User?      @relation(fields: [userId], references: [id])
   userId    Int?
   Tiene     Tiene[]
