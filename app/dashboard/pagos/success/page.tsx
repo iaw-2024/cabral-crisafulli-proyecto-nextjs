@@ -16,7 +16,7 @@ export default function Page() {
     dispatch(vaciarCarrito());
 
     const handleVolver = () => {
-        router.push('/dashboard/productos');
+        router.push('/');
     };
 
     return (
