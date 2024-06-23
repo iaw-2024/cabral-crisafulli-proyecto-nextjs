@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         const data = await request.formData();
 
         const image = data.get("file");
-
+        console.log(data.get("action"))
         if (data.get("action") === 'CREATE') {
 
             if (!image || !(image instanceof Blob)) {
@@ -96,6 +96,7 @@ export async function POST(request: NextRequest) {
             );
         }
         else {
+            let imageUrl
             if (data.get('action') === 'EDIT') {
 
                 const productDB = await productWhithName(data.get("name")!.toString())
@@ -126,22 +127,23 @@ export async function POST(request: NextRequest) {
                             uploadStream.end(buffer);
                         }
                     );
-                    const imageUrl = uploadResult.secure_url;
+                    imageUrl = uploadResult.secure_url;
                 }
                 else {
-                    const id = Number(data.get("id"))
-                    const name = data.get("name")?.toString();
-                    const amount = Number(data.get("amount"));
-                    const categoryId = data.get("categoryId")?.toString();
-                    const description = data.get("description")?.toString();
-                    const imageUrl = data.get('imageURL')?.toString()
 
-                    const updateProduct = catchUpProduct(id, name!, amount, description!, categoryId as Categoria, imageUrl!)
-                    return NextResponse.json(
-                        { success: true, product: updateProduct },
-                        { status: 200 }
-                    );
+                    imageUrl = data.get('imageURL')?.toString()
                 }
+                const id = Number(data.get("id"))
+                const name = data.get("name")?.toString();
+                const amount = Number(data.get("amount"));
+                const categoryId = data.get("categoryId")?.toString();
+                const description = data.get("description")?.toString();
+
+                const updateProduct = catchUpProduct(id, name!, amount, description!, categoryId as Categoria, imageUrl!)
+                return NextResponse.json(
+                    { success: true, product: updateProduct },
+                    { status: 200 }
+                );
             }
         }
 
