@@ -2,7 +2,7 @@
 
 import { PrismaClient } from '@prisma/client'
 import { Categoria, Product, User } from '@/app/lib/definitions';
-import { unstable_noStore as noStore } from 'next/cache';
+import bcrypt from 'bcrypt'
 const ITEMS_PER_PAGE = 6;
 
 export async function getPhotoEmprendedor() {
@@ -194,10 +194,11 @@ export async function checkEmail(email: string): Promise<boolean> {
 
 export async function createUser(mail2: string, contra: string) {
     const prisma = new PrismaClient();
+    const hashedPassword = await bcrypt.hash(contra, 10)
     const user = await prisma.user.create({
         data: {
             mail: mail2,
-            contrasena: contra,
+            contrasena: hashedPassword,
             rol: 'Administrador',
         },
     })
