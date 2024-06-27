@@ -13,7 +13,7 @@ export default async function ProductTableAdmin({
     const producto = getProduct(query, currentPage);
 
     return (
-        <div>
+        <div className="columns-3 bg-white px-6">
             {(await producto).map((product) => {
                 return (
                     <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
