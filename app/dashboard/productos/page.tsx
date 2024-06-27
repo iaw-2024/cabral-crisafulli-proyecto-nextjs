@@ -22,7 +22,7 @@ export default async function Page({
   return (
     <div className="w-full p-4 md:p-8">
       <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
-        <p className='productos'>Productos</p>
+        <p className="productos">Productos</p>
       </div>
       <div className="bg-white flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 p-4">
         <Search placeholder="Buscar Producto..." />
@@ -41,6 +41,18 @@ export default async function Page({
           <div className="mt-5 flex w-full justify-center">
             <Pagination totalPages={totalPages} />
           </div>
+          {/* Renderización condicional de productos */}
+          {products.map((product) => (
+            <div key={product.id} className="flex flex-col items-center md:flex-row md:items-start md:text-left md:p-4 md:border md:border-gray-300 md:rounded-lg md:shadow-md md:mb-4">
+              <div className="md:w-1/3 md:pr-4">
+                <img src={product.fotoURL} alt={product.nombre} className="md:w-full md:max-w-sm" />
+              </div>
+              <div className="md:w-2/3 md:pl-4">
+                <p>{product.descripcion}</p>
+                <button className="btn mt-2 md:mt-4">Comprar</button>
+              </div>
+            </div>
+          ))}
         </>
       )}
     </div>

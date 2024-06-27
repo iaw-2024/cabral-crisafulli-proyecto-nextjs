@@ -66,3 +66,42 @@ button {
   justify-content: center;
   gap: 0.5rem; /* Espacio entre el icono y el texto */
 }
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 300px;
+}
+
+.product-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .product-card {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .product-card img {
+    width: 50%;
+    max-width: none;
+  }
+
+  .product-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 16px;
+  }
+}
