@@ -12,10 +12,10 @@ export function RedirectAdmin() {
 
     useEffect(() => {
         if (pathname !== previousPathname.current) {
-            if (pathname === '/dashboard/admin' && !logueado) {
+            if (pathname === '/admin' && !logueado) {
                 router.push('/dashboard/login');
             }
-            if(pathname !== '/admin/productos/crear' && !logueado) {
+            if (pathname === '/admin/productos/crear' && !logueado) {
                 router.push('/dashboard/login');
             }
             previousPathname.current = pathname;

@@ -30,16 +30,16 @@ export default function NavLinks() {
     },
     {
       name: 'Productos',
-      href: logueado ? '/dashboard/admin' : '/dashboard/productos',
+      href: logueado ? '/admin' : '/dashboard/productos',
       icon: ShoppingBagIcon,
     },
     // Solo agregar el carrito si no está logueado
     ...(!logueado
       ? [{
-          name: 'Carrito',
-          href: '/dashboard/carrito',
-          icon: ShoppingCartIcon,
-        }]
+        name: 'Carrito',
+        href: '/dashboard/carrito',
+        icon: ShoppingCartIcon,
+      }]
       : []),
   ];
 

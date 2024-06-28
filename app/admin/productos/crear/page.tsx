@@ -8,17 +8,17 @@ export default async function Page() {
 
   return (
     <main>
-      <RedirectAdmin />
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Productos', href: '/dashboard/productos' },
+          { label: 'Productos', href: '/admin/productos' },
           {
             label: 'Crear producto',
-            href: '/dashboard/productos/crear',
+            href: '/admin/productos/crear',
             active: true,
           },
         ]}
       />
+      <RedirectAdmin />
       <ProductForm category={categories} />
     </main>
   );

@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
         setShowSuccessModal(true);
         setTimeout(() => {
           setShowSuccessModal(false);
-          router.push('/dashboard/admin');
+          router.push('/admin');
         }, 2000); // Retardo de 2 segundos antes de redirigir
         break;
       }
