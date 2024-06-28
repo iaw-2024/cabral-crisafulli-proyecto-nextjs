@@ -7,14 +7,12 @@ import ProductCartTable from '@/app/ui/cart/table';
 import { vaciarCarrito } from '@/redux/features/carrito/carritoSlice';
 import Link from 'next/link';
 
-const CancelledCartIcon = () => {
-    return (
-        <div className="relative inline-block">
-            <ShoppingCartIcon className="h-6 w-6 text-white-500" />
-            <XMarkIcon className="h-4 w-4 text-white-500 absolute top-0 right-0" />
-        </div>
-    );
-};
+const CancelledCartIcon = () => (
+    <div className="relative inline-block">
+        <ShoppingCartIcon className="h-6 w-6 text-white" />
+        <XMarkIcon className="h-4 w-4 text-white absolute top-0 right-0" />
+    </div>
+);
 
 export default function Page() {
     const products = useAppSelector(state => state.productos);
@@ -33,7 +31,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col md:flex-row justify-end gap-4 mb-4">
                 <button
-                    className={`${isDisabled ? 'bg-red-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700'
+                    className={`bg-red-500 ${isDisabled ? 'cursor-not-allowed' : 'hover:bg-red-700'
                         } text-white font-bold py-2 px-4 rounded flex items-center justify-center`}
                     onClick={() => { if (!isDisabled) dispatch(vaciarCarrito()); }}
                     disabled={isDisabled}>
@@ -43,12 +41,12 @@ export default function Page() {
                 <Link
                     href={isDisabled ? "#" : "/dashboard/pagar"}
                     onClick={(e) => isDisabled && e.preventDefault()}
-                    className={`${isDisabled ? 'bg-purple-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-700'
+                    className={`bg-green-500 ${isDisabled ? 'cursor-not-allowed' : 'hover:bg-green-700'
                         } text-white font-bold py-2 px-4 rounded flex items-center justify-center`}>
                     Pagar
                 </Link>
             </div>
-            <div className="overflow-x-auto w-full">
+            <div className="overflow-x-hidden w-full">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {products.map((product, index) => (
                         <div key={index} className="col-span-1">
