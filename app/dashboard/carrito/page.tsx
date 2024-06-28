@@ -28,7 +28,9 @@ export default function Page() {
 
     return (
         <div className="w-full p-4 md:p-8">
-            <p className="carrito">Carrito</p>
+            <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
+                <p className="carrito">Carrito</p>
+            </div>
             <div className="flex flex-col md:flex-row justify-end gap-4 mb-4">
                 <button
                     className={`${isDisabled ? 'bg-red-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700'
@@ -47,7 +49,13 @@ export default function Page() {
                 </Link>
             </div>
             <div className="overflow-x-auto w-full">
-                <ProductCartTable productos={products} />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {products.map((product, index) => (
+                        <div key={index} className="col-span-1">
+                            <ProductCartTable productos={[product]} />
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

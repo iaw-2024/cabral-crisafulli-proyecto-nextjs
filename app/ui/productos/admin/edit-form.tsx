@@ -210,7 +210,7 @@ export default function EditForm({
           {/* Form Actions */}
           <div className="mt-6 flex justify-end">
             <Link
-              href="/dashboard/admin"
+              href="/admin"
               className="flex h-10 items-center rounded-lg bg-gray-300 px-4 text-sm font-medium text-black-600 transition-colors hover:bg-gray-500"
             >
               Cancelar
