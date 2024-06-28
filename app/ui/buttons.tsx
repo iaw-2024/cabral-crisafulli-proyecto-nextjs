@@ -8,7 +8,7 @@ import { useState } from 'react';
 export function CreateProduct() {
   return (
     <Link
-      href="/dashboard/productos/crear"
+      href="/admin/productos/crear"
       className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
       <PlusIcon className="h-5 w-5 md:ml-2" />
       <span className="hidden md:block">Crear Producto</span>
@@ -18,7 +18,7 @@ export function CreateProduct() {
 
 export function UpdateProduct({ id }: { id: number }) {
   return (
-    <Link href={`/dashboard/productos/${id}/editar`}>
+    <Link href={`/admin/productos/${id}/editar`}>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center w-full sm:w-auto">
         <PencilIcon className="h-5 w-5 mr-2" /> Editar
       </button>

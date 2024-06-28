@@ -75,7 +75,7 @@ export default function EditForm({
         setNotification({ message: 'Modificación realizada correctamente', type: 'success' });
         setImageUrl(data.product.imageUrl);
         setTimeout(() => {
-          router.push('/dashboard/admin');
+          router.push('/admin');
         }, 3000); // Redirige después de 3 segundos
       } else {
         console.error('Error uploading image:', data.error);
