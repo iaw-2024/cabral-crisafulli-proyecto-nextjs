@@ -15,6 +15,9 @@ export function RedirectAdmin() {
             if (pathname === '/dashboard/admin' && !logueado) {
                 router.push('/dashboard/login');
             }
+            if(pathname !== '/admin/productos/crear' && !logueado) {
+                router.push('/dashboard/login');
+            }
             previousPathname.current = pathname;
         }
     }, [pathname, logueado, router]);
