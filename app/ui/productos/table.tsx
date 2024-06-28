@@ -12,7 +12,6 @@ export default async function ProductTable({
     currentPage: number;
 }) {
     const producto = getProduct(query, currentPage);
-
     return (
         <div className="xl:columns-3 md:columns-1 bg-white px-6">
             {(await producto).map((product) => {

@@ -42,7 +42,9 @@ export default async function Page({
             ) : (
                 <>
                     <Suspense key={query + currentPage}>
-                        <ProductTableAdmin query={query} currentPage={currentPage} />
+                        <div className="overflow-x-auto">
+                            <ProductTableAdmin query={query} currentPage={currentPage} />
+                        </div>
                     </Suspense>
                     <div className="mt-5 flex w-full justify-center">
                         <Pagination totalPages={totalPages} />
@@ -50,5 +52,6 @@ export default async function Page({
                 </>
             )}
         </div>
+
     );
 }
