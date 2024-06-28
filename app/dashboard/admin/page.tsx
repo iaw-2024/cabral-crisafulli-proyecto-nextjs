@@ -27,13 +27,13 @@ export default async function Page({
             <div className="flex w-full items-center justify-between">
                 <p className='productos'>Productos</p>
             </div>
-            <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
-                <Search placeholder="Buscar Producto..." />
-            </div>
             <div className="bg-white px-6">
                 <div className="flex space-x-4">
                     <CreateProduct></CreateProduct>
                 </div>
+            </div>
+            <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
+                <Search placeholder="Buscar Producto..." />
             </div>
             {products.length === 0 ? (
                 <div className="flex w-full items-center justify-center mt-4">
