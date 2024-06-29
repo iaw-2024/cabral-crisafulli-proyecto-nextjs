@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.home {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #C738BD;
+  font-size: 80px;
+}
+
+.custom-font {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.titulo {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #C738BD;
+}
+
+/* Para pantallas grandes */
+@media (min-width: 1024px) {
+  .titulo {
+    font-size: 80px;
+  }
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 1023px) {
+  .titulo {
+    font-size: 40px;
+    /* Ajusta este valor según lo que necesites */
+  }
+}
+
+.search-container {
+  padding-bottom: 30px;
+}
+
+button {
+  min-width: 120px;
+  /* O el tamaño que prefieras */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  /* Espacio entre el icono y el texto */
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 300px;
+}
+
+.product-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .product-card {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .product-card img {
+    width: 50%;
+    max-width: none;
+  }
+
+  .product-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 16px;
+  }
+}
+
+.btn-borrar-carrito {
+  width: 'fit-content';
+  min-width: auto;
+}
+
+.btn-agregar-uno {
+  width: 'fit-content';
+  min-width: auto;
+}
+
+.btn-eliminar-uno {
+  width: 'fit-content';
+  min-width: auto;
+}

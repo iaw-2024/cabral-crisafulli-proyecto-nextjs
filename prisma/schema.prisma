@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Producto {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
+  descripcion String
+  precio      Int
+  categoria   Categoria
+  Tiene       Tiene[]
+  fotoURL     String
+}
+
+model Tiene {
+  id         Int      @id @default(autoincrement())
+  Pedido     Pedido   @relation(fields: [pedidoId], references: [id])
+  Producto   Producto @relation(fields: [productoId], references: [id])
+  cantidad   Int
+  pedidoId   Int
+  productoId Int
+}
+
+model Pedido {
+  id        Int        @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  telefono  String
+  direccion String
+  User      User?      @relation(fields: [userId], references: [id])
+  userId    Int?
+  Tiene     Tiene[]
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  mail       String   @unique
+  contrasena String
+  rol        String
+  pedidos    Pedido[]
+}
+
+model Fotos {
+  id      Int    @id @default(autoincrement())
+  fotoURL String
+  nombre  String
+}
+
+enum Categoria {
+  Amistad
+  Pareja
+  Familia
+  Individual
+  Personalizada
+}
+
+enum Rol {
+  Usuario
+  Administrador
+}
