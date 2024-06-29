@@ -5,7 +5,7 @@ import Pagination from '@/app/ui/productos/pagination';
 import { Suspense } from 'react';
 import ProductTableAdmin from '@/app/ui/admin/table';
 import { getProduct } from '@/app/lib/data';
-import { RedirectAdmin } from '@/app/ui/admin/redirectLogin'
+import { RedirectAdmin } from '@/app/ui/admin/redirectLogin';
 import { CreateProduct } from '@/app/ui/buttons';
 
 export default async function Page({
@@ -26,10 +26,10 @@ export default async function Page({
             <RedirectAdmin />
             <div className="flex w-full items-center justify-between">
                 <p className='productos'>Productos</p>
-            </div>
-            <div className="bg-white px-6">
-                <div className="flex space-x-4">
-                    <CreateProduct></CreateProduct>
+                <div className="bg-white px-6">
+                    <div className="flex space-x-4">
+                        <CreateProduct />
+                    </div>
                 </div>
             </div>
             <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
@@ -42,8 +42,8 @@ export default async function Page({
             ) : (
                 <>
                     <Suspense key={query + currentPage}>
-                        <div className="overflow-x-auto">
-                            <ProductTableAdmin query={query} currentPage={currentPage} />
+                        <div className="overflow-x-hidden w-full">
+                            <ProductTableAdmin query={query} currentPage={currentPage}/>
                         </div>
                     </Suspense>
                     <div className="mt-5 flex w-full justify-center">
@@ -52,6 +52,5 @@ export default async function Page({
                 </>
             )}
         </div>
-
     );
 }

@@ -105,3 +105,18 @@ button {
     padding-left: 16px;
   }
 }
+
+.btn-borrar-carrito{
+  width: 'fit-content'; 
+  min-width: auto; 
+}
+
+.btn-agregar-uno {
+  width: 'fit-content'; 
+  min-width: auto;
+}
+
+.btn-eliminar-uno {
+  width: 'fit-content'; 
+  min-width: auto; 
+}

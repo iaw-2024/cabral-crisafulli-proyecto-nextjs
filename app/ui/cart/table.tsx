@@ -31,17 +31,16 @@ export default function ProductCartTable({
                             <p className="text-lg font-bold mb-2">{product.nombre}</p>
                             <p className="text-gray-600 mb-2">{product.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
                             <button
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded flex items-center justify-center"
+                                className="btn-borrar-carrito bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded flex items-center justify-center"
                                 onClick={() => dispatch(borrarDeCarrito(product))}
-                                style={{ width: 'fit-content', minWidth: 'auto' }}
+                              
                             >
                                 <TrashIcon className="h-5 w-5" />
                             </button>
                             <div className='flex items-center mt-2'>
                                 <button
-                                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center px-2 h-8 max-w-full"
+                                    className="btn-agregar-uno bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center px-2 h-8 max-w-full"
                                     onClick={() => dispatch(agregarUno(product))}
-                                    style={{ width: 'fit-content', minWidth: 'auto' }}
                                 >
                                     <PlusIcon className="h-5 w-5" />
                                 </button>
@@ -49,9 +48,8 @@ export default function ProductCartTable({
                                 <p className="text-lg font-bold mx-2">{product.quantity}</p>
 
                                 <button
-                                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center px-2 h-8 max-w-full"
+                                    className="btn-eliminar-uno bg-purple-500 hover:bg-purple-700 text-white font-bold rounded flex items-center justify-center px-2 h-8 max-w-full"
                                     onClick={() => dispatch(eliminarUno(product))}
-                                    style={{ width: 'fit-content', minWidth: 'auto' }}
                                 >
                                     <MinusIcon className="h-5 w-5" />
                                 </button>
