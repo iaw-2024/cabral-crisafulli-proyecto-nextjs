@@ -7,6 +7,7 @@ import ProductTableAdmin from '@/app/ui/admin/table';
 import { getProduct } from '@/app/lib/data';
 import { RedirectAdmin } from '@/app/ui/admin/redirectLogin';
 import { CreateProduct } from '@/app/ui/buttons';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default async function Page({
     searchParams,
@@ -16,6 +17,7 @@ export default async function Page({
         page?: string;
     };
 }) {
+    noStore();
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
     const totalPages = await fetchProductPages(query);

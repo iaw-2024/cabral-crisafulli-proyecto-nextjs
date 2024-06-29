@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Notification } from '@/app/ui/notification/notification';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default function EditForm({
   product,
@@ -19,6 +20,7 @@ export default function EditForm({
   product: ProductForm;
   category: Categoria[];
 }) {
+  noStore();
   const router = useRouter();
   const [formValues, setFormValues] = useState({
     id: product.id,
