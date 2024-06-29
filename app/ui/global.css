@@ -25,34 +25,32 @@ input[type='number']::-webkit-outer-spin-button {
   font-size: 80px;
 }
 
-.sobre-mi {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: #C738BD;
-  font-size: 80px;
-}
-
 .custom-font {
   font-family: "Ubuntu", sans-serif;
   font-weight: 300;
   font-style: normal;
 }
 
-.productos {
+.titulo {
   font-family: "Ubuntu", sans-serif;
   font-weight: 700;
   font-style: normal;
   color: #C738BD;
-  font-size: 80px;
 }
 
-.carrito {
-  font-family: "Ubuntu", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  color: #C738BD;
-  font-size: 80px;
+/* Para pantallas grandes */
+@media (min-width: 1024px) {
+  .titulo {
+    font-size: 80px;
+  }
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 1023px) {
+  .titulo {
+    font-size: 40px;
+    /* Ajusta este valor según lo que necesites */
+  }
 }
 
 .search-container {
@@ -60,11 +58,13 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 button {
-  min-width: 120px; /* O el tamaño que prefieras */
+  min-width: 120px;
+  /* O el tamaño que prefieras */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem; /* Espacio entre el icono y el texto */
+  gap: 0.5rem;
+  /* Espacio entre el icono y el texto */
 }
 
 .product-card {
@@ -106,17 +106,17 @@ button {
   }
 }
 
-.btn-borrar-carrito{
-  width: 'fit-content'; 
-  min-width: auto; 
+.btn-borrar-carrito {
+  width: 'fit-content';
+  min-width: auto;
 }
 
 .btn-agregar-uno {
-  width: 'fit-content'; 
+  width: 'fit-content';
   min-width: auto;
 }
 
 .btn-eliminar-uno {
-  width: 'fit-content'; 
-  min-width: auto; 
+  width: 'fit-content';
+  min-width: auto;
 }

@@ -15,7 +15,7 @@ export default async function Page() {
   const foto = getPhotoEmprendedor()
   return (
     <>
-      <p className="sobre-mi">Hola!!!!</p>
+      <p className="titulo">Hola!!!!</p>
       <div className="custom-font">
         Mi nombre es Luz y soy la emprendedora detrás de Katty Manualidades. Soy de Bahía Blanca y actualmente no cuento con envíos fuera de esta ciudad.
         El emprendimiento nació en 2019 como una forma de poder costear fotocopias y transporte para la universidad. Actualmente este es mi estilo de vida y mi empleo.

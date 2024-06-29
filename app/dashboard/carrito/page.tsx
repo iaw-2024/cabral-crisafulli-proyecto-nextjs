@@ -28,7 +28,7 @@ export default function Page() {
     return (
         <div className="w-full p-4 md:p-8">
             <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
-                <p className="carrito">Carrito</p>
+                <p className="titulo">Carrito</p>
             </div>
             <div className="flex flex-col md:flex-row justify-between mb-4">
                 <div className="flex flex-col items-start">

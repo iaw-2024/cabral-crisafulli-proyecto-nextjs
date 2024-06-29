@@ -24,7 +24,7 @@ export default async function Page({
     return (
         <div className="w-full">
             <RedirectAdmin />
-            <p className='productos'>Productos</p>
+            <p className='titulo'>Productos</p>
             <div className="flex w-full items-center justify-end">
                 <CreateProduct />
             </div>

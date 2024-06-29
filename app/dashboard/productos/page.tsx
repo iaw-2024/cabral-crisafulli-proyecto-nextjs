@@ -22,7 +22,7 @@ export default async function Page({
   return (
     <div className="w-full p-4 md:p-8">
       <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
-        <p className="productos">Productos</p>
+        <p className="titulo">Productos</p>
       </div>
       <div className="bg-white flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 p-4">
         <Search placeholder="Buscar Producto..." />
