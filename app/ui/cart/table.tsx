@@ -12,7 +12,7 @@ export default function ProductCartTable({
 }) {
     const dispatch = useAppDispatch();
     return (
-        <div className="bg-white px-4 sm:px-6 lg:px-8">
+        <div className="bg-white sm:px-2 lg:px-4">
             {productos.map((product: Product) => (
                 <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
                     <div>

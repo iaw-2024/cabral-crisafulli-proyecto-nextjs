@@ -26,7 +26,7 @@ export default function Page() {
     }, [products]);
 
     return (
-        <div className="w-full p-4 md:p-8">
+        <div className="w-full">
             <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4">
                 <p className="titulo">Carrito</p>
             </div>
@@ -50,15 +50,15 @@ export default function Page() {
                     <span className="ml-2">Vaciar carrito</span>
                 </button>
             </div>
-            <div className="overflow-x-hidden w-full">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <>
+                <div className="grid grid-cols-1 md:grid-cols-3">
                     {products.map((product, index) => (
-                        <div key={index} className="col-span-1">
+                        <div key={index} className="overflow-x-auto">
                             <ProductCartTable productos={[product]} />
                         </div>
                     ))}
                 </div>
-            </div>
+            </>
         </div>
     );
 }

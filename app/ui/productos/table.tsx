@@ -15,7 +15,7 @@ export default async function ProductTable({
     const filledProducts = [...producto, ...Array(Math.max(3 - producto.length, 0)).fill(null)]; // Rellenar hasta 3 productos si hay menos de 3
 
     return (
-        <div className="xl:grid xl:grid-cols-3 gap-4 bg-white px-6">
+        <div className="xl:grid xl:grid-cols-3 gap-4 bg-white px-4">
             {filledProducts.map((product, index) => {
                 if (!product) {
                     return (
