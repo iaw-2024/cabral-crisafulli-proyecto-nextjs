@@ -24,15 +24,11 @@ export default async function Page({
     return (
         <div className="w-full">
             <RedirectAdmin />
-            <div className="flex w-full items-center justify-between">
-                <p className='productos'>Productos</p>
-                <div className="bg-white px-6">
-                    <div className="flex space-x-4">
-                        <CreateProduct />
-                    </div>
-                </div>
+            <p className='productos'>Productos</p>
+            <div className="flex w-full items-center justify-end">
+                <CreateProduct />
             </div>
-            <div className="top-0 z-10 bg-white mt-4 flex items-center justify-between gap-2 md:mt-8 search-container p-4">
+            <div className="top-0 z-10 bg-white flex items-center justify-between search-container p-4">
                 <Search placeholder="Buscar Producto..." />
             </div>
             {products.length === 0 ? (
@@ -43,14 +39,14 @@ export default async function Page({
                 <>
                     <Suspense key={query + currentPage}>
                         <div className="overflow-x-hidden w-full">
-                            <ProductTableAdmin query={query} currentPage={currentPage}/>
+                            <ProductTableAdmin query={query} currentPage={currentPage} />
                         </div>
                     </Suspense>
-                    <div className="mt-5 flex w-full justify-center">
-                        <Pagination totalPages={totalPages} />
-                    </div>
                 </>
             )}
+            <div className="mt-5 flex w-full justify-center">
+                <Pagination totalPages={totalPages} />
+            </div>
         </div>
     );
 }
