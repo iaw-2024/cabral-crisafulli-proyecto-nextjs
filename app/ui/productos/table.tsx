@@ -11,10 +11,17 @@ export default async function ProductTable({
     query: string;
     currentPage: number;
 }) {
-    const producto = getProduct(query, currentPage);
+    const producto = await getProduct(query, currentPage);
+    const filledProducts = [...producto, ...Array(Math.max(3 - producto.length, 0)).fill(null)]; // Rellenar hasta 3 productos si hay menos de 3
+
     return (
-        <div className="xl:columns-3 md:columns-1 bg-white px-6">
-            {(await producto).map((product) => {
+        <div className="xl:grid xl:grid-cols-3 gap-4 bg-white px-6">
+            {filledProducts.map((product, index) => {
+                if (!product) {
+                    return (
+                        <div key={`empty-${index}`} className="border border-transparent rounded-lg mb-4"></div>
+                    );
+                }
                 return (
                     <div key={product.id} className="border border-gray-400 rounded-lg mb-4">
                         <div>
